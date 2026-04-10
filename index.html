@@ -6,7 +6,7 @@
 <title>ONYX-MED PHARMACY — StockPilot PRO</title>
 
 <!-- PWA -->
-<!-- manifest injected inline by JS below -->
+<link rel="manifest" href="./manifest.json"/>
 <meta name="theme-color" content="#2563EB"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -524,7 +524,6 @@ textarea.fc{resize:vertical;min-height:70px}
     <a class="sb-lk" data-pg="reports" onclick="nav('reports')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Reports</a>
     <a class="sb-lk" data-pg="alerts" onclick="nav('alerts')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts<span class="sb-badge" id="sb-notif"></span></a>
     <div class="sb-sec">Admin</div>
-    <a class="sb-lk" data-pg="suppliers" onclick="nav('suppliers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Suppliers</a>
     <a class="sb-lk" data-pg="staff" onclick="nav('staff')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Staff</a>
     <a class="sb-lk" data-pg="settings" onclick="nav('settings')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a>
   </nav>
@@ -603,7 +602,7 @@ textarea.fc{resize:vertical;min-height:70px}
         <div class="srch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="ss" placeholder="Search…" oninput="renderSales()"/></div>
         <input type="date" class="fsel" id="sd" onchange="renderSales()"/>
       </div>
-      <div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Price</th><th>Total</th><th>Customer</th><th>Date</th><th>Actions</th></tr></thead><tbody id="sales-tb"></tbody></table></div></div>
+      <div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Price</th><th>Total</th><th>Customer</th><th>Date</th><th>Receipt</th></tr></thead><tbody id="sales-tb"></tbody></table></div></div>
     </div>
 
     <!-- CUSTOMERS -->
@@ -665,13 +664,10 @@ textarea.fc{resize:vertical;min-height:70px}
       <div class="set-grid">
         <div class="card"><div class="card-head"><h3>🏢 Business</h3></div><div class="card-body">
           <div class="fg2"><label class="fl">Pharmacy Name</label><input class="fc" id="set-biz" placeholder="ONYX-MED PHARMACY"/></div>
-          <div class="fg2"><label class="fl">Owner / Manager Name</label><input class="fc" id="set-owner" placeholder="e.g. Pharm. Opeyemi"/></div>
-          <div class="fg2"><label class="fl">📱 Owner WhatsApp Number</label><input class="fc" id="set-whatsapp" placeholder="e.g. 08012345678" inputmode="tel"/><div style="font-size:.72rem;color:var(--t3);margin-top:3px">Used for low-stock & expiry alerts via WhatsApp</div></div>
-          <div class="fg2"><label class="fl">Currency Symbol</label><input class="fc" id="set-cur" placeholder="₦" maxlength="3" style="width:70px"/></div>
-          <div class="fg2"><label class="fl">Low Stock Alert Threshold</label><input class="fc" type="number" id="set-thr" placeholder="10" style="width:110px"/></div>
+          <div class="fg2"><label class="fl">Currency</label><input class="fc" id="set-cur" placeholder="$" maxlength="3" style="width:70px"/></div>
+          <div class="fg2"><label class="fl">Low Stock Threshold</label><input class="fc" type="number" id="set-thr" placeholder="10" style="width:110px"/></div>
           <div class="fg2"><label class="fl">Store Address</label><input class="fc" id="set-addr" placeholder="Address for receipts"/></div>
-          <button class="btn btn-b btn-sm" onclick="saveSettings()">💾 Save Settings</button>
-          <button class="btn btn-o btn-sm" style="margin-left:8px" onclick="testWhatsApp()">📱 Test WhatsApp</button>
+          <button class="btn btn-b btn-sm" onclick="saveSettings()">Save</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>🔐 Change Password</h3></div><div class="card-body">
           <div class="fg2"><label class="fl">Current Password</label><input class="fc" type="password" id="s-old"/></div>
@@ -692,20 +688,6 @@ textarea.fc{resize:vertical;min-height:70px}
           <button class="btn btn-o btn-sm" onclick="loadDemo()">🧪 Load Demo Data</button>
         </div></div>
       </div>
-    </div>
-
-    <!-- SUPPLIERS -->
-    <div class="pg" id="pg-suppliers">
-      <div class="pg-head">
-        <div><h2>Suppliers</h2><div class="pg-sub" id="supp-sub">Manage your drug suppliers</div></div>
-        <div class="pg-acts">
-          <button class="btn btn-b btn-sm" onclick="openSuppModal()">+ Add Supplier</button>
-        </div>
-      </div>
-      <div class="fb">
-        <div class="srch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="supp-search" placeholder="Search suppliers…" oninput="renderSuppliers()"/></div>
-      </div>
-      <div id="supp-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
     </div>
 
   </div><!-- end pages -->
@@ -732,7 +714,6 @@ textarea.fc{resize:vertical;min-height:70px}
       <div class="fu fg2"><label class="fl">Supplier</label><input class="fc" id="pm-sup" placeholder="Supplier name"/></div>
       <div class="fg2"><label class="fl">Expiry Date</label><input class="fc" type="date" id="pm-exp"/></div>
       <div class="fg2"><label class="fl">Batch / Lot No.</label><input class="fc" id="pm-batch" placeholder="e.g. BT-2024-001"/></div>
-      <div class="fg2"><label class="fl">NAFDAC Reg. No. <span style="color:var(--t4);font-weight:400">(optional)</span></label><input class="fc" id="pm-nafdac" placeholder="e.g. A4-0001"/></div>
     </div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('prod-modal')">Cancel</button><button class="btn btn-b" id="pm-save" onclick="saveProd()">Add Product</button></div>
@@ -797,32 +778,6 @@ textarea.fc{resize:vertical;min-height:70px}
     <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-phone" placeholder="+234 800 000 0000"/></div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('staff-modal')">Cancel</button><button class="btn btn-b" onclick="saveStaff()">Save</button></div>
-</div></div>
-
-<!-- Supplier Modal -->
-<div id="supp-modal" class="mo h"><div class="mb mb-sm">
-  <div class="mh"><h3 id="supm-t">Add Supplier</h3><button class="mx" onclick="closeM('supp-modal')">✕</button></div>
-  <div class="mbd">
-    <div id="supm-err" class="ferr h"></div>
-    <input type="hidden" id="supm-id"/>
-    <div class="fg2"><label class="fl">Company / Supplier Name *</label><input class="fc" id="supm-name" placeholder="e.g. PharmaCo Nigeria Ltd"/></div>
-    <div class="fg2"><label class="fl">Contact Person</label><input class="fc" id="supm-contact" placeholder="e.g. Mr. Adebayo"/></div>
-    <div class="fg2"><label class="fl">WhatsApp / Phone *</label><input class="fc" id="supm-phone" placeholder="08012345678" inputmode="tel"/></div>
-    <div class="fg2"><label class="fl">Email</label><input class="fc" type="email" id="supm-email" placeholder="supplier@pharma.com"/></div>
-    <div class="fg2"><label class="fl">Address</label><input class="fc" id="supm-addr" placeholder="Supplier address"/></div>
-    <div class="fg2"><label class="fl">Products Supplied</label><input class="fc" id="supm-products" placeholder="e.g. Antibiotics, Vitamins, Analgesics"/></div>
-    <div class="fg2"><label class="fl">Payment Terms</label>
-      <select class="fc" id="supm-terms">
-        <option value="cash">Cash on delivery</option>
-        <option value="credit7">7 days credit</option>
-        <option value="credit14">14 days credit</option>
-        <option value="credit30">30 days credit</option>
-        <option value="prepaid">Prepaid</option>
-      </select>
-    </div>
-    <div class="fg2"><label class="fl">Notes</label><textarea class="fc" id="supm-notes" placeholder="Any extra notes…" rows="2"></textarea></div>
-  </div>
-  <div class="mf"><button class="btn btn-o" onclick="closeM('supp-modal')">Cancel</button><button class="btn btn-b" onclick="saveSupplier()">Save Supplier</button></div>
 </div></div>
 
 <!-- Receipt Modal -->
@@ -1057,7 +1012,7 @@ let DARK    = localStorage.getItem('sp_dark')==='1';
 let CURRENT_CUST_ID = null;  // customer being viewed
 let VITALS_CACHE = {};       // { custId: [vitals] }
 let VS_BP_CHART = null, VS_BS_CHART = null;
-let CFG = { bizName:'ONYX-MED PHARMACY', currency:'₦', threshold:10, address:'', ownerWhatsapp:'', ownerName:'' };
+let CFG = { bizName:'ONYX-MED PHARMACY', currency:'₦', threshold:10, address:'' };
 
 const EMOJI = {Medicine:'💊',Supplements:'💪',Hygiene:'🧴',Dairy:'🥛',Bakery:'🍞',Beverages:'🥤',Snacks:'🍿',Household:'🏠',Electronics:'⚡',Clothing:'👕',Cosmetics:'💄',General:'📦'};
 const COLORS = ['#2563EB','#7C3AED','#059669','#DC2626','#D97706','#0891B2','#EC4899'];
@@ -1211,8 +1166,6 @@ function setupApp(){
   if(g('set-cur')) g('set-cur').value=CFG.currency;
   if(g('set-thr')) g('set-thr').value=CFG.threshold;
   if(g('set-addr'))g('set-addr').value=CFG.address;
-  if(g('set-whatsapp'))g('set-whatsapp').value=CFG.ownerWhatsapp||'';
-  if(g('set-owner'))g('set-owner').value=CFG.ownerName||'';
   if(g('set-name'))g('set-name').value=name;
   if(g('set-role'))g('set-role').value=ME.role;
   subscribeData();
@@ -1253,7 +1206,6 @@ function subscribeData(){
     updBadges();
   },e=>console.warn(e));
   UNSUBS=[u1,u2,u3,u4,u5];
-  subscribeSuppliers();
 }
 
 // ── NAVIGATION ────────────────────────────────────
@@ -1264,7 +1216,7 @@ function nav(pg){
   const l=document.querySelector('[data-pg="'+pg+'"]'); if(l) l.classList.add('on');
   const titles={dashboard:'Dashboard',products:'Products',sales:'Sales',customers:'Customers',reports:'Reports',alerts:'Alerts',staff:'Staff',settings:'Settings'};
   g('tb-title').textContent=titles[pg]||pg.charAt(0).toUpperCase()+pg.slice(1);
-  const map={dashboard:renderDash,products:renderProds,sales:renderSales,customers:renderCusts,reports:renderRpt,alerts:renderNotifs,staff:renderStaff,suppliers:renderSuppliers};
+  const map={dashboard:renderDash,products:renderProds,sales:renderSales,customers:renderCusts,reports:renderRpt,alerts:renderNotifs,staff:renderStaff};
   if(map[pg]) map[pg]();
   closeSB();
 }
@@ -1340,7 +1292,7 @@ function renderProds(){
       if(days<=0) expiryBadge=`<span class="exp-danger">Expired</span>`;
       else if(days<=30) expiryBadge=`<span class="exp-warn">Exp ${days}d</span>`;
     }
-    return `<div class="pc ${ot?'out':lw?'low':''}"><div class="pc-img">${em}${ot?'<span class="pc-bdg bdg bdg-r">Out</span>':lw?'<span class="pc-bdg bdg bdg-a">Low</span>':''}</div><div class="pc-body"><div class="pc-cat">${esc(p.category)}</div><div class="pc-name">${esc(p.name)}</div><div class="pc-sku">${p.sku||'No SKU'}${p.batch?' · '+esc(p.batch):''}${p.nafdac?' · NAFDAC: '+esc(p.nafdac):''}</div><div class="pc-row"><span class="pc-price">${fmt(p.price)}</span><span class="pc-qty ${ot?'ot':lw?'lw':'ok'}">${ot?'Out':p.quantity+' units'}</span></div>${expiryBadge?'<div style="margin-top:4px">'+expiryBadge+'</div>':''}<div class="pc-btns"><button class="btn btn-o btn-sm" style="flex:1;font-size:.77rem" onclick="openProdModal('${p.id}')">✏️ Edit</button><button class="btn btn-o btn-sm" style="font-size:.77rem;color:#2563EB" onclick="openStockModal('${p.id}')">📦</button><button class="btn btn-r btn-sm" style="font-size:.77rem" onclick="openDelModal('${p.id}','${esc(p.name)}')">🗑</button></div></div></div>`;
+    return `<div class="pc ${ot?'out':lw?'low':''}"><div class="pc-img">${em}${ot?'<span class="pc-bdg bdg bdg-r">Out</span>':lw?'<span class="pc-bdg bdg bdg-a">Low</span>':''}</div><div class="pc-body"><div class="pc-cat">${esc(p.category)}</div><div class="pc-name">${esc(p.name)}</div><div class="pc-sku">${p.sku||'No SKU'}${p.batch?' · '+esc(p.batch):''}</div><div class="pc-row"><span class="pc-price">${fmt(p.price)}</span><span class="pc-qty ${ot?'ot':lw?'lw':'ok'}">${ot?'Out':p.quantity+' units'}</span></div>${expiryBadge?'<div style="margin-top:4px">'+expiryBadge+'</div>':''}<div class="pc-btns"><button class="btn btn-o btn-sm" style="flex:1;font-size:.77rem" onclick="openProdModal('${p.id}')">✏️ Edit</button><button class="btn btn-o btn-sm" style="font-size:.77rem;color:#2563EB" onclick="openStockModal('${p.id}')">📦</button><button class="btn btn-r btn-sm" style="font-size:.77rem" onclick="openDelModal('${p.id}','${esc(p.name)}')">🗑</button></div></div></div>`;
   }).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📦</div><div class="empty-title">No products</div><div class="empty-sub">Click "+ Add Product" to start</div></div>';
 }
 
@@ -1353,7 +1305,6 @@ function openProdModal(id){
     g('pm-price').value=p.price; g('pm-cost').value=p.costPrice||''; g('pm-qty').value=p.quantity;
     g('pm-low').value=p.lowAt||CFG.threshold; g('pm-sup').value=p.supplier||'';
     g('pm-exp').value=p.expiry||''; g('pm-batch').value=p.batch||'';
-    if(g('pm-nafdac')) g('pm-nafdac').value=p.nafdac||'';
     g('pm-save').textContent='Save Changes';
   } else {
     g('pm-t').textContent='Add Product'; g('pm-id').value='';
@@ -1372,7 +1323,7 @@ async function saveProd(){
   if(!cat)  return ferr('pm-err','Category required.');
   if(isNaN(price)||price<0) return ferr('pm-err','Enter valid price.');
   if(isNaN(qty)||qty<0)     return ferr('pm-err','Enter valid quantity.');
-  const data={name,category:cat,price,quantity:qty,sku:g('pm-sku').value.trim(),costPrice:parseFloat(g('pm-cost').value)||0,lowAt:parseInt(g('pm-low').value)||CFG.threshold,supplier:g('pm-sup').value.trim(),expiry:g('pm-exp').value||'',batch:g('pm-batch').value.trim()||'',nafdac:g('pm-nafdac')?.value.trim()||''};
+  const data={name,category:cat,price,quantity:qty,sku:g('pm-sku').value.trim(),costPrice:parseFloat(g('pm-cost').value)||0,lowAt:parseInt(g('pm-low').value)||CFG.threshold,supplier:g('pm-sup').value.trim(),expiry:g('pm-exp').value||'',batch:g('pm-batch').value.trim()||''};
   try{
     const col=db.collection('store').doc(STORE_ID).collection('products');
     if(eid){ await col.doc(eid).update(data); }
@@ -1406,57 +1357,11 @@ async function saveStockAdj(){
 }
 
 function checkLowStock(){
-  const lowItems=[], outItems=[], expiringItems=[];
-  const today=new Date(); today.setHours(0,0,0,0);
-  const soon=new Date(); soon.setDate(today.getDate()+30);
   PRODS.forEach(p=>{
-    if(p.quantity===0){ addNotif('warn','Out of Stock',p.name+' is out of stock!'); outItems.push(p.name); }
-    else if(p.quantity<=(p.lowAt||CFG.threshold)){ addNotif('warn','Low Stock',p.name+' has only '+p.quantity+' left.'); lowItems.push(p.name+' ('+p.quantity+')'); }
-    if(p.expiry){
-      const exp=new Date(p.expiry); exp.setHours(0,0,0,0);
-      const days=Math.ceil((exp-today)/(1000*60*60*24));
-      if(days<=0){ addNotif('warn','Expired',p.name+' has expired!'); expiringItems.push(p.name+' (EXPIRED)'); }
-      else if(days<=30){ addNotif('warn','Expiring Soon',p.name+' expires in '+days+' days.'); expiringItems.push(p.name+' ('+days+'d)'); }
-    }
+    if(p.quantity===0) addNotif('warn','Out of Stock',p.name+' is out of stock!');
+    else if(p.quantity<=(p.lowAt||CFG.threshold)) addNotif('warn','Low Stock',p.name+' has only '+p.quantity+' left.');
   });
-  // Send WhatsApp summary if owner number set and there are alerts
-  if(CFG.ownerWhatsapp && (lowItems.length||outItems.length||expiringItems.length)){
-    const lastAlert=localStorage.getItem('last_wa_alert');
-    const now=Date.now();
-    // Only send once every 6 hours to avoid spam
-    if(!lastAlert || now-parseInt(lastAlert) > 6*60*60*1000){
-      localStorage.setItem('last_wa_alert', now.toString());
-      sendWhatsAppAlert(outItems, lowItems, expiringItems);
-    }
-  }
-}
-
-function sendWhatsAppAlert(outItems, lowItems, expiringItems){
-  if(!CFG.ownerWhatsapp) return;
-  let msg = '🏥 *ONYX-MED PHARMACY — Stock Alert*
-
-';
-  if(outItems.length) msg += '🔴 *OUT OF STOCK:*
-'+outItems.map(x=>'• '+x).join('
-')+'
-
-';
-  if(lowItems.length) msg += '🟡 *LOW STOCK:*
-'+lowItems.map(x=>'• '+x).join('
-')+'
-
-';
-  if(expiringItems.length) msg += '⏰ *EXPIRING SOON:*
-'+expiringItems.map(x=>'• '+x).join('
-')+'
-
-';
-  msg += '_Sent from ONYX-MED StockPilot_';
-  const num = '234'+CFG.ownerWhatsapp.replace(/^0/,'').replace(/\D/g,'');
-  const url = 'https://wa.me/'+num+'?text='+encodeURIComponent(msg);
-  // Open in background tab (user can close it)
-  const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  checkExpiryAlerts();
 }
 
 // ── SALES ─────────────────────────────────────────
@@ -1465,7 +1370,7 @@ function renderSales(){
   const list=SALES.filter(s=>(!q||(s.productName+' '+(s.customerName||s.customer||'')).toLowerCase().includes(q))&&(!date||fmtD(s.timestamp)===date));
   g('sales-sub').textContent=list.length+' transactions';
   const tb=g('sales-tb');
-  tb.innerHTML=list.length?list.map((s,i)=>`<tr><td style="color:var(--t4);font-size:.77rem">${list.length-i}</td><td class="td-n">${esc(s.productName)}</td><td class="td-m">${s.quantity}</td><td class="td-m">${fmt(s.unitPrice)}</td><td class="td-m td-gr">${fmt(s.total)}</td><td style="font-size:.81rem">${esc(s.customerName||s.customer||'Walk-in')}</td><td style="color:var(--t4);font-size:.77rem">${fmtDT(s.timestamp)}</td><td style="display:flex;gap:4px"><button class="btn btn-o btn-sm" style="font-size:.74rem" onclick="showRcpt('${s.id}')">🧾</button><button class="btn btn-b btn-sm" style="font-size:.74rem" onclick="printInvoice('${s.id}')">🖨️</button></td></tr>`).join('')
+  tb.innerHTML=list.length?list.map((s,i)=>`<tr><td style="color:var(--t4);font-size:.77rem">${list.length-i}</td><td class="td-n">${esc(s.productName)}</td><td class="td-m">${s.quantity}</td><td class="td-m">${fmt(s.unitPrice)}</td><td class="td-m td-gr">${fmt(s.total)}</td><td style="font-size:.81rem">${esc(s.customerName||s.customer||'Walk-in')}</td><td style="color:var(--t4);font-size:.77rem">${fmtDT(s.timestamp)}</td><td><button class="btn btn-o btn-sm" style="font-size:.74rem" onclick="showRcpt('${s.id}')">🧾</button></td></tr>`).join('')
   :'<tr><td colspan="8"><div class="empty"><div class="empty-icon">💳</div><div class="empty-sub">No sales yet</div></div></td></tr>';
 }
 
@@ -1953,119 +1858,14 @@ async function saveStaff(){
 
 async function deleteStaff(id,name){ if(!confirm('Remove "'+name+'"?')) return; try{ await db.collection('store').doc(STORE_ID).collection('staff').doc(id).delete(); toast('Staff removed','s'); }catch(e){ toast('Failed: '+e.message,'e'); } }
 
-// ── SUPPLIERS ─────────────────────────────────────
-let SUPPLIERS = [];
-
-function subscribeSuppliers(){
-  db.collection('store').doc(STORE_ID).collection('suppliers').orderBy('name').onSnapshot(snap=>{
-    SUPPLIERS=snap.docs.map(d=>({id:d.id,...d.data()}));
-    if(g('pg-suppliers')?.classList.contains('on')) renderSuppliers();
-  },e=>console.warn(e));
-}
-
-function renderSuppliers(){
-  const q=(g('supp-search')?.value||'').toLowerCase();
-  const list=SUPPLIERS.filter(s=>!q||(s.name+s.contact+s.phone).toLowerCase().includes(q));
-  g('supp-sub').textContent=list.length+' suppliers';
-  const grid=g('supp-grid'); if(!grid) return;
-  grid.innerHTML=list.length?list.map(s=>`
-    <div class="card" style="overflow:visible">
-      <div class="card-body" style="padding:14px">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px">
-          <div>
-            <div style="font-weight:800;font-size:.95rem;color:var(--navy)">${esc(s.name)}</div>
-            ${s.contact?`<div style="font-size:.78rem;color:var(--t3);margin-top:2px">👤 ${esc(s.contact)}</div>`:''}
-          </div>
-          <span class="bdg bdg-b" style="flex-shrink:0">${esc(s.terms||'cash')}</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:5px;font-size:.82rem;color:var(--t2);margin-bottom:12px">
-          ${s.phone?`<div>📞 <a href="tel:${esc(s.phone)}" style="color:var(--t2)">${esc(s.phone)}</a></div>`:''}
-          ${s.email?`<div>✉️ ${esc(s.email)}</div>`:''}
-          ${s.addr?`<div>📍 ${esc(s.addr)}</div>`:''}
-          ${s.products?`<div>💊 ${esc(s.products)}</div>`:''}
-          ${s.notes?`<div style="color:var(--t3);font-style:italic">${esc(s.notes)}</div>`:''}
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          ${s.phone?`<button class="btn btn-g btn-sm" style="font-size:.76rem" onclick="contactSupplierWA('${s.id}')">📱 WhatsApp</button>`:''}
-          <button class="btn btn-o btn-sm" style="font-size:.76rem" onclick="openSuppModal('${s.id}')">✏️ Edit</button>
-          <button class="btn btn-r btn-sm" style="font-size:.76rem" onclick="deleteSupplier('${s.id}','${esc(s.name)}')">🗑</button>
-        </div>
-      </div>
-    </div>`).join('')
-  :'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🏭</div><div class="empty-title">No suppliers yet</div><div class="empty-sub">Add your drug suppliers to manage orders easily</div></div>';
-}
-
-function openSuppModal(id){
-  g('supm-err').classList.add('h');
-  if(id){
-    const s=SUPPLIERS.find(x=>x.id===id); if(!s) return;
-    g('supm-t').textContent='Edit Supplier'; g('supm-id').value=id;
-    g('supm-name').value=s.name||''; g('supm-contact').value=s.contact||'';
-    g('supm-phone').value=s.phone||''; g('supm-email').value=s.email||'';
-    g('supm-addr').value=s.addr||''; g('supm-products').value=s.products||'';
-    g('supm-terms').value=s.terms||'cash'; g('supm-notes').value=s.notes||'';
-  } else {
-    g('supm-t').textContent='Add Supplier'; g('supm-id').value='';
-    ['supm-name','supm-contact','supm-phone','supm-email','supm-addr','supm-products','supm-notes'].forEach(f=>g(f).value='');
-    g('supm-terms').value='cash';
-  }
-  openM('supp-modal');
-}
-
-async function saveSupplier(){
-  const name=g('supm-name').value.trim(), phone=g('supm-phone').value.trim(), eid=g('supm-id').value;
-  if(!name) return ferr('supm-err','Supplier name required.');
-  if(!phone) return ferr('supm-err','Phone is required.');
-  const data={name,contact:g('supm-contact').value.trim(),phone,email:g('supm-email').value.trim(),addr:g('supm-addr').value.trim(),products:g('supm-products').value.trim(),terms:g('supm-terms').value,notes:g('supm-notes').value.trim()};
-  try{
-    const col=db.collection('store').doc(STORE_ID).collection('suppliers');
-    if(eid){ await col.doc(eid).update(data); toast('Supplier updated!','s'); }
-    else{ await col.add({...data,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); toast('Supplier added!','s'); }
-    closeM('supp-modal');
-  }catch(e){ ferr('supm-err','Save failed: '+e.message); }
-}
-
-async function deleteSupplier(id,name){
-  if(!confirm('Delete supplier "'+name+'"?')) return;
-  try{ await db.collection('store').doc(STORE_ID).collection('suppliers').doc(id).delete(); toast('Supplier deleted','s'); }
-  catch(e){ toast('Failed: '+e.message,'e'); }
-}
-
-function contactSupplierWA(id){
-  const s=SUPPLIERS.find(x=>x.id===id); if(!s||!s.phone) return;
-  const num='234'+s.phone.replace(/^0/,'').replace(/\D/g,'');
-  const msg=encodeURIComponent('Hello '+s.name+',
-
-This is '+CFG.bizName+'. We would like to place an order. Kindly share your current price list.
-
-Thank you.');
-  window.open('https://wa.me/'+num+'?text='+msg,'_blank');
-}
-
 // ── SETTINGS ──────────────────────────────────────
 async function saveSettings(){
   CFG.bizName=g('set-biz').value.trim()||'ONYX-MED PHARMACY';
   CFG.currency=g('set-cur').value.trim()||'₦';
   CFG.threshold=parseInt(g('set-thr').value)||10;
   CFG.address=g('set-addr').value.trim();
-  CFG.ownerWhatsapp=g('set-whatsapp').value.trim().replace(/\D/g,'');
-  CFG.ownerName=g('set-owner').value.trim();
-  try{
-    await db.collection('store').doc(STORE_ID).update({
-      name:CFG.bizName,currency:CFG.currency,threshold:CFG.threshold,
-      address:CFG.address,ownerWhatsapp:CFG.ownerWhatsapp,ownerName:CFG.ownerName
-    });
-    toast('Settings saved!','s');
-  } catch(e){ toast('Save failed: '+e.message,'e'); }
-}
-
-function testWhatsApp(){
-  const num=CFG.ownerWhatsapp||g('set-whatsapp').value.trim().replace(/\D/g,'');
-  if(!num) return toast('Enter WhatsApp number first and save','e');
-  const msg=encodeURIComponent('✅ ONYX-MED PHARMACY
-
-WhatsApp alert test successful! Your pharmacy alerts are now active. 💊');
-  window.open('https://wa.me/234'+num.replace(/^0/,'')+`?text=${msg}`,'_blank');
+  try{ await db.collection('store').doc(STORE_ID).update({name:CFG.bizName,currency:CFG.currency,threshold:CFG.threshold,address:CFG.address}); toast('Settings saved!','s'); }
+  catch(e){ toast('Save failed: '+e.message,'e'); }
 }
 
 async function changePass(){
@@ -2113,70 +1913,6 @@ async function loadDemo(){
   toast('Demo data loaded! '+DP.length+' products, '+DC.length+' patients.','s');
 }
 
-// ── INVOICE PRINT ─────────────────────────────────
-function printInvoice(saleId){
-  const s=SALES.find(x=>x.id===saleId); if(!s) return;
-  const invoiceNo='INV-'+saleId.slice(-8).toUpperCase();
-  const area=g('print-area');
-  area.innerHTML=`
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:30px;border:1px solid #ddd">
-      <!-- Header -->
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid #2563EB">
-        <div>
-          <div style="font-size:1.5rem;font-weight:900;color:#0F1F45">💊 ${esc(CFG.bizName)}</div>
-          <div style="color:#666;font-size:.85rem;margin-top:4px">${esc(CFG.address||'')}</div>
-          ${CFG.ownerWhatsapp?`<div style="color:#666;font-size:.85rem">📱 ${esc(CFG.ownerWhatsapp)}</div>`:''}
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:1.2rem;font-weight:800;color:#2563EB">INVOICE</div>
-          <div style="font-size:.85rem;color:#666;margin-top:4px">${invoiceNo}</div>
-          <div style="font-size:.85rem;color:#666">${fmtDT(s.timestamp)}</div>
-        </div>
-      </div>
-      <!-- Bill To -->
-      <div style="margin-bottom:20px">
-        <div style="font-size:.8rem;text-transform:uppercase;color:#999;letter-spacing:1px;margin-bottom:4px">Bill To</div>
-        <div style="font-weight:700;font-size:1rem">${esc(s.customerName||s.customer||'Walk-in Customer')}</div>
-        <div style="font-size:.85rem;color:#666">Cashier: ${esc(s.cashier||ME.name||'—')}</div>
-      </div>
-      <!-- Items Table -->
-      <table style="width:100%;border-collapse:collapse;margin-bottom:20px">
-        <thead>
-          <tr style="background:#F0F4FF">
-            <th style="padding:10px;text-align:left;font-size:.82rem;border-bottom:2px solid #2563EB">DESCRIPTION</th>
-            <th style="padding:10px;text-align:center;font-size:.82rem;border-bottom:2px solid #2563EB">QTY</th>
-            <th style="padding:10px;text-align:right;font-size:.82rem;border-bottom:2px solid #2563EB">UNIT PRICE</th>
-            <th style="padding:10px;text-align:right;font-size:.82rem;border-bottom:2px solid #2563EB">AMOUNT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:12px 10px;border-bottom:1px solid #eee"><div style="font-weight:600">${esc(s.productName)}</div><div style="font-size:.78rem;color:#999">${esc(s.category||'')}</div></td>
-            <td style="padding:12px 10px;text-align:center;border-bottom:1px solid #eee">${s.quantity}</td>
-            <td style="padding:12px 10px;text-align:right;border-bottom:1px solid #eee">${fmt(s.unitPrice)}</td>
-            <td style="padding:12px 10px;text-align:right;border-bottom:1px solid #eee;font-weight:700">${fmt(s.total)}</td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Total -->
-      <div style="display:flex;justify-content:flex-end;margin-bottom:24px">
-        <div style="min-width:220px">
-          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.88rem"><span>Subtotal</span><span>${fmt(s.total)}</span></div>
-          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.88rem;color:#666"><span>Tax (0%)</span><span>${fmt(0)}</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:1.1rem;font-weight:900;color:#2563EB"><span>TOTAL</span><span>${fmt(s.total)}</span></div>
-        </div>
-      </div>
-      <!-- Footer -->
-      <div style="border-top:2px solid #2563EB;padding-top:14px;text-align:center;color:#999;font-size:.8rem">
-        <div>Thank you for your patronage! 💊</div>
-        <div style="margin-top:4px">For enquiries: ${CFG.ownerWhatsapp?'📱 '+CFG.ownerWhatsapp:CFG.bizName}</div>
-        <div style="margin-top:4px;font-style:italic">This is a computer-generated invoice — ${esc(CFG.bizName)}</div>
-      </div>
-    </div>`;
-  area.style.display='block';
-  setTimeout(()=>{ window.print(); area.style.display='none'; }, 200);
-}
-
 // ── EXPORT ────────────────────────────────────────
 function exportProdsCSV(){ const rows=[['Name','Category','SKU','Price','Cost','Qty','Supplier']]; PRODS.forEach(p=>rows.push([p.name,p.category,p.sku||'',p.price,p.costPrice||0,p.quantity,p.supplier||''])); dlCSV(rows,'products.csv'); toast('Exported!','s'); }
 function exportSalesCSV(){ const rows=[['Product','Qty','Unit Price','Total','Customer','Date']]; SALES.forEach(s=>rows.push([s.productName,s.quantity,s.unitPrice,s.total,s.customerName||s.customer||'',fmtDT(s.timestamp)])); dlCSV(rows,'sales.csv'); toast('Exported!','s'); }
@@ -2202,66 +1938,19 @@ console.log('%c ONYX-MED PHARMACY — StockPilot PRO ✓','background:linear-gra
 // ══════════════════════════════════════════════════
 let deferredInstallPrompt = null;
 
-// ── PWA: Inject manifest inline (no external manifest.json needed) ──
-(function(){
-  const manifest = {
-    name: "ONYX-MED PHARMACY",
-    short_name: "OnyxMed",
-    description: "ONYX-MED PHARMACY — StockPilot PRO",
-    start_url: "./",
-    display: "standalone",
-    background_color: "#0F1F45",
-    theme_color: "#2563EB",
-    orientation: "portrait-primary",
-    icons: [
-      { src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAACfUlEQVR42u3cQRXCQBBEwTUCQhCBMBTiJijgwiObnpma9xWk67SHrPvjJf3c8gkEkAASQAJIAkgACSABJAEkgASQAJIAEkACSABJAAkgASSABJAEkAD60u35nhZArPRXtaCBqTYgDkozWuhgVA+QvdswWvQwVAmQgZsZWuhgVACQObsaWvQwFA3IhL0NAQRQMCDjtTe06GEoEZDBhhgCCKA8QKaaYwgggMIAGWmUIYAASgJknmmGAAIIIAEkgNL1HHtviCGAAAIIIIAAAggggAACCCCASgLKf/wA6AxDAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBFAQoMNtcQkQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEkAMIIIAAAggggAByAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAOIIAAAggggAACyAEEEEAAAQQQQAABBBBAAPlL676l/aUVIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAOgPKNwTQ3/UABBBAAAEEEEAAAQQQQAABVBhQidcg/VEPQAABJIAEEEMT9QAEUB4ghuboAQigSEAMDdEDEECpgBiaoOdcQAy113M6IIZ66wEIoHhADDXWswkQQ1317APEUEs9WwFh1IzONYAY6qTnGkAMtdFzGSCMGtC5HhBGpemkAMKoKJ0sQDAVQpMOiKpMK7UBCSABJAEkgASQAJIAEkACSAAJIAkgASSABJAEkAASQAJIAkgACSD16QPAvPb6lQNA/QAAAABJRU5ErkJggg==", sizes: "192x192", type: "image/png", purpose: "any maskable" },
-      { src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAALMklEQVR42u3VQRHCUBQEwRgBIYhAWBTiBq65coLa6a1RkPp5fdwfpyQp2OETSBIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSBABfQZIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAOja7fmSfpvfEABy2SVOAEAuvsQDAMjRl2AAALn7EgkA4O5LIgEA3H1JJACA0y8JAwBw9yWRAABOvyQMAMDpl4QBALj+khgAAKdfwoAA4PRLGBAAXH+JAQKA0y9hQABw/SUGCABOv4QBAPgErr/EAADI9ZcYAAC5/hIDAOD6S2IAAJx+SRgAgOsviQEAcP0lMQAArr8kBgDA9ZfEAAC4/pIYAADXXxIDAAAASQAAgOsviQEAcP0lMQAArr8kBgDA9ZfEAAC4/pIYAAAASAIAAFx/SQwAgOsviQEAAIAkAADA9ZfEgCgAHrQkBgBAkgCQAcBTlsQAAEgSADIAeMSSGFAEwPOVxAAASBIAMgB4uJIYAABJAkAGAE9WEgMAIEkAAIAkAWAbAI9VEgMAIEkAyADgmUpiAAAkCQAAkCQAbAPggUpiAAAkCQAAkCQAbAPgaUpiAAAkCQAAkCQAbAPgUUpiAAAkCQAA0N/0tm/mwQAAAAAAAAAEAAC4/gAAgBgAAAAAAAACAAAAAAAACAAAEAAAIAAAQAAAgACQAMBDBAAAxAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAAAAAAIAAAAAANdfAAAAAwAAAAEAAAAAAADkpgMAAAAAAAAMAAAAAAAAYAAAAAAAAAADAAAAAAAAGAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAgAAAAAAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAAAAAAYAAAAAAAAwAAAAAAAAgAEAAAAAAAAMAAAAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAACAAAAAAAAAAAAwAAAAAAABgAAAAAAADAAAAAAAAAAAYAAAAAAAAwDwYAAAAAAAAgAAAAAAAAgAAAAAAAAAACAABOl9GMcwAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADAAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAAAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAgDjnMgoAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAAAAAAQAAAAAAAAAABAAAAAAAABAAAAAAAAACAAQAAAAAAAAwAAAAAAABgAAAAAAAAAAMAAAAAAAAAQAAAAAAAAAABAAAAAAAABAAAAAAAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAAAAAAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAAAMAAAAAAAAAABgAAAAAAADAAAAAAAACAAQAAAAAAAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAAAAAAABAAAAAAAABAAAAAAAAAAAEAAAAAAADkpgMAAAAAAAAMAAAAAAMAYABw/QEAAAAYAAAAAAAAwAAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAQAAAAAAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAGCAAAAAda4/AAQAAAgAABAAACAAAEAAAIAAAAABAAACAAMEAABo6PoDQAAAgAAAAEkCAAAkCQAMkKTN6w8ASQIAACQJAAyQpPnrDwBJAgAAJAkADJCk+esPAEkCAAAkCQAMkKT56w8ASQIAAySpdP0BIEkAAIAkAYABkjR//QEgSQBggCSVrj8AJAkADJCk0vVPAMAASa4/ACQJADEAGCDJ9QeAJAEgBgADJLn+XQAYIMn1B4AkASAGAAMkuf5dABggyfUHgCQBgAGSXP/eJYwCwABJ8eufBoABksrXvw4AAySVD2AdAAZIrj8AACAJAABggCTXHwAMkOT6A4ABklx/ADBAkusPAAZIcv0BwABJrj8AMCDJ6QcAAyS5/gBggCTXHwAMkOT6A4ABklx/AGBAktMPAAZIcv0BgAFJTj8AGCDJ9QcABiQ5/QDAgOT0CwAMkFx/AQADktMvAGBAcvoFABJI7r4AgAHJ6QeASCC5+wAQCSR3HwAigeTuA0AwkBx9AIgHkosPAHFCctkBIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIufQDYkqF4sdtVkwAAAABJRU5ErkJggg==", sizes: "512x512", type: "image/png", purpose: "any maskable" }
-    ]
-  };
-  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('link');
-  link.rel = 'manifest'; link.href = url;
-  document.head.appendChild(link);
-})();
-
-// ── PWA: Register inline Service Worker (no sw.js file needed) ──
 if('serviceWorker' in navigator){
-  const swCode = `
-const CACHE = 'onyxmed-v2';
-const CORE = ['./'];
-self.addEventListener('install', e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})));
-  self.skipWaiting();
-});
-self.addEventListener('activate', e=>{
-  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
-  self.clients.claim();
-});
-self.addEventListener('fetch', e=>{
-  if(e.request.method!=='GET') return;
-  if(e.request.url.includes('firestore.googleapis.com')||e.request.url.includes('firebase')||e.request.url.includes('googleapis.com')) return;
-  e.respondWith(
-    fetch(e.request).then(res=>{
-      if(res&&res.status===200){const clone=res.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));}
-      return res;
-    }).catch(()=>caches.match(e.request))
-  );
-});
-`;
-  const swBlob = new Blob([swCode], {type:'application/javascript'});
-  const swUrl = URL.createObjectURL(swBlob);
   window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register(swUrl, {scope:'./'})
-      .then(reg=>console.log('[SW] Ready'))
-      .catch(err=>console.warn('[SW]',err));
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg=>{ console.log('[SW] Registered:', reg.scope); })
+      .catch(err=>{ console.warn('[SW] Failed:', err); });
   });
 }
 
-// ── PWA Install Prompt ──
+// Capture install prompt
 window.addEventListener('beforeinstallprompt', e=>{
   e.preventDefault();
   deferredInstallPrompt = e;
+  // Show banner after 3 seconds if not dismissed before
   const dismissed = localStorage.getItem('pwa_dismissed');
   if(!dismissed){
     setTimeout(()=>{
@@ -2271,17 +1960,14 @@ window.addEventListener('beforeinstallprompt', e=>{
   }
 });
 
+// Install button
 const installBtn = document.getElementById('pwa-install-btn');
 if(installBtn){
   installBtn.addEventListener('click', async ()=>{
-    if(!deferredInstallPrompt){
-      // Fallback: guide user to install manually
-      toast('Tap the browser menu (⋮) → "Add to Home screen" to install','i');
-      return;
-    }
+    if(!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
     const { outcome } = await deferredInstallPrompt.userChoice;
-    if(outcome === 'accepted') toast('ONYX-MED installed! 🎉','s');
+    if(outcome === 'accepted') toast('App installed! 🎉','s');
     deferredInstallPrompt = null;
     dismissPWA();
   });
@@ -2289,7 +1975,7 @@ if(installBtn){
 
 window.addEventListener('appinstalled', ()=>{
   dismissPWA();
-  toast('ONYX-MED PHARMACY installed on your device! 📱','s');
+  toast('ONYX-MED installed on your device! 📱','s');
 });
 
 function dismissPWA(){
