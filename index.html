@@ -5,23 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>ONYX-MED PHARMACY — StockPilot PRO</title>
 
-<!-- PWA -->
-<!-- manifest injected inline by JS below -->
-<meta name="theme-color" content="#2563EB"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="OnyxMed"/>
-
-<!-- SEO / Open Graph -->
-<meta name="description" content="ONYX-MED PHARMACY — Professional Pharmacy Management System"/>
-<meta name="author" content="ONYX-MED PHARMACY"/>
-<meta property="og:title" content="ONYX-MED PHARMACY"/>
-<meta property="og:description" content="Professional Pharmacy Stock & Patient Management"/>
-<meta property="og:type" content="website"/>
-
-<!-- Prevent phone number detection -->
-<meta name="format-detection" content="telephone=no"/>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -372,39 +355,6 @@ textarea.fc{resize:vertical;min-height:70px}
   .sc-icon{width:38px;height:38px;font-size:1.1rem}
 }
 @media print{.sb,.topbar,.toast-w{display:none!important}.main{margin:0!important}}
-
-/* PWA Install Banner */
-.pwa-banner{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#0F1F45,#1E3A8A);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;z-index:9000;box-shadow:0 -4px 20px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
-.pwa-banner.show{transform:translateY(0)}
-.pwa-banner-icon{font-size:2rem;flex-shrink:0}
-.pwa-banner-text{flex:1}
-.pwa-banner-title{font-weight:800;font-size:.95rem;margin-bottom:2px}
-.pwa-banner-sub{font-size:.76rem;opacity:.7}
-.pwa-banner-btns{display:flex;gap:8px;flex-shrink:0}
-.pwa-install-btn{padding:9px 16px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.83rem;cursor:pointer;white-space:nowrap}
-.pwa-dismiss-btn{padding:9px 12px;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:8px;font-size:.83rem;cursor:pointer}
-
-/* Offline indicator */
-.offline-bar{position:fixed;top:0;left:0;right:0;background:#F59E0B;color:#fff;text-align:center;font-size:.8rem;font-weight:700;padding:6px;z-index:10000;display:none}
-.offline-bar.show{display:block}
-
-/* Network status dot on login */
-.pdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#10B981;margin-right:5px;vertical-align:middle}
-.pdot.offline{background:#EF4444}
-
-/* Quick actions bar (mobile bottom nav) */
-.quick-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surf);border-top:1px solid var(--bord);z-index:400;padding:6px 0 calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.08)}
-.quick-nav-inner{display:flex;justify-content:space-around}
-.qn-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;border:none;background:none;cursor:pointer;color:var(--t3);font-size:.65rem;font-weight:600;border-radius:10px;transition:all .2s;min-width:56px}
-.qn-btn.on{color:#2563EB}
-.qn-btn svg{opacity:.6}
-.qn-btn.on svg{opacity:1}
-.qn-icon{font-size:1.2rem;line-height:1}
-@media(max-width:768px){
-  .quick-nav{display:block}
-  .main{padding-bottom:70px}
-  .pwa-banner{bottom:70px}
-}
 
 /* Print receipt styles */
 @media print{
@@ -2201,129 +2151,11 @@ document.addEventListener('keydown',e=>{
 
 console.log('%c ONYX-MED PHARMACY — StockPilot PRO ✓','background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;padding:5px 12px;border-radius:5px;font-weight:700');
 
-// ══════════════════════════════════════════════════
-//  PWA — SERVICE WORKER + INSTALL PROMPT
-// ══════════════════════════════════════════════════
-let deferredInstallPrompt = null;
 
-// ── PWA: Inject manifest inline (no external manifest.json needed) ──
-(function(){
-  const manifest = {
-    name: "ONYX-MED PHARMACY",
-    short_name: "OnyxMed",
-    description: "ONYX-MED PHARMACY — StockPilot PRO",
-    start_url: "./",
-    display: "standalone",
-    background_color: "#0F1F45",
-    theme_color: "#2563EB",
-    orientation: "portrait-primary",
-    icons: [
-      { src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAACfUlEQVR42u3cQRXCQBBEwTUCQhCBMBTiJijgwiObnpma9xWk67SHrPvjJf3c8gkEkAASQAJIAkgACSABJAEkgASQAJIAEkACSABJAAkgASSABJAEkAD60u35nhZArPRXtaCBqTYgDkozWuhgVA+QvdswWvQwVAmQgZsZWuhgVACQObsaWvQwFA3IhL0NAQRQMCDjtTe06GEoEZDBhhgCCKA8QKaaYwgggMIAGWmUIYAASgJknmmGAAIIIAEkgNL1HHtviCGAAAIIIIAAAggggAACCCCASgLKf/wA6AxDAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBFAQoMNtcQkQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEkAMIIIAAAggggAByAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAOIIAAAggggAACyAEEEEAAAQQQQAABBBBAAPlL676l/aUVIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAOgPKNwTQ3/UABBBAAAEEEEAAAQQQQAABVBhQidcg/VEPQAABJIAEEEMT9QAEUB4ghuboAQigSEAMDdEDEECpgBiaoOdcQAy113M6IIZ66wEIoHhADDXWswkQQ1317APEUEs9WwFh1IzONYAY6qTnGkAMtdFzGSCMGtC5HhBGpemkAMKoKJ0sQDAVQpMOiKpMK7UBCSABJAEkgASQAJIAEkACSAAJIAkgASSABJAEkAASQAJIAkgACSD16QPAvPb6lQNA/QAAAABJRU5ErkJggg==", sizes: "192x192", type: "image/png", purpose: "any maskable" },
-      { src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAALMklEQVR42u3VQRHCUBQEwRgBIYhAWBTiBq65coLa6a1RkPp5fdwfpyQp2OETSBIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSBABfQZIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAOja7fmSfpvfEABy2SVOAEAuvsQDAMjRl2AAALn7EgkA4O5LIgEA3H1JJACA0y8JAwBw9yWRAABOvyQMAMDpl4QBALj+khgAAKdfwoAA4PRLGBAAXH+JAQKA0y9hQABw/SUGCABOv4QBAPgErr/EAADI9ZcYAAC5/hIDAOD6S2IAAJx+SRgAgOsviQEAcP0lMQAArr8kBgDA9ZfEAAC4/pIYAADXXxIDAAAASQAAgOsviQEAcP0lMQAArr8kBgDA9ZfEAAC4/pIYAAAASAIAAFx/SQwAgOsviQEAAIAkAADA9ZfEgCgAHrQkBgBAkgCQAcBTlsQAAEgSADIAeMSSGFAEwPOVxAAASBIAMgB4uJIYAABJAkAGAE9WEgMAIEkAAIAkAWAbAI9VEgMAIEkAyADgmUpiAAAkCQAAkCQAbAPggUpiAAAkCQAAkCQAbAPgaUpiAAAkCQAAkCQAbAPgUUpiAAAkCQAA0N/0tm/mwQAAAAAAAAAEAAC4/gAAgBgAAAAAAAACAAAAAAAACAAAEAAAIAAAQAAAgACQAMBDBAAAxAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAAAAAAIAAAAAANdfAAAAAwAAAAEAAAAAAADkpgMAAAAAAAAMAAAAAAAAYAAAAAAAAAADAAAAAAAAGAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAgAAAAAAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAAAAAAYAAAAAAAAwAAAAAAAAgAEAAAAAAAAMAAAAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAACAAAAAAAAAAAAwAAAAAAABgAAAAAAADAAAAAAAAAAAYAAAAAAAAwDwYAAAAAAAAgAAAAAAAAgAAAAAAAAAACAABOl9GMcwAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADAAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAAAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAAADMAAAAAADADAAAAAAAzAAAAAAAwAwAAAAAAMwAAAAAAMAMAAAAgDjnMgoAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAAAAAAQAAAAAAAAAABAAAAAAAABAAAAAAAAACAAQAAAAAAAAwAAAAAAABgAAAAAAAAAAMAAAAAAAAAQAAAAAAAAAABAAAAAAAABAAAAAAAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAAAAAAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAAAMAAAAAAAAAABgAAAAAAADAAAAAAAACAAQAAAAAAAAAgAAAAAAAAgAAAAAAAAAACAAAAAAAACAAAEAAAIAAAQAAAgAAAAAEAAAIAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAACAAAAAAQAAAgAABAAAAAAAABAAAAAAAABAAAAAAAAAAAEAAAAAAADkpgMAAAAAAAAMAAAAAAMAYABw/QEAAAAYAAAAAAAAwAAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAQAAAAAAAAQAAAgAABAAACAAAEAAAIAAAAABAAACAAAEAAAIAAAQAAAgAABAAGCAAAAAda4/AAQAAAgAABAAACAAAEAAAIAAAAABAAACAAMEAABo6PoDQAAAgAAAAEkCAAAkCQAMkKTN6w8ASQIAACQJAAyQpPnrDwBJAgAAJAkADJCk+esPAEkCAAAkCQAMkKT56w8ASQIAAySpdP0BIEkAAIAkAYABkjR//QEgSQBggCSVrj8AJAkADJCk0vVPAMAASa4/ACQJADEAGCDJ9QeAJAEgBgADJLn+XQAYIMn1B4AkASAGAAMkuf5dABggyfUHgCQBgAGSXP/eJYwCwABJ8eufBoABksrXvw4AAySVD2AdAAZIrj8AACAJAABggCTXHwAMkOT6A4ABklx/ADBAkusPAAZIcv0BwABJrj8AMCDJ6QcAAyS5/gBggCTXHwAMkOT6A4ABklx/AGBAktMPAAZIcv0BgAFJTj8AGCDJ9QcABiQ5/QDAgOT0CwAMkFx/AQADktMvAGBAcvoFABJI7r4AgAHJ6QeASCC5+wAQCSR3HwAigeTuA0AwkBx9AIgHkosPAHFCctkBIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACRJAJAkAUCSBABJEgAkSQCQJAFAkgQASRIAJEkAkCQBQJIEAEkSACQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIAIEkCgCQJAJIkAEiSACBJAoAkCQCSJABIkgAgSQKAJAkAkiQASJIufQDYkqF4sdtVkwAAAABJRU5ErkJggg==", sizes: "512x512", type: "image/png", purpose: "any maskable" }
-    ]
-  };
-  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('link');
-  link.rel = 'manifest'; link.href = url;
-  document.head.appendChild(link);
-})();
 
-// ── PWA: Register inline Service Worker (no sw.js file needed) ──
-if('serviceWorker' in navigator){
-  const swCode = `
-const CACHE = 'onyxmed-v2';
-const CORE = ['./'];
-self.addEventListener('install', e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})));
-  self.skipWaiting();
-});
-self.addEventListener('activate', e=>{
-  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
-  self.clients.claim();
-});
-self.addEventListener('fetch', e=>{
-  if(e.request.method!=='GET') return;
-  if(e.request.url.includes('firestore.googleapis.com')||e.request.url.includes('firebase')||e.request.url.includes('googleapis.com')) return;
-  e.respondWith(
-    fetch(e.request).then(res=>{
-      if(res&&res.status===200){const clone=res.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));}
-      return res;
-    }).catch(()=>caches.match(e.request))
-  );
-});
-`;
-  const swBlob = new Blob([swCode], {type:'application/javascript'});
-  const swUrl = URL.createObjectURL(swBlob);
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register(swUrl, {scope:'./'})
-      .then(reg=>console.log('[SW] Ready'))
-      .catch(err=>console.warn('[SW]',err));
-  });
-}
 
-// ── PWA Install Prompt ──
-window.addEventListener('beforeinstallprompt', e=>{
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  const dismissed = localStorage.getItem('pwa_dismissed');
-  if(!dismissed){
-    setTimeout(()=>{
-      const banner = g('pwa-banner');
-      if(banner) banner.classList.add('show');
-    }, 3000);
-  }
-});
 
-const installBtn = document.getElementById('pwa-install-btn');
-if(installBtn){
-  installBtn.addEventListener('click', async ()=>{
-    if(!deferredInstallPrompt){
-      // Fallback: guide user to install manually
-      toast('Tap the browser menu (⋮) → "Add to Home screen" to install','i');
-      return;
-    }
-    deferredInstallPrompt.prompt();
-    const { outcome } = await deferredInstallPrompt.userChoice;
-    if(outcome === 'accepted') toast('ONYX-MED installed! 🎉','s');
-    deferredInstallPrompt = null;
-    dismissPWA();
-  });
-}
 
-window.addEventListener('appinstalled', ()=>{
-  dismissPWA();
-  toast('ONYX-MED PHARMACY installed on your device! 📱','s');
-});
-
-function dismissPWA(){
-  localStorage.setItem('pwa_dismissed','1');
-  const banner = g('pwa-banner');
-  if(banner) banner.classList.remove('show');
-}
-
-// ── ONLINE / OFFLINE DETECTION ──────────────────────
-function updateOnlineStatus(){
-  const bar = g('offline-bar');
-  const dot = document.querySelector('.pdot');
-  if(navigator.onLine){
-    if(bar) bar.classList.remove('show');
-    if(dot){ dot.classList.remove('offline'); dot.style.background='#10B981'; }
-  } else {
-    if(bar) bar.classList.add('show');
-    if(dot){ dot.classList.add('offline'); dot.style.background='#EF4444'; }
-    toast('You are offline — working in offline mode','w');
-  }
-}
-window.addEventListener('online', updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
-updateOnlineStatus();
-
-// ── MOBILE BOTTOM NAV ──────────────────────────────
-function setQN(key){
-  document.querySelectorAll('.qn-btn').forEach(b=>b.classList.remove('on'));
-  const el=g('qn-'+key); if(el) el.classList.add('on');
-}
 
 // ── EXPIRY DATE FEATURES ────────────────────────────
 function checkExpiryAlerts(){
@@ -2406,45 +2238,7 @@ document.addEventListener('keydown', e=>{
 });
 
 </script>
-<!-- Offline Bar -->
-<div class="offline-bar" id="offline-bar">📡 You are offline — data may not sync until connection is restored</div>
 
-<!-- PWA Install Banner -->
-<div class="pwa-banner" id="pwa-banner">
-  <div class="pwa-banner-icon">💊</div>
-  <div class="pwa-banner-text">
-    <div class="pwa-banner-title">Install ONYX-MED PHARMACY</div>
-    <div class="pwa-banner-sub">Add to home screen for quick access — works offline</div>
-  </div>
-  <div class="pwa-banner-btns">
-    <button class="pwa-install-btn" id="pwa-install-btn">Install</button>
-    <button class="pwa-dismiss-btn" onclick="dismissPWA()">✕</button>
-  </div>
-</div>
-
-<!-- Mobile Bottom Quick Nav -->
-<nav class="quick-nav" id="quick-nav">
-  <div class="quick-nav-inner">
-    <button class="qn-btn on" id="qn-dash" onclick="nav('dashboard');setQN('dash')">
-      <span class="qn-icon">🏠</span>Home
-    </button>
-    <button class="qn-btn" id="qn-products" onclick="nav('products');setQN('products')">
-      <span class="qn-icon">📦</span>Stock
-    </button>
-    <button class="qn-btn" id="qn-sale" onclick="openSaleModal()" style="color:#2563EB">
-      <span class="qn-icon" style="background:#2563EB;color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-top:-10px;box-shadow:0 4px 14px rgba(37,99,235,.4)">+</span>Sale
-    </button>
-    <button class="qn-btn" id="qn-customers" onclick="nav('customers');setQN('customers')">
-      <span class="qn-icon">👥</span>Patients
-    </button>
-    <button class="qn-btn" id="qn-alerts" onclick="nav('alerts');setQN('alerts')">
-      <span class="qn-icon">🔔</span>Alerts
-    </button>
-  </div>
-</nav>
-
-<!-- Print Area -->
-<div id="print-area"></div>
 
 </body>
 </html>
