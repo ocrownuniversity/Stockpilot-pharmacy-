@@ -379,7 +379,7 @@ textarea.fc{resize:vertical;min-height:70px}
   <div style="font-size:3rem;animation:pulse 1.2s ease-in-out infinite">💊</div>
   <div class="spin" style="margin-top:8px"></div>
   <p style="margin-top:4px;font-weight:600;font-size:1rem;color:#fff">ONYX-MED PHARMACY</p>
-  <p id="loading-msg" style="font-size:.78rem;color:rgba(255,255,255,.5)">Starting up…</p>
+  <p id="loading-msg" style="font-size:.78rem;color:rgba(255,255,255,.5)">Connecting to ONYX-MED PHARMACY…</p>
 </div>
 
 <!-- LOGIN -->
@@ -1034,39 +1034,16 @@ function toggleDark(){ DARK=!DARK; localStorage.setItem('sp_dark',DARK?'1':'0');
 applyDark();
 
 // ── INIT ──────────────────────────────────────────
-function initApp(){
-  // Show login immediately — never block on Firebase
-  setTimeout(()=>{
-    g('loading').classList.add('h');
-    show('lock-screen');
-  }, 600);
-
-  // Animate loading messages
-  const msgs=['Starting up…','Loading resources…','Almost ready…'];
-  let mi=0;
-  const msgEl=g('loading-msg');
-  const msgInt=setInterval(()=>{ mi=(mi+1)%msgs.length; if(msgEl) msgEl.textContent=msgs[mi]; },600);
-  setTimeout(()=>clearInterval(msgInt), 2000);
-
-  // Load config silently in background — if it works, great; if not, defaults are used
+async function initApp(){
   try {
-    db.collection('store').doc(STORE_ID).get({ source: 'cache' })
-      .then(doc => {
-        if(doc && doc.exists){
-          const d=doc.data();
-          CFG={bizName:d.name||'ONYX-MED PHARMACY',currency:d.currency||'₦',threshold:d.threshold||10,address:d.address||'',ownerWhatsapp:d.ownerWhatsapp||'',ownerName:d.ownerName||''};
-        }
-      }).catch(()=>{
-        // Not in cache — try network silently
-        db.collection('store').doc(STORE_ID).get()
-          .then(doc => {
-            if(doc && doc.exists){
-              const d=doc.data();
-              CFG={bizName:d.name||'ONYX-MED PHARMACY',currency:d.currency||'₦',threshold:d.threshold||10,address:d.address||'',ownerWhatsapp:d.ownerWhatsapp||'',ownerName:d.ownerName||''};
-            }
-          }).catch(e => console.warn('Config:', e.message));
-      });
-  } catch(e){ console.warn('initApp:', e.message); }
+    const doc = await db.collection('store').doc(STORE_ID).get();
+    if(doc.exists){
+      const d=doc.data();
+      CFG={bizName:d.name||'ONYX-MED PHARMACY',currency:d.currency||'₦',threshold:d.threshold||10,address:d.address||'',ownerWhatsapp:d.ownerWhatsapp||'',ownerName:d.ownerName||''};
+    }
+  } catch(e){ console.warn('Config:', e.message); }
+  g('loading').classList.add('h');
+  show('lock-screen');
 }
 initApp();
 
