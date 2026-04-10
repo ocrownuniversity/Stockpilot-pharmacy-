@@ -1458,28 +1458,13 @@ function checkLowStock(){
 
 function sendWhatsAppAlert(outItems, lowItems, expiringItems){
   if(!CFG.ownerWhatsapp) return;
-  let msg = '🏥 *ONYX-MED PHARMACY — Stock Alert*
-
-';
-  if(outItems.length) msg += '🔴 *OUT OF STOCK:*
-'+outItems.map(x=>'• '+x).join('
-')+'
-
-';
-  if(lowItems.length) msg += '🟡 *LOW STOCK:*
-'+lowItems.map(x=>'• '+x).join('
-')+'
-
-';
-  if(expiringItems.length) msg += '⏰ *EXPIRING SOON:*
-'+expiringItems.map(x=>'• '+x).join('
-')+'
-
-';
+  let msg = '🏥 *ONYX-MED PHARMACY — Stock Alert*\n\n';
+  if(outItems.length) msg += '🔴 *OUT OF STOCK:*\n'+outItems.map(x=>'• '+x).join('\n')+'\n\n';
+  if(lowItems.length) msg += '🟡 *LOW STOCK:*\n'+lowItems.map(x=>'• '+x).join('\n')+'\n\n';
+  if(expiringItems.length) msg += '⏰ *EXPIRING SOON:*\n'+expiringItems.map(x=>'• '+x).join('\n')+'\n\n';
   msg += '_Sent from ONYX-MED StockPilot_';
-  const num = '234'+CFG.ownerWhatsapp.replace(/^0/,'').replace(/\D/g,'');
+  const num = '234'+CFG.ownerWhatsapp.replace(/^0/,'').replace(/[^0-9]/g,'');
   const url = 'https://wa.me/'+num+'?text='+encodeURIComponent(msg);
-  // Open in background tab (user can close it)
   const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
@@ -2058,12 +2043,8 @@ async function deleteSupplier(id,name){
 
 function contactSupplierWA(id){
   const s=SUPPLIERS.find(x=>x.id===id); if(!s||!s.phone) return;
-  const num='234'+s.phone.replace(/^0/,'').replace(/\D/g,'');
-  const msg=encodeURIComponent('Hello '+s.name+',
-
-This is '+CFG.bizName+'. We would like to place an order. Kindly share your current price list.
-
-Thank you.');
+  const num='234'+s.phone.replace(/^0/,'').replace(/[^0-9]/g,'');
+  const msg=encodeURIComponent('Hello '+s.name+',\n\nThis is '+CFG.bizName+'. We would like to place an order. Kindly share your current price list.\n\nThank you.');
   window.open('https://wa.me/'+num+'?text='+msg,'_blank');
 }
 
@@ -2085,12 +2066,10 @@ async function saveSettings(){
 }
 
 function testWhatsApp(){
-  const num=CFG.ownerWhatsapp||g('set-whatsapp').value.trim().replace(/\D/g,'');
+  const num=(CFG.ownerWhatsapp||g('set-whatsapp').value.trim()).replace(/[^0-9]/g,'');
   if(!num) return toast('Enter WhatsApp number first and save','e');
-  const msg=encodeURIComponent('✅ ONYX-MED PHARMACY
-
-WhatsApp alert test successful! Your pharmacy alerts are now active. 💊');
-  window.open('https://wa.me/234'+num.replace(/^0/,'')+`?text=${msg}`,'_blank');
+  const msg=encodeURIComponent('✅ ONYX-MED PHARMACY\n\nWhatsApp alert test successful! Your pharmacy alerts are now active. 💊');
+  window.open('https://wa.me/234'+num.replace(/^0/,'')+'?text='+msg,'_blank');
 }
 
 async function changePass(){
