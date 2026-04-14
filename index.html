@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ONYX-MED PHARMACY — StockPilot PRO</title>
+<title>StockPilot Pharmacy — Inventory PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -50,8 +50,6 @@ input,select,textarea{font-family:'Inter',sans-serif}
 .btn-ghost{width:100%;padding:11px;border:1.5px solid #E5E7EB;border-radius:var(--r2);font-size:.87rem;font-weight:600;color:#374151;background:transparent;cursor:pointer;margin-top:10px;transition:all .2s}
 .btn-ghost:hover{background:#F9FAFB}
 .lfoot{text-align:center;margin-top:16px;font-size:.77rem;color:#9CA3AF}
-.pin-btn{background:#F3F4F6;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px;font-size:1.3rem;font-weight:700;color:#111827;cursor:pointer;transition:all .15s;width:100%}
-.pin-btn:active{background:#DBEAFE;border-color:#2563EB;transform:scale(.94)}
 .loading-screen{position:fixed;inset:0;background:#0F1F45;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:16px}
 .loading-screen .spin{width:36px;height:36px;border:3px solid rgba(255,255,255,.2);border-top-color:#2563EB;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -291,28 +289,6 @@ tbody tr:hover{background:var(--bg)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .info-box{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:var(--r2);padding:10px 13px;font-size:.82rem;color:#7C3AED;margin-bottom:12px}
 .allergy-tag{display:inline-block;background:rgba(239,68,68,.1);color:#DC2626;border-radius:99px;padding:2px 9px;font-size:.75rem;font-weight:700;margin:2px}
-.pf-btn{background:#fff;border:1.5px solid #2563EB;color:#2563EB;border-radius:20px;padding:6px 13px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
-.pf-btn:hover,.pf-btn.on{background:#2563EB;color:#fff}
-.pf-info-cell{background:var(--surf);padding:11px 14px}
-.pf-info-cell .pf-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:3px}
-.pf-info-cell .pf-value{font-weight:700;font-size:.9rem;color:var(--navy)}
-.med-entry{background:var(--bg);border-radius:var(--r2);padding:10px 12px;margin-bottom:8px;border-left:3px solid #2563EB}
-.med-entry-meta{font-size:.71rem;color:var(--t3);margin-bottom:4px}
-.med-entry-text{font-size:.87rem;color:var(--t2);white-space:pre-wrap}
-.tl-item{display:flex;gap:12px;margin-bottom:14px;position:relative}
-.tl-dot{width:12px;height:12px;border-radius:50%;background:#2563EB;flex-shrink:0;margin-top:4px;position:relative;z-index:1}
-.tl-line{position:absolute;left:5px;top:16px;bottom:-14px;width:2px;background:var(--bord)}
-.tl-item:last-child .tl-line{display:none}
-.tl-body{flex:1}
-.tl-tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.68rem;font-weight:700;text-transform:uppercase;margin-bottom:4px}
-.tl-tag-vitals{background:#FEE2E2;color:#DC2626}
-.tl-tag-diagnosis{background:#DBEAFE;color:#1D4ED8}
-.tl-tag-prescription{background:#D1FAE5;color:#059669}
-.tl-tag-lab{background:#EDE9FE;color:#7C3AED}
-.tl-tag-labresult{background:#FEF3C7;color:#D97706}
-.tl-tag-notes{background:#F3F4F6;color:#374151}
-.tl-meta{font-size:.71rem;color:var(--t3);margin-bottom:2px}
-.tl-text{font-size:.84rem;color:var(--t2)}
 textarea.fc{resize:vertical;min-height:70px}
 .prog-w{height:5px;background:var(--bg);border-radius:99px;overflow:hidden;margin-top:4px}
 .prog-b{height:100%;border-radius:99px;transition:width .6s ease}
@@ -361,79 +337,77 @@ textarea.fc{resize:vertical;min-height:70px}
 <div class="loading-screen" id="loading">
   <div style="font-size:2rem">💊</div>
   <div class="spin"></div>
-  <p>Connecting to ONYX-MED PHARMACY…</p>
+  <p>Connecting to StockPilot Pharmacy…</p>
 </div>
 
 <!-- LOGIN -->
 <div class="screen screen-bg h" id="lock-screen">
   <div class="lcard">
-    <div class="llogo"><div class="llogo-icon">💊</div><div class="llogo-text">ONYX-MED<span>PHARMACY</span></div></div>
+    <div class="llogo"><div class="llogo-icon">💊</div><div class="llogo-text">StockPilot<span>Pharmacy</span></div></div>
 
-    <!-- STEP 1: Select role -->
-    <div id="login-step1">
-      <div class="ltitle" style="margin-bottom:6px">Welcome</div>
-      <div class="lsub" style="margin-bottom:20px">Who is signing in?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <button onclick="selectRole('admin')" style="padding:20px 10px;border-radius:14px;border:2px solid #2563EB;background:#EFF6FF;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s" onmouseover="this.style.background='#2563EB';this.style.color='#fff'" onmouseout="this.style.background='#EFF6FF';this.style.color=''">
-          <span style="font-size:2rem">👑</span>
-          <span style="font-weight:700;font-size:.9rem">Admin</span>
-        </button>
-        <button onclick="selectRole('staff')" style="padding:20px 10px;border-radius:14px;border:2px solid #10B981;background:#F0FDF4;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s" onmouseover="this.style.background='#10B981';this.style.color='#fff'" onmouseout="this.style.background='#F0FDF4';this.style.color=''">
-          <span style="font-size:2rem">👤</span>
-          <span style="font-weight:700;font-size:.9rem">Staff</span>
-        </button>
-      </div>
-      <div class="lfoot"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10B981;margin-right:5px"></span>ONYX-MED PHARMACY · Secured</div>
+    <!-- Tab switcher -->
+    <div style="display:flex;background:#F3F4F6;border-radius:10px;padding:4px;margin-bottom:20px;gap:4px">
+      <button id="tab-staff" onclick="switchLoginTab('staff')" style="flex:1;padding:9px;border-radius:7px;font-size:.87rem;font-weight:700;border:none;cursor:pointer;background:#fff;color:#2563EB;box-shadow:0 1px 4px rgba(0,0,0,.1);transition:all .2s">Staff Login</button>
+      <button id="tab-admin" onclick="switchLoginTab('admin')" style="flex:1;padding:9px;border-radius:7px;font-size:.87rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:#6B7280;transition:all .2s">Admin PIN</button>
     </div>
 
-    <!-- STEP 2A: Admin PIN -->
-    <div id="login-step-admin" class="h">
-      <div class="ltitle" style="margin-bottom:2px">Admin Login</div>
-      <div class="lsub" style="margin-bottom:14px">Enter your 4-digit PIN</div>
-      <div id="login-err" class="errbox h" style="margin-bottom:10px"></div>
-      <div style="display:flex;justify-content:center;gap:14px;margin:0 0 16px">
-        <div id="pd0" style="width:16px;height:16px;border-radius:50%;background:#E5E7EB;transition:background .15s"></div>
-        <div id="pd1" style="width:16px;height:16px;border-radius:50%;background:#E5E7EB;transition:background .15s"></div>
-        <div id="pd2" style="width:16px;height:16px;border-radius:50%;background:#E5E7EB;transition:background .15s"></div>
-        <div id="pd3" style="width:16px;height:16px;border-radius:50%;background:#E5E7EB;transition:background .15s"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
-        <button class="pin-btn" onclick="pinPress('1')">1</button>
-        <button class="pin-btn" onclick="pinPress('2')">2</button>
-        <button class="pin-btn" onclick="pinPress('3')">3</button>
-        <button class="pin-btn" onclick="pinPress('4')">4</button>
-        <button class="pin-btn" onclick="pinPress('5')">5</button>
-        <button class="pin-btn" onclick="pinPress('6')">6</button>
-        <button class="pin-btn" onclick="pinPress('7')">7</button>
-        <button class="pin-btn" onclick="pinPress('8')">8</button>
-        <button class="pin-btn" onclick="pinPress('9')">9</button>
-        <button class="pin-btn" onclick="pinClear()" style="font-size:.8rem;color:#6B7280">Clear</button>
-        <button class="pin-btn" onclick="pinPress('0')">0</button>
-        <button class="pin-btn" onclick="pinBack()" style="font-size:1.1rem">⌫</button>
-      </div>
-      <button onclick="backToRoleSelect()" style="width:100%;padding:9px;border:none;background:none;color:#6B7280;font-size:.83rem;cursor:pointer">← Back</button>
+    <div class="ltitle" id="login-title">Welcome back</div>
+    <div class="lsub" id="login-sub">Sign in with your staff credentials</div>
+    <div id="login-err" class="errbox h"></div>
+
+    <!-- Staff Login fields -->
+    <div id="staff-fields">
+      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="l-email" placeholder="staff@business.com"/></div>
+      <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" id="l-pass" placeholder="Password"/><span class="pw-eye" onclick="tpw('l-pass')">👁</span></div></div>
     </div>
 
-    <!-- STEP 2B: Staff Login -->
-    <div id="login-step-staff" class="h">
-      <div class="ltitle" style="margin-bottom:2px">Staff Login</div>
-      <div class="lsub" style="margin-bottom:14px">Enter your name and PIN</div>
-      <div id="staff-login-err" class="errbox h" style="margin-bottom:10px"></div>
-      <div class="fg" style="margin-bottom:11px">
-        <label class="fl">Your Name</label>
-        <input class="fi" id="sl-name" placeholder="e.g. Jane Smith" style="width:100%"/>
-      </div>
-      <div class="fg" style="margin-bottom:11px">
-        <label class="fl">Staff PIN (4 digits)</label>
-        <div class="pw-w">
-          <input class="fi" id="sl-pin" type="password" placeholder="••••" maxlength="4" inputmode="numeric" pattern="[0-9]*" style="width:100%;letter-spacing:8px;font-size:1.3rem"/>
-          <span class="pw-eye" onclick="tpw('sl-pin')">👁</span>
-        </div>
-      </div>
-      <button class="btn-pri" onclick="doStaffLogin()" style="margin-bottom:10px">Sign In →</button>
-      <button onclick="backToRoleSelect()" style="width:100%;padding:9px;border:none;background:none;color:#6B7280;font-size:.83rem;cursor:pointer">← Back</button>
+    <!-- Admin PIN fields -->
+    <div id="admin-fields" style="display:none">
+      <div class="fg"><label class="fl">Store ID</label><input class="fi" id="l-storeid" placeholder="e.g. BRIGHT-001"/></div>
+      <div class="fg"><label class="fl">Owner PIN</label><div class="pw-w"><input class="fi" type="password" id="l-pin" placeholder="Enter your PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('l-pin')">👁</span></div></div>
     </div>
 
+    <button class="btn-pri" id="login-btn" onclick="doLogin()">Sign In →</button>
+    <button class="btn-ghost" onclick="switchLoginTab('admin')" id="use-admin-pin-btn" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px">🔑 Use Buyer Admin PIN</button>
+    <div class="lfoot"><span class="pdot"></span>Multi-device sync · <span style="color:#2563EB;font-weight:700;cursor:pointer" onclick="showSuperAdminLogin()">Super Admin</span></div>
+  </div>
+</div>
+
+<!-- SUPER ADMIN PIN PROMPT -->
+<div class="screen screen-bg h" id="superadmin-login-screen">
+  <div class="lcard" style="max-width:380px">
+    <div class="llogo"><div class="llogo-icon">🔑</div><div class="llogo-text">Super<span>Admin</span></div></div>
+    <div class="ltitle">Super Admin Access</div>
+    <div class="lsub">Enter your master PIN</div>
+    <div id="sa-login-err" class="errbox h"></div>
+    <div class="fg"><label class="fl">Master PIN</label><div class="pw-w"><input class="fi" type="password" id="sa-pin-input" placeholder="Master PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('sa-pin-input')">👁</span></div></div>
+    <button class="btn-pri" onclick="doSuperAdminLogin()">Access Panel →</button>
+    <button class="btn-ghost" onclick="show('lock-screen')" style="margin-top:8px">← Back</button>
+  </div>
+</div>
+
+<!-- SUPER ADMIN PANEL -->
+<div class="screen screen-bg h" id="superadmin-screen">
+  <div class="lcard" style="max-width:520px">
+    <div class="llogo"><div class="llogo-icon">🔑</div><div class="llogo-text">Super<span>Admin</span></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="font-size:.97rem;font-weight:800;color:#0F1F45">Buyer Accounts</div>
+      <button class="btn-pri" style="width:auto;padding:8px 14px;font-size:.82rem" onclick="openNewBuyerForm()">+ New Buyer</button>
+    </div>
+    <div id="new-buyer-form" style="background:#F0F4FF;border-radius:12px;padding:16px;margin-bottom:14px;display:none">
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6B7280;margin-bottom:10px">Create Buyer Account</div>
+      <div id="nb-err" class="errbox h"></div>
+      <div class="fg"><label class="fl">Pharmacy / Business Name</label><input class="fi" id="nb-name" placeholder="e.g. Bright Pharmacy"/></div>
+      <div class="fg"><label class="fl">Owner Name</label><input class="fi" id="nb-owner" placeholder="e.g. Ade Johnson"/></div>
+      <div class="fg"><label class="fl">Store ID <span style="font-size:.7rem;color:#9CA3AF">(unique, no spaces)</span></label><input class="fi" id="nb-sid" placeholder="e.g. BRIGHT-001"/></div>
+      <div class="fg"><label class="fl">Owner PIN <span style="font-size:.7rem;color:#9CA3AF">(4-8 digits)</span></label><input class="fi" type="password" id="nb-pin" placeholder="e.g. 1234" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-pri" onclick="createBuyer()">Create Account</button>
+        <button class="btn-ghost" onclick="document.getElementById('new-buyer-form').style.display='none'">Cancel</button>
+      </div>
+    </div>
+    <div id="sa-buyers-list" style="max-height:320px;overflow-y:auto"></div>
+    <button class="btn-ghost" onclick="logoutSuperAdmin()" style="margin-top:12px">🚪 Sign Out</button>
   </div>
 </div>
 
@@ -443,7 +417,7 @@ textarea.fc{resize:vertical;min-height:70px}
 
 <aside class="sb" id="sidebar">
   <div class="sb-head">
-    <div class="sb-brand"><div class="sb-icon">💊</div><div class="sb-name">ONYX<span>MED</span></div></div>
+    <div class="sb-brand"><div class="sb-icon">💊</div><div class="sb-name">StockPilot<span>Rx</span></div></div>
     <button class="sb-x" onclick="closeSB()">✕</button>
   </div>
   <nav class="sb-nav">
@@ -595,15 +569,15 @@ textarea.fc{resize:vertical;min-height:70px}
       <div class="pg-head"><div><h2>Settings</h2></div></div>
       <div class="set-grid">
         <div class="card"><div class="card-head"><h3>🏢 Business</h3></div><div class="card-body">
-          <div class="fg2"><label class="fl">Pharmacy Name</label><input class="fc" id="set-biz" placeholder="ONYX-MED PHARMACY"/></div>
+          <div class="fg2"><label class="fl">Pharmacy Name</label><input class="fc" id="set-biz" placeholder="StockPilot Pharmacy"/></div>
           <div class="fg2"><label class="fl">Currency</label><input class="fc" id="set-cur" placeholder="$" maxlength="3" style="width:70px"/></div>
           <div class="fg2"><label class="fl">Low Stock Threshold</label><input class="fc" type="number" id="set-thr" placeholder="10" style="width:110px"/></div>
           <div class="fg2"><label class="fl">Store Address</label><input class="fc" id="set-addr" placeholder="Address for receipts"/></div>
           <button class="btn btn-b btn-sm" onclick="saveSettings()">Save</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>🔐 Change Password</h3></div><div class="card-body">
-          <div class="fg2"><label class="fl">Current Password</label><input class="fc" type="password" id="s-old"/></div>
-          <div class="fg2"><label class="fl">New Password</label><input class="fc" type="password" id="s-new"/></div>
+          <div class="fg2"><label class="fl">Current Password / PIN</label><input class="fc" type="password" id="s-old"/></div>
+          <div class="fg2"><label class="fl">New Password / PIN</label><input class="fc" type="password" id="s-new"/></div>
           <div class="fg2"><label class="fl">Confirm</label><input class="fc" type="password" id="s-cf"/></div>
           <button class="btn btn-b btn-sm" onclick="changePass()">Update</button>
         </div></div>
@@ -650,19 +624,51 @@ textarea.fc{resize:vertical;min-height:70px}
 </div></div>
 
 <!-- Sale Modal -->
-<div id="sale-modal" class="mo h"><div class="mb mb-sm">
-  <div class="mh"><h3>Record Sale</h3><button class="mx" onclick="closeM('sale-modal')">✕</button></div>
+<div id="sale-modal" class="mo h"><div class="mb" style="max-width:580px">
+  <div class="mh"><h3>🛒 Record Sale</h3><button class="mx" onclick="closeM('sale-modal')">✕</button></div>
   <div class="mbd">
     <div id="sm-err" class="ferr h"></div>
-    <div class="fg2"><label class="fl">Product *</label><select class="fc" id="sm-prod" onchange="onSP()"><option value="">— Select —</option></select></div>
-    <div id="sm-info" class="ibox h"></div>
-    <div class="fg2"><label class="fl">Quantity *</label><input class="fc" type="number" id="sm-qty" placeholder="1" min="1" oninput="updTotal()"/></div>
-    <div class="fg2"><label class="fl">Unit Price</label><input class="fc" type="number" id="sm-price" readonly/></div>
+
+    <!-- Add product row -->
+    <div style="background:var(--bg);border-radius:var(--r2);padding:12px;margin-bottom:12px;border:1px solid var(--bord)">
+      <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:9px">Add Product to Cart</div>
+      <div class="fr" style="grid-template-columns:1fr 1fr;gap:9px">
+        <div style="grid-column:1/-1" class="fg2"><label class="fl">Product *</label><select class="fc" id="sm-prod" onchange="onSP()"><option value="">— Select Product —</option></select></div>
+        <div id="sm-info" class="ibox h" style="grid-column:1/-1;margin-bottom:0"></div>
+        <div class="fg2"><label class="fl">Unit Type</label>
+          <select class="fc" id="sm-unit-type" onchange="onUnitType()">
+            <option value="1">Full Unit (×1)</option>
+            <option value="0.5">Half Pack (×0.5)</option>
+            <option value="0.25">Quarter Pack (×0.25)</option>
+            <option value="custom">Custom fraction…</option>
+          </select>
+        </div>
+        <div class="fg2"><label class="fl">Quantity</label><input class="fc" type="number" id="sm-qty" placeholder="1" min="0.25" step="0.25" oninput="updAddBtn()"/></div>
+        <div class="fg2 h" id="sm-custom-frac-wrap"><label class="fl">Fraction (e.g. 0.5)</label><input class="fc" type="number" id="sm-custom-frac" placeholder="0.5" min="0.01" step="0.01" max="1" oninput="onUnitType()"/></div>
+        <div class="fg2"><label class="fl">Item Discount %</label><input class="fc" type="number" id="sm-item-disc" placeholder="0" min="0" max="100" step="0.5" oninput="updAddBtn()"/></div>
+      </div>
+      <button class="btn btn-b btn-sm" style="margin-top:8px;width:100%" onclick="addCartItem()">+ Add to Cart</button>
+    </div>
+
+    <!-- Cart items -->
+    <div id="sm-cart-wrap" class="h" style="margin-bottom:12px">
+      <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:7px">Cart Items</div>
+      <div id="sm-cart-list"></div>
+    </div>
+
+    <!-- Customer -->
     <div class="fg2"><label class="fl">Customer</label>
       <select class="fc" id="sm-cust-sel" onchange="onCustSel()"><option value="">Walk-in (no record)</option></select>
     </div>
     <div class="fg2 h" id="sm-cust-other-wrap"><label class="fl">Customer Name (walk-in)</label><input class="fc" id="sm-cust" placeholder="Walk-in"/></div>
-    <div class="sale-tot" id="sm-tot"></div>
+
+    <!-- Bill discount -->
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div class="fg2" style="flex:1;margin-bottom:0"><label class="fl">Bill Discount %</label><input class="fc" type="number" id="sm-bill-disc" placeholder="0" min="0" max="100" step="0.5" oninput="updCartTotal()"/></div>
+      <div class="fg2" style="flex:1;margin-bottom:0"><label class="fl">Bill Discount ₦</label><input class="fc" type="number" id="sm-bill-disc-amt" placeholder="0" min="0" step="1" oninput="updCartTotal()"/></div>
+    </div>
+
+    <div class="sale-tot" id="sm-tot" style="margin-top:11px"></div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('sale-modal')">Cancel</button><button class="btn btn-g" onclick="saveSale()">Record Sale ✓</button></div>
 </div></div>
@@ -694,17 +700,15 @@ textarea.fc{resize:vertical;min-height:70px}
     <div id="stm-err" class="ferr h"></div>
     <input type="hidden" id="stm-id"/>
     <div class="fg2"><label class="fl">Full Name *</label><input class="fc" id="stm-name" placeholder="Jane Smith"/></div>
+    <div class="fg2"><label class="fl">Email *</label><input class="fc" type="email" id="stm-email" placeholder="staff@business.com"/></div>
     <div class="fg2"><label class="fl">Role</label>
       <select class="fc" id="stm-role">
+        <option value="admin">👑 Admin (Full Control)</option>
         <option value="pharmacist">💊 Pharmacist</option>
         <option value="cashier">👤 Cashier (Sales Only)</option>
-        <option value="admin">👑 Admin (Full Control)</option>
       </select>
     </div>
-    <div class="fg2"><label class="fl">4-Digit PIN *</label>
-      <input class="fc" id="stm-pin" type="password" placeholder="e.g. 2345" maxlength="4" inputmode="numeric" pattern="[0-9]*"/>
-      <div style="font-size:.72rem;color:var(--t3);margin-top:3px">Staff uses their name + this PIN to log in</div>
-    </div>
+    <div class="fg2"><label class="fl">Password *</label><input class="fc" type="password" id="stm-pass" placeholder="Min 6 characters"/></div>
     <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-phone" placeholder="+234 800 000 0000"/></div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('staff-modal')">Cancel</button><button class="btn btn-b" onclick="saveStaff()">Save</button></div>
@@ -725,151 +729,67 @@ textarea.fc{resize:vertical;min-height:70px}
     <input type="hidden" id="cm-id"/>
     <div class="fr">
       <div class="fu fg2"><label class="fl">Full Name *</label><input class="fc" id="cm-name" placeholder="e.g. Fatima Bello"/></div>
-      <div class="fg2"><label class="fl">Patient ID</label><input class="fc" id="cm-cid" placeholder="Auto-generated" readonly style="background:var(--bg)"/></div>
-      <div class="fg2"><label class="fl">Gender</label>
-        <select class="fc" id="cm-gender">
-          <option value="">Select</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="fg2" style="grid-column:1/-1">
-  <label class="fl">Date of Birth</label>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-    <select class="fc" id="cm-dob-d">
-      <option value="">Day</option>
-      <option value="01">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option><option value="06">6</option><option value="07">7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-    </select>
-    <select class="fc" id="cm-dob-m">
-      <option value="">Month</option>
-      <option value="01">January</option><option value="02">February</option>
-      <option value="03">March</option><option value="04">April</option>
-      <option value="05">May</option><option value="06">June</option>
-      <option value="07">July</option><option value="08">August</option>
-      <option value="09">September</option><option value="10">October</option>
-      <option value="11">November</option><option value="12">December</option>
-    </select>
-    <select class="fc" id="cm-dob-y">
-      <option value="">Year</option>
-      <option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option><option value="1927">1927</option><option value="1926">1926</option><option value="1925">1925</option><option value="1924">1924</option><option value="1923">1923</option><option value="1922">1922</option><option value="1921">1921</option><option value="1920">1920</option>
-    </select>
-  </div>
-</div>
+      <div class="fg2"><label class="fl">Customer ID</label><input class="fc" id="cm-cid" placeholder="Auto-generated" readonly style="background:var(--bg)"/></div>
       <div class="fg2"><label class="fl">Phone / WhatsApp *</label><input class="fc" id="cm-phone" placeholder="+234 800 000 0000"/></div>
       <div class="fg2"><label class="fl">Email (optional)</label><input class="fc" type="email" id="cm-email" placeholder="fatima@email.com"/></div>
-      <div class="fg2"><label class="fl">Emergency Contact</label><input class="fc" id="cm-emergency" placeholder="Phone number"/></div>
-      <div class="fg2"><label class="fl">Occupation (optional)</label><input class="fc" id="cm-occupation" placeholder="e.g. Teacher"/></div>
+      <div class="fg2"><label class="fl">Date of Birth</label><input class="fc" type="date" id="cm-dob"/></div>
       <div class="fu fg2"><label class="fl">Address (optional)</label><input class="fc" id="cm-addr" placeholder="Street, City"/></div>
-      <div class="fu fg2"><label class="fl">Medical History / Allergies</label><textarea class="fc" id="cm-notes" placeholder="e.g. Typhoid, Penicillin allergy, Diabetic…" rows="3"></textarea></div>
+      <div class="fu fg2"><label class="fl">Allergies / Medical Notes</label><textarea class="fc" id="cm-notes" placeholder="e.g. Penicillin allergy, Diabetic, hypertensive…" rows="3"></textarea></div>
     </div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('cust-modal')">Cancel</button><button class="btn btn-b" id="cm-save" onclick="saveCust()">Add Customer</button></div>
 </div></div>
 
-<!-- Customer Detail Modal — Full Patient File -->
-<div id="cust-detail-modal" class="mo h"><div class="mb mb-lg" style="max-width:620px">
-  <div class="mh" style="background:linear-gradient(135deg,#0F1F45,#1E3A8A);border-radius:14px 14px 0 0">
+<!-- Customer Detail Modal -->
+<div id="cust-detail-modal" class="mo h"><div class="mb mb-lg">
+  <div class="mh">
     <div>
-      <h3 id="cdm-name" style="color:#fff;font-size:1.1rem">Patient File</h3>
-      <div id="cdm-id" style="font-size:.71rem;color:rgba(255,255,255,.5);font-family:'JetBrains Mono',monospace;margin-top:2px"></div>
+      <h3 id="cdm-name">Customer Details</h3>
+      <div id="cdm-id" style="font-size:.72rem;color:var(--t4);font-family:'JetBrains Mono',monospace;margin-top:2px"></div>
     </div>
     <div style="display:flex;gap:6px;align-items:center">
-      <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)" onclick="editCurrentCust()">✏️ Edit</button>
-      <button class="mx" style="color:rgba(255,255,255,.6)" onclick="closeM('cust-detail-modal')">✕</button>
+      <button class="btn btn-o btn-sm" id="cdm-edit-btn" onclick="editCurrentCust()">✏️ Edit</button>
+      <button class="mx" onclick="closeM('cust-detail-modal')">✕</button>
     </div>
   </div>
-  <div class="mbd" style="padding:0">
-    <!-- Patient Info Grid -->
-    <div id="cdm-info-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bord);border-bottom:1px solid var(--bord)"></div>
-    <!-- Emergency & Medical History -->
-    <div style="padding:12px 16px;border-bottom:1px solid var(--bord)">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
-        <div><div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:2px">Emergency Contact</div><div style="font-weight:700;font-size:.9rem" id="cdm-emergency">—</div></div>
-        <div><div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:2px">Purchases</div><div style="font-weight:700;font-size:.9rem" id="cdm-purchases">0</div></div>
-      </div>
-      <div id="cdm-allergy-box" class="h" style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:9px 12px;font-size:.83rem;color:#DC2626;font-weight:600">
-        ⚠️ Medical History / Allergies: <span id="cdm-allergy-text"></span>
-      </div>
-    </div>
-    <!-- Action Buttons -->
-    <div style="padding:12px 16px;border-bottom:1px solid var(--bord);background:var(--bg)">
-      <div style="display:flex;flex-wrap:wrap;gap:7px">
-        <button class="pf-btn" onclick="cdTab('vitals',null);openVitalModal()">❤️ Vital Signs</button>
-        <button class="pf-btn" onclick="cdTab('diagnosis',null)">🩺 Diagnosis</button>
-        <button class="pf-btn" onclick="cdTab('prescription',null)">💊 Prescription</button>
-        <button class="pf-btn" onclick="cdTab('lab',null)">🔬 Lab Request</button>
-        <button class="pf-btn" onclick="cdTab('labresult',null)">📋 Lab Result</button>
-        <button class="pf-btn" onclick="cdTab('notes',null)">🩺 Note</button>
-        <button class="pf-btn" onclick="cdTab('history',null)">🛍️ Sales History</button>
-      </div>
-    </div>
-    <!-- Tab Content -->
-    <!-- Vitals Tab -->
-    <div id="cdt-vitals" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">❤️ Vital Signs</div>
-        <button class="btn btn-p btn-sm" onclick="openVitalModal()">+ Add</button>
-      </div>
-      <div class="vs-grid" id="vs-latest-grid" style="margin-bottom:14px"></div>
-      <div class="card" style="margin-bottom:12px"><div class="card-head"><h3>BP Trend</h3></div><div class="card-body"><canvas id="vs-bp-chart" height="120"></canvas></div></div>
-      <div class="card" style="margin-bottom:12px"><div class="card-head"><h3>Blood Sugar Trend</h3></div><div class="card-body"><canvas id="vs-bs-chart" height="120"></canvas></div></div>
-      <div class="tw"><table><thead><tr><th>Date</th><th>Temp</th><th>BP</th><th>Sugar</th><th>Pulse</th><th>Weight/Ht</th><th>SpO2</th><th>Notes</th><th></th></tr></thead><tbody id="vs-tb"></tbody></table></div>
-    </div>
-    <!-- Diagnosis Tab -->
-    <div id="cdt-diagnosis" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">🩺 Diagnosis</div>
-        <button class="btn btn-b btn-sm" onclick="saveMedEntry('diagnosis')">+ Save Entry</button>
-      </div>
-      <textarea class="fc" id="diag-input" placeholder="Enter diagnosis…" rows="4" style="margin-bottom:10px"></textarea>
-      <div id="diag-list"></div>
-    </div>
-    <!-- Prescription Tab -->
-    <div id="cdt-prescription" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">💊 Prescription</div>
-        <button class="btn btn-b btn-sm" onclick="saveMedEntry('prescription')">+ Save Entry</button>
-      </div>
-      <textarea class="fc" id="presc-input" placeholder="Enter prescription details…" rows="4" style="margin-bottom:10px"></textarea>
-      <div id="presc-list"></div>
-    </div>
-    <!-- Lab Request Tab -->
-    <div id="cdt-lab" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">🔬 Lab Request</div>
-        <button class="btn btn-b btn-sm" onclick="saveMedEntry('lab')">+ Save Entry</button>
-      </div>
-      <textarea class="fc" id="lab-input" placeholder="e.g. Full Blood Count, Malaria Test…" rows="4" style="margin-bottom:10px"></textarea>
-      <div id="lab-list"></div>
-    </div>
-    <!-- Lab Result Tab -->
-    <div id="cdt-labresult" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">📋 Lab Result</div>
-        <button class="btn btn-b btn-sm" onclick="saveMedEntry('labresult')">+ Save Entry</button>
-      </div>
-      <textarea class="fc" id="labresult-input" placeholder="Enter lab result details…" rows="4" style="margin-bottom:10px"></textarea>
-      <div id="labresult-list"></div>
-    </div>
-    <!-- Notes Tab -->
-    <div id="cdt-notes" class="h" style="padding:14px 16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-size:.85rem;font-weight:700;color:var(--navy)">🩺 Clinical Notes</div>
-        <button class="btn btn-b btn-sm" onclick="saveMedEntry('notes')">+ Save Entry</button>
-      </div>
-      <textarea class="fc" id="notes-input" placeholder="General clinical notes…" rows="4" style="margin-bottom:10px"></textarea>
-      <div id="notes-list"></div>
+  <div class="mbd" style="padding-top:12px">
+    <!-- Info strip -->
+    <div id="cdm-info" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px"></div>
+    <!-- Allergy box -->
+    <div id="cdm-allergy-box" class="info-box h">⚠️ <span id="cdm-allergy-text"></span></div>
+    <!-- Tabs -->
+    <div class="cust-detail-tabs">
+      <div class="cdt on" onclick="cdTab('history',this)">🛍️ Purchase History</div>
+      <div class="cdt" onclick="cdTab('vitals',this)">❤️ Vital Signs</div>
     </div>
     <!-- History Tab -->
-    <div id="cdt-history" class="h" style="padding:14px 16px">
-      <div style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:10px">🛍️ Purchase History</div>
+    <div id="cdt-history">
       <div class="tw"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Total</th></tr></thead><tbody id="cdm-hist-tb"></tbody></table></div>
     </div>
-    <!-- Medical Timeline -->
-    <div id="cdt-timeline" style="padding:14px 16px;border-top:1px solid var(--bord)">
-      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#2563EB;margin-bottom:10px">📋 Medical Timeline</div>
-      <div id="medical-timeline"></div>
+    <!-- Vitals Tab -->
+    <div id="cdt-vitals" class="h">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <button class="btn btn-p btn-sm" onclick="openVitalModal()">+ Add Vital Signs</button>
+      </div>
+      <!-- Latest snapshot -->
+      <div class="vs-section">
+        <h4>Latest Reading</h4>
+        <div class="vs-grid" id="vs-latest-grid"></div>
+      </div>
+      <!-- History chart -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-head"><h3>📊 Blood Pressure Trend</h3></div>
+        <div class="card-body"><canvas id="vs-bp-chart" height="140"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-head"><h3>📊 Blood Sugar Trend</h3></div>
+        <div class="card-body"><canvas id="vs-bs-chart" height="140"></canvas></div>
+      </div>
+      <!-- Full table -->
+      <div class="card">
+        <div class="card-head"><h3>All Records</h3></div>
+        <div class="tw"><table><thead><tr><th>Date</th><th>Temp</th><th>BP</th><th>Sugar</th><th>Pulse</th><th>Weight</th><th>Other</th><th></th></tr></thead><tbody id="vs-tb"></tbody></table></div>
+      </div>
     </div>
   </div>
 </div></div>
@@ -888,7 +808,6 @@ textarea.fc{resize:vertical;min-height:70px}
       <div class="fg2"><label class="fl">Pulse / Heart Rate (bpm)</label><input class="fc" type="number" id="vm-pulse" placeholder="72" min="0"/></div>
       <div class="fg2"><label class="fl">Weight (kg)</label><input class="fc" type="number" id="vm-weight" placeholder="70.0" step="0.1" min="0"/></div>
       <div class="fg2"><label class="fl">Height (cm) — for BMI</label><input class="fc" type="number" id="vm-height" placeholder="170" min="0"/></div>
-      <div class="fg2"><label class="fl">SpO₂ / Oxygen (%)</label><input class="fc" type="number" id="vm-spo2" placeholder="98" min="0" max="100"/></div>
       <div class="fu fg2"><label class="fl">Other Lab Results / Notes</label><textarea class="fc" id="vm-other" placeholder="e.g. Cholesterol: 190 mg/dL, HbA1c: 5.7%" rows="2"></textarea></div>
     </div>
     <div id="vm-bmi-display" class="ibox h"></div>
@@ -906,10 +825,10 @@ textarea.fc{resize:vertical;min-height:70px}
 <script>
 'use strict';
 // ══════════════════════════════════════════════════
-//  ONXY PHARMACY — Single-User StockPilot PRO
+//  STOCKPILOT PHARMACY — Inventory PRO
 // ══════════════════════════════════════════════════
 
-// ── FIREBASE CONFIG (ONYX-MED PHARMACY) ───────────────
+// ── FIREBASE CONFIG (StockPilot Pharmacy) ───────────────
 const FB = {
   apiKey: "AIzaSyA4U7R2EtEhWRXsLhFCrrbOM1FJ_tui3iM",
   authDomain: "onxy-pharmacy.firebaseapp.com",
@@ -922,11 +841,11 @@ firebase.initializeApp(FB);
 const db   = firebase.firestore();
 const auth = firebase.auth();
 
-// Enable offline persistence (caches data locally so app works on flaky connections)
-db.enablePersistence({ synchronizeTabs: false }).catch(e => console.warn('Persistence:', e.code));
+// ── MULTI-USER CONFIG ────────────────────────────
+// SUPER ADMIN PIN — only you know this
+const SUPER_ADMIN_PIN = '1990';
 
-// ── SINGLE STORE ID (fixed for this pharmacy) ────
-const STORE_ID = 'onxy-main';
+let STORE_ID = null; // set dynamically after login
 
 // ── APP STATE ─────────────────────────────────────
 let ME      = null;
@@ -934,28 +853,29 @@ let PRODS   = [];
 let SALES   = [];
 let NOTIFS  = [];
 let STAFF   = [];
-let CUSTS   = [];          // customers
+let CUSTS   = [];
+let CART    = [];
 let UNSUBS  = [];
 let DEL_TGT = null;
 let RPT_MODE = 'daily';
 let DARK    = localStorage.getItem('sp_dark')==='1';
-let CURRENT_CUST_ID = null;  // customer being viewed
-let VITALS_CACHE = {};       // { custId: [vitals] }
+let CURRENT_CUST_ID = null;
+let VITALS_CACHE = {};
 let VS_BP_CHART = null, VS_BS_CHART = null;
-let CFG = { bizName:'ONYX-MED PHARMACY', currency:'₦', threshold:10, address:'' };
+let CFG = { bizName:'StockPilot Pharmacy', currency:'\u20a6', threshold:10, address:'' };
 
-const EMOJI = {Medicine:'💊',Supplements:'💪',Hygiene:'🧴',Dairy:'🥛',Bakery:'🍞',Beverages:'🥤',Snacks:'🍿',Household:'🏠',Electronics:'⚡',Clothing:'👕',Cosmetics:'💄',General:'📦'};
+const EMOJI = {Medicine:'\ud83d\udc8a',Supplements:'\ud83d\udcaa',Hygiene:'\ud83e\uddf4',Dairy:'\ud83e\udd5b',Bakery:'\ud83c\udf5e',Beverages:'\ud83e\udd64',Snacks:'\ud83c\udf7f',Household:'\ud83c\udfe0',Electronics:'\u26a1',Clothing:'\ud83d\udc55',Cosmetics:'\ud83d\udc84',General:'\ud83d\udce6'};
 const COLORS = ['#2563EB','#7C3AED','#059669','#DC2626','#D97706','#0891B2','#EC4899'];
 
 // ── HELPERS ───────────────────────────────────────
 const g    = id => document.getElementById(id);
 const esc  = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const fmt  = v  => (CFG.currency||'₦')+parseFloat(v||0).toFixed(2);
-const fmtDT= d  => { try{ return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch{return'—';} };
+const fmt  = v  => (CFG.currency||'\u20a6')+parseFloat(v||0).toFixed(2);
+const fmtDT= d  => { try{ return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch{return'\u2014';} };
 const fmtD = d  => { try{ const dt=new Date(d); return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`; }catch{return'';} };
-const fmtAge = dob => { if(!dob) return '—'; const d=new Date(dob), now=new Date(); let a=now.getFullYear()-d.getFullYear(); const m=now.getMonth()-d.getMonth(); if(m<0||(m===0&&now.getDate()<d.getDate()))a--; return a+'y'; };
-function show(id){ ['lock-screen','app'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
-function toast(msg,t='i'){ const el=document.createElement('div'); el.className='toast '+t; el.textContent={'s':'✅ ','e':'❌ ','i':'ℹ️ ','w':'⚠️ '}[t]+msg; g('toast-w').appendChild(el); setTimeout(()=>{el.classList.add('tout');setTimeout(()=>el.remove(),300);},3200); }
+const fmtAge = dob => { if(!dob) return '\u2014'; const d=new Date(dob), now=new Date(); let a=now.getFullYear()-d.getFullYear(); const m=now.getMonth()-d.getMonth(); if(m<0||(m===0&&now.getDate()<d.getDate()))a--; return a+'y'; };
+function show(id){ ['lock-screen','app','superadmin-screen','superadmin-login-screen'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
+function toast(msg,t='i'){ const el=document.createElement('div'); el.className='toast '+t; el.textContent={'s':'\u2705 ','e':'\u274c ','i':'\u2139\ufe0f ','w':'\u26a0\ufe0f '}[t]+msg; g('toast-w').appendChild(el); setTimeout(()=>{el.classList.add('tout');setTimeout(()=>el.remove(),300);},3200); }
 function ferr(id,msg){ const e=g(id); if(e){e.textContent=msg;e.classList.remove('h');} }
 function tpw(id){ const e=g(id); if(e) e.type=e.type==='password'?'text':'password'; }
 function openM(id){ g(id)?.classList.remove('h'); document.body.style.overflow='hidden'; }
@@ -963,124 +883,178 @@ function closeM(id){ g(id)?.classList.add('h'); document.body.style.overflow='';
 function genCustId(){ return 'PT-'+String(CUSTS.length+1).padStart(4,'0')+'-'+Math.random().toString(36).substr(2,3).toUpperCase(); }
 
 // ── DARK MODE ─────────────────────────────────────
-function applyDark(){ document.documentElement.toggleAttribute('data-dark',DARK); const b=g('dark-btn'); if(b) b.textContent=DARK?'☀️ Light':'🌙 Dark'; }
+function applyDark(){ document.documentElement.toggleAttribute('data-dark',DARK); const b=g('dark-btn'); if(b) b.textContent=DARK?'\u2600\ufe0f Light':'\ud83c\udf19 Dark'; }
 function toggleDark(){ DARK=!DARK; localStorage.setItem('sp_dark',DARK?'1':'0'); applyDark(); }
 applyDark();
 
 // ── INIT ──────────────────────────────────────────
 async function initApp(){
-  // Use a timeout so the loading screen never hangs on slow/offline connections
-  const timeout = new Promise(res => setTimeout(res, 4000));
-  const fetchCfg = db.collection('store').doc(STORE_ID).get()
-    .then(doc => { if(doc.exists){ const d=doc.data(); CFG={bizName:d.name||'ONYX-MED PHARMACY',currency:d.currency||'₦',threshold:d.threshold||10,address:d.address||''}; } })
-    .catch(e => console.warn('Config load (offline?):', e.message));
-  await Promise.race([fetchCfg, timeout]);
   g('loading').classList.add('h');
   show('lock-screen');
+  switchLoginTab('staff');
 }
 initApp();
 
-// ── LOGIN FLOW ─────────────────────────────────────
-const ADMIN_PIN = '1990';
-let pinEntry = '';
-let currentLoginRole = '';
-
-function selectRole(role){
-  currentLoginRole = role;
-  g('login-step1').classList.add('h');
-  if(role === 'admin'){
-    g('login-step-admin').classList.remove('h');
-    g('login-step-staff').classList.add('h');
-    pinClear();
+// ── LOGIN TAB SWITCHER ────────────────────────────
+function switchLoginTab(tab){
+  const isStaff = tab === 'staff';
+  g('staff-fields').style.display = isStaff ? '' : 'none';
+  g('admin-fields').style.display = isStaff ? 'none' : '';
+  g('use-admin-pin-btn').style.display = isStaff ? '' : 'none';
+  g('login-title').textContent = isStaff ? 'Welcome back' : 'Buyer Admin Login';
+  g('login-sub').textContent = isStaff ? 'Sign in with your staff credentials' : 'Enter your Store ID and PIN';
+  // Tab button styles
+  const tStaff = g('tab-staff'), tAdmin = g('tab-admin');
+  if(isStaff){
+    tStaff.style.background='#fff'; tStaff.style.color='#2563EB'; tStaff.style.boxShadow='0 1px 4px rgba(0,0,0,.1)';
+    tAdmin.style.background='transparent'; tAdmin.style.color='#6B7280'; tAdmin.style.boxShadow='none';
   } else {
-    g('login-step-staff').classList.remove('h');
-    g('login-step-admin').classList.add('h');
-    g('sl-name').value=''; g('sl-pin').value='';
-    g('staff-login-err').classList.add('h');
-    setTimeout(()=>g('sl-name').focus(),100);
+    tAdmin.style.background='#fff'; tAdmin.style.color='#2563EB'; tAdmin.style.boxShadow='0 1px 4px rgba(0,0,0,.1)';
+    tStaff.style.background='transparent'; tStaff.style.color='#6B7280'; tStaff.style.boxShadow='none';
   }
-}
-
-function backToRoleSelect(){
-  g('login-step1').classList.remove('h');
-  g('login-step-admin').classList.add('h');
-  g('login-step-staff').classList.add('h');
-  g('login-err').classList.add('h');
-  pinClear();
-}
-
-function pinPress(d){
-  if(pinEntry.length >= 4) return;
-  pinEntry += d;
-  updatePinDots();
-  if(pinEntry.length === 4) setTimeout(checkAdminPin, 150);
-}
-function pinBack(){
-  pinEntry = pinEntry.slice(0,-1);
-  updatePinDots();
   g('login-err').classList.add('h');
 }
-function pinClear(){
-  pinEntry = '';
-  updatePinDots();
-  const e=g('login-err'); if(e) e.classList.add('h');
+
+function showSuperAdminLogin(){
+  show('superadmin-login-screen');
+  if(g('sa-pin-input')) g('sa-pin-input').value='';
+  if(g('sa-login-err')) g('sa-login-err').classList.add('h');
 }
-function updatePinDots(){
-  for(let i=0;i<4;i++){
-    const d=g('pd'+i);
-    if(d) d.style.background = i < pinEntry.length ? '#2563EB' : '#E5E7EB';
-  }
-}
-function checkAdminPin(){
-  if(pinEntry === ADMIN_PIN){
-    ME={id:'admin',name:'Admin',role:'admin',email:'admin@onyxmedpharmacy.com'};
-    show('app'); setupApp();
+
+function doSuperAdminLogin(){
+  const pin = g('sa-pin-input').value.trim();
+  if(pin === SUPER_ADMIN_PIN){
+    show('superadmin-screen');
+    loadBuyersList();
   } else {
-    ferr('login-err','Wrong PIN. Try again.');
-    const dots = document.querySelectorAll('[id^="pd"]');
-    dots.forEach(d=>{ d.style.background='#EF4444'; });
-    setTimeout(()=>{ pinClear(); },600);
+    ferr('sa-login-err','Wrong master PIN.');
   }
 }
 
-async function doStaffLogin(){
-  const name = g('sl-name').value.trim();
-  const pin = g('sl-pin').value.trim();
-  if(!name) return ferr('staff-login-err','Enter your name.');
-  if(!pin || pin.length < 4) return ferr('staff-login-err','Enter your 4-digit PIN.');
-  // Search staff by name (case-insensitive) and pin
-  try {
-    const snap = await db.collection('store').doc(STORE_ID).collection('staff').get();
-    const match = snap.docs.find(d=>{
-      const s=d.data();
-      return s.name.toLowerCase()===name.toLowerCase() && s.pin===pin;
+// ── SUPER ADMIN FUNCTIONS ─────────────────────────
+async function loadBuyersList(){
+  try{
+    const snap = await db.collection('buyers').get();
+    const list = snap.docs.map(d=>({id:d.id,...d.data()}));
+    const el = g('sa-buyers-list');
+    if(!list.length){ el.innerHTML='<div style="text-align:center;padding:22px;color:#9CA3AF;font-size:.84rem">No buyer accounts yet. Create one above.</div>'; return; }
+    el.innerHTML = list.map(b=>`
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:13px 15px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+        <div style="flex:1">
+          <div style="font-weight:700;color:#0F1F45;font-size:.9rem">${esc(b.bizName||b.id)}</div>
+          <div style="color:#6B7280;font-size:.76rem;margin-top:2px">Owner: ${esc(b.ownerName||'—')} &nbsp;|&nbsp; Store ID: <b>${esc(b.id)}</b></div>
+          <div style="color:#10B981;font-size:.73rem;margin-top:1px">PIN: ${esc(b.pin||'—')}</div>
+        </div>
+        <button onclick="deleteBuyer('${b.id}','${esc(b.bizName||b.id)}')" style="background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;padding:5px 10px;border-radius:7px;font-size:.76rem;font-weight:700;cursor:pointer">Delete</button>
+      </div>`).join('');
+  }catch(e){ console.warn(e); }
+}
+
+function openNewBuyerForm(){
+  const f=g('new-buyer-form'); f.style.display='block';
+  ['nb-name','nb-owner','nb-sid','nb-pin'].forEach(id=>{const el=g(id);if(el)el.value='';});
+  g('nb-err').classList.add('h');
+}
+
+async function createBuyer(){
+  const bizName=g('nb-name').value.trim();
+  const ownerName=g('nb-owner').value.trim();
+  const sid=g('nb-sid').value.trim().toUpperCase().replace(/\s+/g,'-');
+  const pin=g('nb-pin').value.trim();
+  if(!bizName) return ferr('nb-err','Pharmacy name required.');
+  if(!sid) return ferr('nb-err','Store ID required.');
+  if(!pin||pin.length<4) return ferr('nb-err','PIN must be at least 4 digits.');
+  try{
+    const existing = await db.collection('buyers').doc(sid).get();
+    if(existing.exists) return ferr('nb-err','Store ID already exists. Choose another.');
+    await db.collection('buyers').doc(sid).set({
+      bizName, ownerName, pin,
+      currency:'\u20a6', threshold:10, address:'',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-    if(match){
-      const s=match.data();
-      ME={id:match.id, name:s.name, role:s.role||'staff', email:''};
-      show('app'); setupApp();
-    } else {
-      ferr('staff-login-err','Name or PIN incorrect.');
-      g('sl-pin').value='';
-    }
-  } catch(e){
-    ferr('staff-login-err','Cannot connect. Check internet.');
-  }
+    // seed the store doc
+    await db.collection('store').doc(sid).set({
+      name:bizName, currency:'\u20a6', threshold:10, address:'',
+      ownerPin:pin, ownerName, storeId:sid
+    });
+    g('new-buyer-form').style.display='none';
+    toast('Buyer account created!','s');
+    loadBuyersList();
+  }catch(e){ ferr('nb-err','Failed: '+e.message); }
 }
 
-// Keyboard support for admin PIN
-document.addEventListener('keydown', e=>{
-  if(g('lock-screen').classList.contains('h')) return;
-  if(!g('login-step-admin').classList.contains('h')){
-    if(e.key>='0'&&e.key<='9') pinPress(e.key);
-    if(e.key==='Backspace') pinBack();
-    if(e.key==='Escape') backToRoleSelect();
+async function deleteBuyer(sid, name){
+  if(!confirm('Delete buyer "'+name+'"? This only removes their account record, not their store data.')) return;
+  try{
+    await db.collection('buyers').doc(sid).delete();
+    toast('Buyer deleted','s');
+    loadBuyersList();
+  }catch(e){ toast('Failed: '+e.message,'e'); }
+}
+
+function logoutSuperAdmin(){
+  show('lock-screen');
+  switchLoginTab('staff');
+  if(g('l-storeid')) g('l-storeid').value='';
+  if(g('l-pin')) g('l-pin').value='';
+  if(g('l-email')) g('l-email').value='';
+  if(g('l-pass')) g('l-pass').value='';
+  g('login-err').classList.add('h');
+}
+
+// ── LOGIN ─────────────────────────────────────────
+async function doLogin(){
+  // Detect which tab is active
+  const adminTabActive = g('admin-fields').style.display !== 'none';
+  g('login-btn').innerHTML='<div style="width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></div>';
+  g('login-btn').disabled=true;
+  try{
+    if(!adminTabActive){
+      // ── STAFF LOGIN (email + password) ──────────
+      const email = (g('l-email').value||'').trim().toLowerCase();
+      const pass  = (g('l-pass').value||'');
+      if(!email||!pass) return ferr('login-err','Fill in all fields.');
+      // Staff must belong to a store — search all staff across buyers
+      // We require staff to have a storeId saved when created
+      const staffSnap = await db.collectionGroup('staff').where('email','==',email).get();
+      if(!staffSnap.empty){
+        const staffDoc = staffSnap.docs[0];
+        const su = staffDoc.data();
+        if(su.password !== pass) return ferr('login-err','Wrong password.');
+        const storeId = su.storeId;
+        if(!storeId) return ferr('login-err','Account has no store assigned. Contact your admin.');
+        const storeDoc = await db.collection('store').doc(storeId).get();
+        if(storeDoc.exists){ const d=storeDoc.data(); CFG={bizName:d.name||'StockPilot Pharmacy',currency:d.currency||'\u20a6',threshold:d.threshold||10,address:d.address||''}; }
+        STORE_ID = storeId;
+        ME = { id:staffDoc.id, name:su.name, role:su.role||'cashier', email, storeId };
+        show('app'); setupApp(); return;
+      }
+      return ferr('login-err','Email not found or wrong password.');
+    } else {
+      // ── ADMIN PIN LOGIN (buyer owner) ───────────
+      const storeId = (g('l-storeid').value||'').trim().toUpperCase();
+      const pin     = (g('l-pin').value||'').trim();
+      if(!storeId) return ferr('login-err','Enter your Store ID.');
+      if(!pin) return ferr('login-err','Enter your PIN.');
+      const buyerDoc = await db.collection('buyers').doc(storeId).get();
+      if(buyerDoc.exists){
+        const bd = buyerDoc.data();
+        if(bd.pin === pin){
+          STORE_ID = storeId;
+          CFG = { bizName:bd.bizName||'StockPilot Pharmacy', currency:bd.currency||'\u20a6', threshold:bd.threshold||10, address:bd.address||'' };
+          ME = { id:'owner', name:bd.ownerName||'Owner', role:'admin', storeId };
+          show('app'); setupApp(); return;
+        }
+      }
+      return ferr('login-err','Wrong Store ID or PIN.');
+    }
+  }catch(e){
+    ferr('login-err', e.message||'Login failed.');
+  }finally{
+    g('login-btn').innerHTML='Sign In \u2192';
+    g('login-btn').disabled=false;
   }
-  if(!g('login-step-staff').classList.contains('h')){
-    if(e.key==='Enter') doStaffLogin();
-    if(e.key==='Escape') backToRoleSelect();
-  }
-});
+}
 
 // ── SETUP APP ─────────────────────────────────────
 function setupApp(){
@@ -1154,10 +1128,15 @@ function closeSB(){ g('sidebar').classList.remove('open'); g('sb-ovl').classList
 // ── LOGOUT ────────────────────────────────────────
 function logout(){
   UNSUBS.forEach(fn=>fn&&fn()); UNSUBS=[];
-  ME=null; PRODS=[]; SALES=[]; NOTIFS=[]; STAFF=[]; CUSTS=[];
-  pinClear();
+  ME=null; PRODS=[]; SALES=[]; NOTIFS=[]; STAFF=[]; CUSTS=[]; CART=[];
+  STORE_ID=null;
+  if(g('l-storeid')) g('l-storeid').value='';
+  if(g('l-pin')) g('l-pin').value='';
+  if(g('l-email')) g('l-email').value='';
+  if(g('l-pass')) g('l-pass').value='';
   g('login-err').classList.add('h');
   show('lock-screen');
+  switchLoginTab('staff');
 }
 
 // ── BADGES ────────────────────────────────────────
@@ -1283,60 +1262,241 @@ function checkLowStock(){
 // ── SALES ─────────────────────────────────────────
 function renderSales(){
   const q=(g('ss')?.value||'').toLowerCase(), date=g('sd')?.value||'';
-  const list=SALES.filter(s=>(!q||(s.productName+' '+(s.customerName||s.customer||'')).toLowerCase().includes(q))&&(!date||fmtD(s.timestamp)===date));
+  const list=SALES.filter(s=>(!q||(s.productName+' '+(s.customerName||s.customer||'')+' '+(s.items?.map(i=>i.productName).join(' ')||'')).toLowerCase().includes(q))&&(!date||fmtD(s.timestamp)===date));
   g('sales-sub').textContent=list.length+' transactions';
   const tb=g('sales-tb');
   tb.innerHTML=list.length?list.map((s,i)=>`<tr><td style="color:var(--t4);font-size:.77rem">${list.length-i}</td><td class="td-n">${esc(s.productName)}</td><td class="td-m">${s.quantity}</td><td class="td-m">${fmt(s.unitPrice)}</td><td class="td-m td-gr">${fmt(s.total)}</td><td style="font-size:.81rem">${esc(s.customerName||s.customer||'Walk-in')}</td><td style="color:var(--t4);font-size:.77rem">${fmtDT(s.timestamp)}</td><td><button class="btn btn-o btn-sm" style="font-size:.74rem" onclick="showRcpt('${s.id}')">🧾</button></td></tr>`).join('')
   :'<tr><td colspan="8"><div class="empty"><div class="empty-icon">💳</div><div class="empty-sub">No sales yet</div></div></td></tr>';
 }
 
+// ── CART STATE ────────────────────────────────────
+
 function openSaleModal(){
-  g('sm-err').classList.add('h'); g('sm-tot').textContent=''; g('sm-qty').value='1'; g('sm-price').value='';
+  CART = [];
+  g('sm-err').classList.add('h');
+  g('sm-tot').textContent='';
+  g('sm-qty').value='1';
+  g('sm-item-disc').value='';
+  g('sm-bill-disc').value='';
+  g('sm-bill-disc-amt').value='';
+  g('sm-unit-type').value='1';
+  g('sm-custom-frac-wrap').classList.add('h');
+  g('sm-cart-wrap').classList.add('h');
+  g('sm-cart-list').innerHTML='';
   const sel=g('sm-prod');
-  sel.innerHTML='<option value="">— Select —</option>'+PRODS.filter(p=>p.quantity>0).map(p=>`<option value="${p.id}" data-p="${p.price}" data-q="${p.quantity}">${esc(p.name)} (${p.quantity} in stock)</option>`).join('');
+  sel.innerHTML='<option value="">— Select Product —</option>'+PRODS.filter(p=>p.quantity>0).map(p=>`<option value="${p.id}" data-p="${p.price}" data-q="${p.quantity}" data-n="${esc(p.name)}">${esc(p.name)} (${p.quantity} in stock)</option>`).join('');
   const cs=g('sm-cust-sel');
   cs.innerHTML='<option value="">Walk-in (no record)</option>'+CUSTS.map(c=>`<option value="${c.id}">${esc(c.name)} · ${esc(c.phone)}</option>`).join('');
   g('sm-cust-other-wrap').classList.remove('h'); g('sm-cust').value='';
+  g('sm-info').classList.add('h');
   openM('sale-modal');
 }
+
 function onCustSel(){ const v=g('sm-cust-sel').value; g('sm-cust-other-wrap').classList.toggle('h',!!v); }
-function onSP(){ const sel=g('sm-prod'),opt=sel.options[sel.selectedIndex]; if(!opt.value){g('sm-info').classList.add('h');g('sm-price').value='';g('sm-tot').textContent='';return;} const price=parseFloat(opt.dataset.p),qty=parseInt(opt.dataset.q); g('sm-price').value=price.toFixed(2); g('sm-qty').max=qty; g('sm-info').textContent=qty+' in stock · '+fmt(price)+' each'; g('sm-info').classList.remove('h'); updTotal(); }
-function updTotal(){ const q=parseInt(g('sm-qty').value)||0,p=parseFloat(g('sm-price').value)||0; g('sm-tot').textContent=q>0&&p>0?'Total: '+fmt(q*p):''; }
+
+function onSP(){
+  const sel=g('sm-prod'), opt=sel.options[sel.selectedIndex];
+  if(!opt?.value){ g('sm-info').classList.add('h'); return; }
+  const price=parseFloat(opt.dataset.p), qty=parseInt(opt.dataset.q);
+  g('sm-info').textContent=qty+' in stock · '+fmt(price)+' each';
+  g('sm-info').classList.remove('h');
+  g('sm-qty').value='1';
+  g('sm-unit-type').value='1';
+  g('sm-custom-frac-wrap').classList.add('h');
+  updAddBtn();
+}
+
+function onUnitType(){
+  const v=g('sm-unit-type').value;
+  const isCustom=v==='custom';
+  g('sm-custom-frac-wrap').classList.toggle('h',!isCustom);
+  if(!isCustom) updAddBtn();
+}
+
+function updAddBtn(){
+  // just recalc display, no total needed until added to cart
+}
+
+function getEffectiveFraction(){
+  const v=g('sm-unit-type').value;
+  if(v==='custom'){
+    const f=parseFloat(g('sm-custom-frac').value);
+    return isNaN(f)||f<=0?1:Math.min(f,1);
+  }
+  return parseFloat(v)||1;
+}
+
+function addCartItem(){
+  const sel=g('sm-prod'), opt=sel.options[sel.selectedIndex];
+  if(!opt?.value) return ferr('sm-err','Select a product first.');
+  const pid=opt.value, pname=opt.dataset.n, price=parseFloat(opt.dataset.p), stockQty=parseInt(opt.dataset.q);
+  const qty=parseFloat(g('sm-qty').value)||1;
+  const fraction=getEffectiveFraction();
+  const effectiveQty=qty*fraction; // actual units deducted
+  const discPct=parseFloat(g('sm-item-disc').value)||0;
+
+  // Check cart doesn't exceed stock
+  const alreadyInCart=CART.filter(c=>c.productId===pid).reduce((a,c)=>a+c.effectiveQty,0);
+  if(alreadyInCart+effectiveQty>stockQty) return ferr('sm-err','Not enough stock. Only '+stockQty+' available ('+alreadyInCart+' already in cart).');
+
+  const linePrice=price*effectiveQty;
+  const lineDisc=linePrice*(discPct/100);
+  const lineTotal=linePrice-lineDisc;
+
+  const unitLabel = fraction===1?'unit':fraction===0.5?'half':fraction===0.25?'quarter':'×'+fraction;
+
+  CART.push({productId:pid,productName:pname,unitPrice:price,qty,fraction,effectiveQty,discPct,lineTotal,unitLabel});
+  g('sm-err').classList.add('h');
+  renderCart();
+
+  // reset product selector
+  g('sm-prod').value='';
+  g('sm-info').classList.add('h');
+  g('sm-qty').value='1';
+  g('sm-item-disc').value='';
+  g('sm-unit-type').value='1';
+  g('sm-custom-frac-wrap').classList.add('h');
+}
+
+function removeCartItem(idx){
+  CART.splice(idx,1);
+  renderCart();
+}
+
+function renderCart(){
+  const wrap=g('sm-cart-wrap'), list=g('sm-cart-list');
+  if(!CART.length){ wrap.classList.add('h'); g('sm-tot').textContent=''; return; }
+  wrap.classList.remove('h');
+  list.innerHTML=CART.map((item,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surf);border:1px solid var(--bord);border-radius:var(--r2);margin-bottom:6px;font-size:.83rem">
+      <div style="flex:1">
+        <div style="font-weight:700;color:var(--navy)">${esc(item.productName)}</div>
+        <div style="color:var(--t3);font-size:.75rem">${item.qty} ${item.unitLabel} × ${fmt(item.unitPrice)}${item.discPct>0?' <span style="color:#DC2626">-'+item.discPct+'%</span>':''}</div>
+      </div>
+      <div style="font-weight:800;color:#059669;font-family:'JetBrains Mono',monospace">${fmt(item.lineTotal)}</div>
+      <button class="btn btn-r btn-sm" style="padding:4px 8px;font-size:.72rem" onclick="removeCartItem(${i})">✕</button>
+    </div>
+  `).join('');
+  updCartTotal();
+}
+
+function updCartTotal(){
+  if(!CART.length){ g('sm-tot').textContent=''; return; }
+  const subtotal=CART.reduce((a,c)=>a+c.lineTotal,0);
+  const billDiscPct=parseFloat(g('sm-bill-disc').value)||0;
+  const billDiscAmt=parseFloat(g('sm-bill-disc-amt').value)||0;
+  const discFromPct=subtotal*(billDiscPct/100);
+  const totalDisc=discFromPct+billDiscAmt;
+  const finalTotal=Math.max(0,subtotal-totalDisc);
+
+  let html=`<div style="display:flex;justify-content:space-between;font-size:.83rem;color:var(--t3);margin-bottom:3px"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>`;
+  if(totalDisc>0) html+=`<div style="display:flex;justify-content:space-between;font-size:.83rem;color:#DC2626;margin-bottom:3px"><span>Discount</span><span>-${fmt(totalDisc)}</span></div>`;
+  html+=`<div style="display:flex;justify-content:space-between;font-size:1.1rem;font-weight:800;color:#059669;font-family:'JetBrains Mono',monospace;border-top:1px solid var(--bord);padding-top:6px;margin-top:4px"><span>Total</span><span>${fmt(finalTotal)}</span></div>`;
+  g('sm-tot').innerHTML=html;
+}
+
+// kept for old references (stock modal etc)
+function updTotal(){ updCartTotal(); }
 
 async function saveSale(){
-  const pid=g('sm-prod').value, qty=parseInt(g('sm-qty').value), price=parseFloat(g('sm-price').value);
+  if(!CART.length) return ferr('sm-err','Add at least one product to the cart.');
   const custId=g('sm-cust-sel').value, custWalkin=g('sm-cust').value.trim();
-  if(!pid) return ferr('sm-err','Select a product.');
-  if(!qty||qty<1) return ferr('sm-err','Enter valid quantity.');
-  const prod=PRODS.find(p=>p.id===pid); if(!prod) return ferr('sm-err','Product not found.');
-  if(qty>prod.quantity) return ferr('sm-err','Only '+prod.quantity+' available.');
   let customerName='', customerIdRef='';
   if(custId){ const c=CUSTS.find(x=>x.id===custId); customerName=c?.name||''; customerIdRef=custId; }
   else{ customerName=custWalkin||'Walk-in'; }
+
+  const subtotal=CART.reduce((a,c)=>a+c.lineTotal,0);
+  const billDiscPct=parseFloat(g('sm-bill-disc').value)||0;
+  const billDiscAmt=parseFloat(g('sm-bill-disc-amt').value)||0;
+  const discFromPct=subtotal*(billDiscPct/100);
+  const totalDisc=discFromPct+billDiscAmt;
+  const finalTotal=Math.max(0,subtotal-totalDisc);
+
+  // Validate stock for all items
+  for(const item of CART){
+    const prod=PRODS.find(p=>p.id===item.productId);
+    if(!prod) return ferr('sm-err','Product "'+item.productName+'" not found.');
+    if(item.effectiveQty>prod.quantity) return ferr('sm-err','Not enough stock for "'+item.productName+'". Only '+prod.quantity+' left.');
+  }
+
   try{
     const batch=db.batch();
     const base=db.collection('store').doc(STORE_ID);
+
+    // Use first item as summary for backward compat display
+    const firstItem=CART[0];
     const saleRef=base.collection('sales').doc();
-    const saleData={productId:pid,productName:prod.name,category:prod.category||'',quantity:qty,unitPrice:price,total:qty*price,cashier:ME.name||'Staff',customer:customerName,customerName,customerId:customerIdRef,timestamp:firebase.firestore.FieldValue.serverTimestamp()};
+    const saleData={
+      // summary fields (backward compat)
+      productId:firstItem.productId,
+      productName:CART.length>1?CART.map(i=>i.productName).join(', '):firstItem.productName,
+      category:'',
+      quantity:CART.reduce((a,c)=>a+c.effectiveQty,0),
+      unitPrice:firstItem.unitPrice,
+      total:finalTotal,
+      subtotal,
+      discount:totalDisc,
+      billDiscountPct:billDiscPct,
+      billDiscountAmt:billDiscAmt,
+      // full cart
+      items:CART.map(i=>({productId:i.productId,productName:i.productName,unitPrice:i.unitPrice,qty:i.qty,fraction:i.fraction,effectiveQty:i.effectiveQty,unitLabel:i.unitLabel,discPct:i.discPct,lineTotal:i.lineTotal})),
+      cashier:ME.name||'Staff',
+      customer:customerName,
+      customerName,
+      customerId:customerIdRef,
+      timestamp:firebase.firestore.FieldValue.serverTimestamp()
+    };
     batch.set(saleRef,saleData);
-    batch.update(base.collection('products').doc(pid),{quantity:firebase.firestore.FieldValue.increment(-qty)});
+
+    // Deduct stock for each item
+    for(const item of CART){
+      batch.update(base.collection('products').doc(item.productId),{
+        quantity:firebase.firestore.FieldValue.increment(-item.effectiveQty)
+      });
+    }
     await batch.commit();
-    // link sale to customer
+
+    // Update customer stats
     if(customerIdRef){
       await db.collection('store').doc(STORE_ID).collection('customers').doc(customerIdRef).update({
         lastPurchase:firebase.firestore.FieldValue.serverTimestamp(),
-        totalSpent:firebase.firestore.FieldValue.increment(qty*price),
+        totalSpent:firebase.firestore.FieldValue.increment(finalTotal),
         purchaseCount:firebase.firestore.FieldValue.increment(1)
       });
     }
-    closeM('sale-modal'); toast('Sale recorded!','s');
+    closeM('sale-modal');
+    toast('Sale recorded! Total: '+fmt(finalTotal),'s');
   }catch(e){ ferr('sm-err','Failed: '+e.message); }
 }
 
 // ── RECEIPT ───────────────────────────────────────
 function showRcpt(id){
   const s=SALES.find(x=>x.id===id); if(!s) return;
-  g('rcpt-body').innerHTML=`<div class="rcpt"><div class="rcpt-logo">💊 ${esc(CFG.bizName)}</div><div class="rcpt-sub">${esc(CFG.address||'')}</div><hr class="rcpt-div"/><div class="rcpt-row"><span>Receipt #</span><span>${id.slice(-6).toUpperCase()}</span></div><div class="rcpt-row"><span>Date</span><span>${fmtDT(s.timestamp)}</span></div><div class="rcpt-row"><span>Cashier</span><span>${esc(s.cashier||'—')}</span></div><div class="rcpt-row"><span>Patient</span><span>${esc(s.customerName||s.customer||'Walk-in')}</span></div><hr class="rcpt-div"/><div class="rcpt-row"><span>${esc(s.productName)}</span><span>${s.quantity}x${fmt(s.unitPrice)}</span></div><hr class="rcpt-div"/><div class="rcpt-row rcpt-tot"><span>Total</span><span>${fmt(s.total)}</span></div><div class="rcpt-foot">Thank you! 💊 Stay healthy.</div></div>`;
+  const items=s.items||[{productName:s.productName,qty:s.quantity,fraction:1,unitLabel:'unit',unitPrice:s.unitPrice,effectiveQty:s.quantity,discPct:0,lineTotal:s.total}];
+  const subtotal=s.subtotal||s.total;
+  const discount=s.discount||0;
+  const finalTotal=s.total;
+  const itemRows=items.map(i=>`
+    <div class="rcpt-row"><span>${esc(i.productName)}</span><span></span></div>
+    <div class="rcpt-row" style="padding-left:8px;color:#6B7280"><span>${i.qty} ${i.unitLabel||'unit'} × ${fmt(i.unitPrice)}${i.discPct>0?' (-'+i.discPct+'%)':''}</span><span>${fmt(i.lineTotal)}</span></div>
+  `).join('');
+  const discRow=discount>0?`<div class="rcpt-row" style="color:#DC2626"><span>Discount</span><span>-${fmt(discount)}</span></div>`:'';
+  g('rcpt-body').innerHTML=`<div class="rcpt">
+    <div class="rcpt-logo">💊 ${esc(CFG.bizName)}</div>
+    <div class="rcpt-sub">${esc(CFG.address||'')}</div>
+    <hr class="rcpt-div"/>
+    <div class="rcpt-row"><span>Receipt #</span><span>${id.slice(-6).toUpperCase()}</span></div>
+    <div class="rcpt-row"><span>Date</span><span>${fmtDT(s.timestamp)}</span></div>
+    <div class="rcpt-row"><span>Cashier</span><span>${esc(s.cashier||'—')}</span></div>
+    <div class="rcpt-row"><span>Patient</span><span>${esc(s.customerName||s.customer||'Walk-in')}</span></div>
+    <hr class="rcpt-div"/>
+    ${itemRows}
+    <hr class="rcpt-div"/>
+    ${items.length>1||discount>0?`<div class="rcpt-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>`:''}
+    ${discRow}
+    <div class="rcpt-row rcpt-tot"><span>Total</span><span>${fmt(finalTotal)}</span></div>
+    <div class="rcpt-foot">Thank you! 💊 Stay healthy.</div>
+  </div>`;
   openM('rcpt-modal');
 }
 function printRcpt(){ window.print(); }
@@ -1378,39 +1538,19 @@ function renderCusts(){
   :'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">👥</div><div class="empty-title">No customers yet</div><div class="empty-sub">Click "+ Add Customer" to register your first patient</div></div>';
 }
 
-// ── DOB DROPDOWN HELPERS ──────────────────────────
-function getDobFromDropdowns(){
-  const d=g('cm-dob-d').value, m=g('cm-dob-m').value, y=g('cm-dob-y').value;
-  if(y&&m&&d) return y+'-'+m+'-'+d;
-  if(y&&m) return y+'-'+m+'-01';
-  if(y) return y+'-01-01';
-  return '';
-}
-function setDobDropdowns(dob){
-  if(!dob){ g('cm-dob-d').value=''; g('cm-dob-m').value=''; g('cm-dob-y').value=''; return; }
-  const parts=dob.split('-');
-  g('cm-dob-y').value=parts[0]||'';
-  g('cm-dob-m').value=parts[1]||'';
-  g('cm-dob-d').value=parts[2]||'';
-}
-
 function openCustModal(id){
   g('cm-err').classList.add('h');
   if(id){
     const c=CUSTS.find(x=>x.id===id); if(!c) return;
-    g('cm-t').textContent='Edit Patient'; g('cm-id').value=id;
+    g('cm-t').textContent='Edit Customer'; g('cm-id').value=id;
     g('cm-cid').value=c.customerId||''; g('cm-name').value=c.name||''; g('cm-phone').value=c.phone||'';
-    g('cm-email').value=c.email||''; setDobDropdowns(c.dob||''); g('cm-addr').value=c.address||'';
-    g('cm-notes').value=c.notes||''; g('cm-gender').value=c.gender||'';
-    g('cm-emergency').value=c.emergency||''; g('cm-occupation').value=c.occupation||'';
-    g('cm-save').textContent='Save Changes';
+    g('cm-email').value=c.email||''; g('cm-dob').value=c.dob||''; g('cm-addr').value=c.address||'';
+    g('cm-notes').value=c.notes||''; g('cm-save').textContent='Save Changes';
   } else {
-    g('cm-t').textContent='Add Patient'; g('cm-id').value='';
+    g('cm-t').textContent='Add Customer'; g('cm-id').value='';
     const newId=genCustId(); g('cm-cid').value=newId;
-    ['cm-name','cm-phone','cm-email','cm-addr','cm-notes','cm-emergency','cm-occupation'].forEach(f=>g(f).value='');
-    setDobDropdowns('');
-    g('cm-gender').value='';
-    g('cm-save').textContent='Add Patient';
+    ['cm-name','cm-phone','cm-email','cm-dob','cm-addr','cm-notes'].forEach(f=>g(f).value='');
+    g('cm-save').textContent='Add Customer';
   }
   openM('cust-modal');
 }
@@ -1419,21 +1559,11 @@ async function saveCust(){
   const name=g('cm-name').value.trim(), phone=g('cm-phone').value.trim(), eid=g('cm-id').value;
   if(!name) return ferr('cm-err','Full name required.');
   if(!phone) return ferr('cm-err','Phone is required.');
-  const data={
-    name,phone,
-    email:g('cm-email').value.trim(),
-    dob:getDobFromDropdowns(),
-    gender:g('cm-gender').value,
-    address:g('cm-addr').value.trim(),
-    notes:g('cm-notes').value.trim(),
-    emergency:g('cm-emergency').value.trim(),
-    occupation:g('cm-occupation').value.trim(),
-    customerId:g('cm-cid').value.trim()
-  };
+  const data={name,phone,email:g('cm-email').value.trim(),dob:g('cm-dob').value,address:g('cm-addr').value.trim(),notes:g('cm-notes').value.trim(),customerId:g('cm-cid').value.trim()};
   try{
     const col=db.collection('store').doc(STORE_ID).collection('customers');
-    if(eid){ await col.doc(eid).update(data); toast('Patient updated!','s'); }
-    else{ await col.add({...data,purchaseCount:0,totalSpent:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); toast('Patient added!','s'); }
+    if(eid){ await col.doc(eid).update(data); toast('Customer updated!','s'); }
+    else{ await col.add({...data,purchaseCount:0,totalSpent:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); toast('Customer added!','s'); }
     closeM('cust-modal');
   }catch(e){ ferr('cm-err','Save failed: '+e.message); }
 }
@@ -1450,118 +1580,40 @@ async function deleteCust(id,name){
 }
 
 // ── CUSTOMER DETAIL ───────────────────────────────
-const MED_TABS=['vitals','diagnosis','prescription','lab','labresult','notes','history'];
-
 async function openCustDetail(id){
   CURRENT_CUST_ID=id;
   const c=CUSTS.find(x=>x.id===id); if(!c) return;
-  // Header
   g('cdm-name').textContent=c.name;
-  g('cdm-id').textContent=(c.customerId||'—')+' · '+( c.dob ? fmtAge(c.dob)+' yrs' : 'Age N/A' )+' · '+(c.gender||'—');
-  // Info grid
-  const infoFields=[
-    {label:'Patient ID',value:c.customerId||'—'},
-    {label:'Full Name',value:c.name},
-    {label:'Age',value:c.dob ? fmtAge(c.dob)+' years' : '—'},
-    {label:'Gender',value:c.gender||'—'},
-    {label:'Phone',value:c.phone},
-    {label:'Address',value:c.address||'—'},
-  ];
-  g('cdm-info-grid').innerHTML=infoFields.map(f=>`<div class="pf-info-cell"><div class="pf-label">${f.label}</div><div class="pf-value">${esc(f.value)}</div></div>`).join('');
-  // Emergency & allergies
-  g('cdm-emergency').textContent=c.emergency||'—';
-  g('cdm-purchases').textContent=(c.purchaseCount||0)+' · '+fmt(c.totalSpent||0)+' spent';
+  g('cdm-id').textContent=(c.customerId||id.slice(-8))+' · DOB: '+(c.dob||'—')+' · Age: '+fmtAge(c.dob);
+  // info strip
+  g('cdm-info').innerHTML=`
+    <div style="background:var(--bg);border-radius:var(--r2);padding:10px;text-align:center"><div style="font-size:.65rem;text-transform:uppercase;color:var(--t3);letter-spacing:.4px;margin-bottom:2px">Phone</div><div style="font-weight:700;font-size:.86rem">📞 ${esc(c.phone)}</div></div>
+    <div style="background:var(--bg);border-radius:var(--r2);padding:10px;text-align:center"><div style="font-size:.65rem;text-transform:uppercase;color:var(--t3);letter-spacing:.4px;margin-bottom:2px">Purchases</div><div style="font-weight:700;font-size:.86rem">${c.purchaseCount||0}</div></div>
+    <div style="background:var(--bg);border-radius:var(--r2);padding:10px;text-align:center"><div style="font-size:.65rem;text-transform:uppercase;color:var(--t3);letter-spacing:.4px;margin-bottom:2px">Total Spent</div><div style="font-weight:700;font-size:.86rem">${fmt(c.totalSpent||0)}</div></div>
+  `;
   if(c.notes){ g('cdm-allergy-box').classList.remove('h'); g('cdm-allergy-text').textContent=c.notes; }
   else g('cdm-allergy-box').classList.add('h');
-  // Purchase history
+  // purchase history
   const custSales=SALES.filter(s=>s.customerId===id);
-  g('cdm-hist-tb').innerHTML=custSales.length?custSales.map(s=>`<tr><td style="color:var(--t4);font-size:.77rem">${fmtDT(s.timestamp)}</td><td class="td-n">${esc(s.productName)}</td><td class="td-m">${s.quantity}</td><td class="td-m td-gr">${fmt(s.total)}</td></tr>`).join('')
+  const htb=g('cdm-hist-tb');
+  htb.innerHTML=custSales.length?custSales.map(s=>`<tr><td style="color:var(--t4);font-size:.77rem">${fmtDT(s.timestamp)}</td><td class="td-n">${esc(s.productName)}</td><td class="td-m">${s.quantity}</td><td class="td-m td-gr">${fmt(s.total)}</td></tr>`).join('')
   :'<tr><td colspan="4" style="text-align:center;padding:22px;color:var(--t3)">No purchases yet</td></tr>';
-  // Show vitals tab by default
-  cdTab('vitals',null);
+  // set tab to history
+  cdTab('history',null);
   openM('cust-detail-modal');
+  // load vitals
   await loadVitals(id);
-  await loadMedEntries(id);
 }
 
 function editCurrentCust(){ closeM('cust-detail-modal'); openCustModal(CURRENT_CUST_ID); }
 
 function cdTab(tab, el){
-  MED_TABS.forEach(t=>{ const e=g('cdt-'+t); if(e) e.classList.add('h'); });
-  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.cdt').forEach(e=>e.classList.remove('on'));
   if(el) el.classList.add('on');
-  const target=g('cdt-'+tab); if(target) target.classList.remove('h');
+  else { const t=document.querySelector('.cdt'); if(t) t.classList.add('on'); }
+  g('cdt-history').classList.toggle('h',tab!=='history');
+  g('cdt-vitals').classList.toggle('h',tab!=='vitals');
   if(tab==='vitals') renderVitals(CURRENT_CUST_ID);
-  if(['diagnosis','prescription','lab','labresult','notes'].includes(tab)) renderMedEntries(tab);
-}
-
-// ── MEDICAL ENTRIES (Diagnosis, Prescription, Lab, etc.) ──
-let MED_CACHE={};
-async function loadMedEntries(custId){
-  const types=['diagnosis','prescription','lab','labresult','notes'];
-  for(const t of types){
-    try{
-      const snap=await db.collection('store').doc(STORE_ID).collection('customers').doc(custId).collection(t).orderBy('date','desc').get();
-      if(!MED_CACHE[custId]) MED_CACHE[custId]={};
-      MED_CACHE[custId][t]=snap.docs.map(d=>({id:d.id,...d.data(),date:d.data().date?.toDate?.()|| new Date()}));
-    }catch(e){ if(!MED_CACHE[custId]) MED_CACHE[custId]={}; MED_CACHE[custId][t]=[]; }
-  }
-  renderTimeline(custId);
-}
-
-function renderMedEntries(type){
-  const entries=(MED_CACHE[CURRENT_CUST_ID]||{})[type]||[];
-  const listId={diagnosis:'diag-list',prescription:'presc-list',lab:'lab-list',labresult:'labresult-list',notes:'notes-list'}[type];
-  const el=g(listId); if(!el) return;
-  el.innerHTML=entries.length?entries.map(e=>`
-    <div class="med-entry">
-      <div class="med-entry-meta">🕐 ${fmtDT(e.date)} · ${esc(e.by||'Admin')}</div>
-      <div class="med-entry-text">${esc(e.text)}</div>
-      <button class="btn btn-r btn-sm" style="margin-top:6px;font-size:.72rem" onclick="deleteMedEntry('${type}','${e.id}')">🗑 Delete</button>
-    </div>`).join('')
-  :'<div style="color:var(--t3);font-size:.84rem;padding:10px 0">No entries yet.</div>';
-}
-
-async function saveMedEntry(type){
-  const inputId={diagnosis:'diag-input',prescription:'presc-input',lab:'lab-input',labresult:'labresult-input',notes:'notes-input'}[type];
-  const text=g(inputId)?.value.trim(); if(!text) return toast('Enter text first','e');
-  try{
-    await db.collection('store').doc(STORE_ID).collection('customers').doc(CURRENT_CUST_ID).collection(type).add({
-      text, by:ME.name||'Admin', date:firebase.firestore.FieldValue.serverTimestamp()
-    });
-    g(inputId).value='';
-    toast('Saved!','s');
-    await loadMedEntries(CURRENT_CUST_ID);
-    renderMedEntries(type);
-  }catch(e){ toast('Failed: '+e.message,'e'); }
-}
-
-async function deleteMedEntry(type,entryId){
-  if(!confirm('Delete this entry?')) return;
-  try{
-    await db.collection('store').doc(STORE_ID).collection('customers').doc(CURRENT_CUST_ID).collection(type).doc(entryId).delete();
-    toast('Deleted','s');
-    await loadMedEntries(CURRENT_CUST_ID);
-    renderMedEntries(type);
-  }catch(e){ toast('Failed: '+e.message,'e'); }
-}
-
-function renderTimeline(custId){
-  const cache=MED_CACHE[custId]||{};
-  const tagMap={vitals:{label:'VITALS',cls:'tl-tag-vitals'},diagnosis:{label:'DIAGNOSIS',cls:'tl-tag-diagnosis'},prescription:{label:'PRESCRIPTION',cls:'tl-tag-prescription'},lab:{label:'LAB REQUEST',cls:'tl-tag-lab'},labresult:{label:'LAB RESULT',cls:'tl-tag-labresult'},notes:{label:'NOTE',cls:'tl-tag-notes'}};
-  let all=[];
-  // Add vitals
-  (VITALS_CACHE[custId]||[]).forEach(v=>all.push({type:'vitals',date:v.date,by:v.by||'Admin',text:`BP: ${v.bp||'—'} | Temp: ${v.temp||'—'}°C | Pulse: ${v.pulse||'—'} bpm | Weight: ${v.weight||'—'}kg | Ht: ${v.height||'—'}cm${v.spo2?' | SpO₂: '+v.spo2+'%':''}${v.other?' | '+v.other:''}`}));
-  ['diagnosis','prescription','lab','labresult','notes'].forEach(t=>{
-    (cache[t]||[]).forEach(e=>all.push({type:t,date:e.date,by:e.by||'Admin',text:e.text}));
-  });
-  all.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  const el=g('medical-timeline'); if(!el) return;
-  el.innerHTML=all.length?all.map((e,i)=>{
-    const tag=tagMap[e.type]||{label:e.type,cls:'tl-tag-notes'};
-    return `<div class="tl-item"><div><div class="tl-dot"></div>${i<all.length-1?'<div class="tl-line"></div>':'' }</div><div class="tl-body"><span class="tl-tag ${tag.cls}">${tag.label}</span><div class="tl-meta">${esc(e.by)} · ${fmtDT(e.date)}</div><div class="tl-text">${esc(e.text)}</div></div></div>`;
-  }).join('')
-  :'<div style="color:var(--t3);font-size:.84rem;padding:10px 0">No medical records yet. Start by adding vital signs.</div>';
 }
 
 // ── VITAL SIGNS ───────────────────────────────────
@@ -1585,7 +1637,7 @@ function renderVitals(custId){
       ${vsCard('🍬','Blood Sugar',latest.sugar?latest.sugar+' mg/dL':'—','',sugarStatus(latest.sugar))}
       ${vsCard('💓','Pulse',latest.pulse?latest.pulse+' bpm':'—','',pulseStatus(latest.pulse))}
       ${vsCard('⚖️','Weight',latest.weight?latest.weight+' kg':'—','','')}
-      ${bmi?vsCard('📊','BMI',bmi.value,'',bmi.status):''}${vsCard('🩺','SpO₂',latest.spo2?latest.spo2+'%':'—','','')}
+      ${bmi?vsCard('📊','BMI',bmi.value,'',bmi.status):''}
     `;
   } else {
     lg.innerHTML='<div style="color:var(--t3);font-size:.84rem;grid-column:1/-1;padding:10px 0">No vital signs recorded yet.</div>';
@@ -1600,9 +1652,8 @@ function renderVitals(custId){
       <td class="td-m">${v.bp||'—'}</td>
       <td class="td-m">${v.sugar?v.sugar+' mg':'—'}</td>
       <td class="td-m">${v.pulse?v.pulse+' bpm':'—'}</td>
-      <td class="td-m">${v.weight?v.weight+' kg':'—'}${bmi?' (BMI:'+bmi.value+')':''}${v.height?' / '+v.height+'cm':''}</td>
-      <td class="td-m">${v.spo2?v.spo2+'%':'—'}</td>
-      <td style="font-size:.78rem;max-width:100px;overflow:hidden;text-overflow:ellipsis">${esc(v.other||'—')}</td>
+      <td class="td-m">${v.weight?v.weight+' kg':'—'}${bmi?' ('+bmi.value+')':''}</td>
+      <td style="font-size:.78rem;max-width:130px;overflow:hidden;text-overflow:ellipsis">${esc(v.other||'—')}</td>
       <td><button class="btn btn-r btn-sm" style="font-size:.72rem" onclick="deleteVital('${custId}','${v.id}')">🗑</button></td>
     </tr>`;
   }).join(''):'<tr><td colspan="8" style="text-align:center;padding:22px;color:var(--t3)">No records yet</td></tr>';
@@ -1644,7 +1695,7 @@ function openVitalModal(){
   g('vm-err').classList.add('h'); g('vm-id').value='';
   const now=new Date(); now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
   g('vm-date').value=now.toISOString().slice(0,16);
-  ['vm-temp','vm-bp','vm-sugar','vm-pulse','vm-weight','vm-height','vm-spo2','vm-other'].forEach(f=>g(f).value='');
+  ['vm-temp','vm-bp','vm-sugar','vm-pulse','vm-weight','vm-height','vm-other'].forEach(f=>g(f).value='');
   g('vm-bmi-display').classList.add('h');
   g('vm-t').textContent='Add Vital Signs';
   g('vm-height').oninput=g('vm-weight').oninput=calcBMILive;
@@ -1670,9 +1721,8 @@ async function saveVital(){
     pulse:parseFloat(g('vm-pulse').value)||null,
     weight:parseFloat(g('vm-weight').value)||null,
     height:parseFloat(g('vm-height').value)||null,
-    spo2:parseFloat(g('vm-spo2').value)||null,
     other:g('vm-other').value.trim()||null,
-    by:ME.name||'Admin',
+    recordedBy:ME.name||'Staff',
     createdAt:firebase.firestore.FieldValue.serverTimestamp()
   };
   // Remove nulls
@@ -1739,35 +1789,28 @@ async function markAllRead(){ const b=db.batch(); NOTIFS.filter(n=>!n.read).forE
 // ── STAFF ─────────────────────────────────────────
 function renderStaff(){
   const avColors=['#2563EB','#7C3AED','#059669','#DC2626','#D97706'];
-  g('staff-list').innerHTML=STAFF.length?STAFF.map((s,i)=>`<div class="stc"><div class="st-av" style="background:${avColors[i%avColors.length]}">${(s.name||'?').charAt(0).toUpperCase()}</div><div><div class="st-name">${esc(s.name)}</div><div class="st-email">📞 ${esc(s.phone||'—')} · PIN: ****</div><span class="bdg bdg-b">${esc(s.role)}</span><div style="margin-top:8px;display:flex;gap:5px"><button class="btn btn-o btn-sm" onclick="openStaffModal('${s.id}')">✏️ Edit</button><button class="btn btn-r btn-sm" onclick="deleteStaff('${s.id}','${esc(s.name)}')">🗑</button></div></div></div>`).join('')
+  g('staff-list').innerHTML=STAFF.length?STAFF.map((s,i)=>`<div class="stc"><div class="st-av" style="background:${avColors[i%avColors.length]}">${(s.name||'?').charAt(0).toUpperCase()}</div><div><div class="st-name">${esc(s.name)}</div><div class="st-email">${s.phone?'📞 '+esc(s.phone):''} PIN: ${'•'.repeat((s.pin||'').length||4)}</div><span class="bdg bdg-b">${esc(s.role)}</span><div style="margin-top:8px;display:flex;gap:5px"><button class="btn btn-o btn-sm" onclick="openStaffModal('${s.id}')">✏️ Edit</button><button class="btn btn-r btn-sm" onclick="deleteStaff('${s.id}','${esc(s.name)}')">🗑</button></div></div></div>`).join('')
   :'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">👤</div><div class="empty-title">No staff yet</div><div class="empty-sub">Add staff members for team access</div></div>';
 }
 
 function openStaffModal(id){
   g('stm-err').classList.add('h');
-  if(id){
-    const s=STAFF.find(x=>x.id===id); if(!s) return;
-    g('stm-t').textContent='Edit Staff'; g('stm-id').value=id;
-    g('stm-name').value=s.name||''; g('stm-role').value=s.role||'pharmacist';
-    g('stm-pin').value=''; g('stm-phone').value=s.phone||'';
-  } else {
-    g('stm-t').textContent='Add Staff'; g('stm-id').value='';
-    ['stm-name','stm-pin','stm-phone'].forEach(f=>g(f).value='');
-    g('stm-role').value='pharmacist';
-  }
+  if(id){ const s=STAFF.find(x=>x.id===id); if(!s) return; g('stm-t').textContent='Edit Staff'; g('stm-id').value=id; g('stm-name').value=s.name||''; if(g('stm-email'))g('stm-email').value=s.email||s.name||''; g('stm-role').value=s.role||'cashier'; g('stm-pass').value=''; g('stm-phone').value=s.phone||''; }
+  else { g('stm-t').textContent='Add Staff'; g('stm-id').value=''; ['stm-name','stm-pass','stm-phone'].forEach(f=>{const el=g(f);if(el)el.value='';}); if(g('stm-email'))g('stm-email').value=''; g('stm-role').value='cashier'; }
   openM('staff-modal');
 }
 
 async function saveStaff(){
-  const name=g('stm-name').value.trim(), pin=g('stm-pin').value.trim(), role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
+  const name=g('stm-name').value.trim(), pass=g('stm-pass').value.trim(), role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
+  const email=(g('stm-email')?.value||'').trim().toLowerCase();
   if(!name) return ferr('stm-err','Name required.');
-  if(!eid && (!pin||pin.length!==4||!/^\d+$/.test(pin))) return ferr('stm-err','Enter a 4-digit PIN.');
-  const data={name,role,phone};
-  if(pin) data.pin=pin;
+  if(!email) return ferr('stm-err','Email required for staff login.');
+  if(!eid && (!pass||pass.length<6)) return ferr('stm-err','Password min 6 characters.');
+  const data={name,email,role,phone,storeId:STORE_ID}; if(pass) data.password=pass;
   try{
     const col=db.collection('store').doc(STORE_ID).collection('staff');
     if(eid){ await col.doc(eid).update(data); toast('Staff updated!','s'); }
-    else{ await col.add(data); toast('Staff added! They can now login with name + PIN.','s'); }
+    else{ await col.add(data); toast('Staff added!','s'); }
     closeM('staff-modal');
   }catch(e){ ferr('stm-err','Save failed: '+e.message); }
 }
@@ -1776,7 +1819,7 @@ async function deleteStaff(id,name){ if(!confirm('Remove "'+name+'"?')) return; 
 
 // ── SETTINGS ──────────────────────────────────────
 async function saveSettings(){
-  CFG.bizName=g('set-biz').value.trim()||'ONYX-MED PHARMACY';
+  CFG.bizName=g('set-biz').value.trim()||'StockPilot Pharmacy';
   CFG.currency=g('set-cur').value.trim()||'₦';
   CFG.threshold=parseInt(g('set-thr').value)||10;
   CFG.address=g('set-addr').value.trim();
@@ -1788,13 +1831,14 @@ async function changePass(){
   const old=g('s-old').value,nw=g('s-new').value,cf=g('s-cf').value;
   if(!old||!nw||!cf) return toast('Fill all fields','e');
   if(nw!==cf) return toast('Passwords do not match','e');
-  if(nw.length<6) return toast('Min 6 characters','e');
+  if(nw.length<4) return toast('Min 4 characters','e');
   const storeDoc=await db.collection('store').doc(STORE_ID).get();
   if(!storeDoc.exists) return;
   const sd=storeDoc.data();
   if(ME.role==='admin'){
-    if(sd.adminPassword!==old) return toast('Wrong current password','e');
-    await db.collection('store').doc(STORE_ID).update({adminPassword:nw});
+    if(sd.ownerPin!==old) return toast('Wrong current PIN','e');
+    await db.collection('store').doc(STORE_ID).update({ownerPin:nw});
+    await db.collection('buyers').doc(STORE_ID).update({pin:nw});
   } else {
     const staffDoc=await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).get();
     if(!staffDoc.exists||staffDoc.data().password!==old) return toast('Wrong current password','e');
@@ -1844,10 +1888,10 @@ adjGrids();
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){['prod-modal','sale-modal','del-modal','stock-modal','staff-modal','rcpt-modal','cust-modal','cust-detail-modal','vital-modal'].forEach(closeM);}
   const appVis=!g('app').classList.contains('h');
-  // PIN login handled by its own keydown listener
+  if(appVis&&e.key==='Enter'&&['l-pin','l-storeid','l-email','l-pass'].includes(document.activeElement?.id)) doLogin();
 });
 
-console.log('%c ONYX-MED PHARMACY — StockPilot PRO ✓','background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;padding:5px 12px;border-radius:5px;font-weight:700');
+console.log('%c StockPilot Pharmacy — Inventory PRO ✓','background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;padding:5px 12px;border-radius:5px;font-weight:700');
 </script>
 </body>
 </html>
