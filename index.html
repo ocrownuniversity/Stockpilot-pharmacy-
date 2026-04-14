@@ -344,19 +344,45 @@ textarea.fc{resize:vertical;min-height:70px}
 <div class="screen screen-bg h" id="lock-screen">
   <div class="lcard">
     <div class="llogo"><div class="llogo-icon">💊</div><div class="llogo-text">StockPilot<span>Pharmacy</span></div></div>
-    <div class="ltitle">Welcome back</div>
-    <div class="lsub">Enter your PIN to continue</div>
+
+    <!-- Tab switcher -->
+    <div style="display:flex;background:#F3F4F6;border-radius:10px;padding:4px;margin-bottom:20px;gap:4px">
+      <button id="tab-staff" onclick="switchLoginTab('staff')" style="flex:1;padding:9px;border-radius:7px;font-size:.87rem;font-weight:700;border:none;cursor:pointer;background:#fff;color:#2563EB;box-shadow:0 1px 4px rgba(0,0,0,.1);transition:all .2s">Staff Login</button>
+      <button id="tab-admin" onclick="switchLoginTab('admin')" style="flex:1;padding:9px;border-radius:7px;font-size:.87rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:#6B7280;transition:all .2s">Admin PIN</button>
+    </div>
+
+    <div class="ltitle" id="login-title">Welcome back</div>
+    <div class="lsub" id="login-sub">Sign in with your staff credentials</div>
     <div id="login-err" class="errbox h"></div>
-    <div class="fg">
-      <label class="fl">Store ID <span style="font-size:.7rem;color:#9CA3AF;font-weight:400">(staff: leave blank)</span></label>
-      <input class="fi" id="l-storeid" placeholder="e.g. BRIGHT-001"/>
+
+    <!-- Staff Login fields -->
+    <div id="staff-fields">
+      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="l-email" placeholder="staff@business.com"/></div>
+      <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" id="l-pass" placeholder="Password"/><span class="pw-eye" onclick="tpw('l-pass')">👁</span></div></div>
     </div>
-    <div class="fg">
-      <label class="fl">PIN</label>
-      <div class="pw-w"><input class="fi" type="password" id="l-pin" placeholder="Enter your PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('l-pin')">👁</span></div>
+
+    <!-- Admin PIN fields -->
+    <div id="admin-fields" style="display:none">
+      <div class="fg"><label class="fl">Store ID</label><input class="fi" id="l-storeid" placeholder="e.g. BRIGHT-001"/></div>
+      <div class="fg"><label class="fl">Owner PIN</label><div class="pw-w"><input class="fi" type="password" id="l-pin" placeholder="Enter your PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('l-pin')">👁</span></div></div>
     </div>
+
     <button class="btn-pri" id="login-btn" onclick="doLogin()">Sign In →</button>
-    <div class="lfoot"><span class="pdot"></span>Firebase Sync · Multi-User · PIN Secured</div>
+    <button class="btn-ghost" onclick="switchLoginTab('admin')" id="use-admin-pin-btn" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px">🔑 Use Buyer Admin PIN</button>
+    <div class="lfoot"><span class="pdot"></span>Multi-device sync · <span style="color:#2563EB;font-weight:700;cursor:pointer" onclick="showSuperAdminLogin()">Super Admin</span></div>
+  </div>
+</div>
+
+<!-- SUPER ADMIN PIN PROMPT -->
+<div class="screen screen-bg h" id="superadmin-login-screen">
+  <div class="lcard" style="max-width:380px">
+    <div class="llogo"><div class="llogo-icon">🔑</div><div class="llogo-text">Super<span>Admin</span></div></div>
+    <div class="ltitle">Super Admin Access</div>
+    <div class="lsub">Enter your master PIN</div>
+    <div id="sa-login-err" class="errbox h"></div>
+    <div class="fg"><label class="fl">Master PIN</label><div class="pw-w"><input class="fi" type="password" id="sa-pin-input" placeholder="Master PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('sa-pin-input')">👁</span></div></div>
+    <button class="btn-pri" onclick="doSuperAdminLogin()">Access Panel →</button>
+    <button class="btn-ghost" onclick="show('lock-screen')" style="margin-top:8px">← Back</button>
   </div>
 </div>
 
@@ -381,7 +407,7 @@ textarea.fc{resize:vertical;min-height:70px}
       </div>
     </div>
     <div id="sa-buyers-list" style="max-height:320px;overflow-y:auto"></div>
-    <button class="btn-ghost" onclick="logoutSuperAdmin()" style="margin-top:12px">Sign Out</button>
+    <button class="btn-ghost" onclick="logoutSuperAdmin()" style="margin-top:12px">🚪 Sign Out</button>
   </div>
 </div>
 
@@ -550,10 +576,10 @@ textarea.fc{resize:vertical;min-height:70px}
           <button class="btn btn-b btn-sm" onclick="saveSettings()">Save</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>🔐 Change Password</h3></div><div class="card-body">
-          <div class="fg2"><label class="fl">Current PIN</label><input class="fc" type="password" id="s-old" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
-          <div class="fg2"><label class="fl">New PIN</label><input class="fc" type="password" id="s-new" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
-          <div class="fg2"><label class="fl">Confirm PIN</label><input class="fc" type="password" id="s-cf" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
-          <button class="btn btn-b btn-sm" onclick="changePass()">Update PIN</button>
+          <div class="fg2"><label class="fl">Current Password / PIN</label><input class="fc" type="password" id="s-old"/></div>
+          <div class="fg2"><label class="fl">New Password / PIN</label><input class="fc" type="password" id="s-new"/></div>
+          <div class="fg2"><label class="fl">Confirm</label><input class="fc" type="password" id="s-cf"/></div>
+          <button class="btn btn-b btn-sm" onclick="changePass()">Update</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>👤 Profile</h3></div><div class="card-body">
           <div class="fg2"><label class="fl">Name</label><input class="fc" id="set-name"/></div>
@@ -674,7 +700,7 @@ textarea.fc{resize:vertical;min-height:70px}
     <div id="stm-err" class="ferr h"></div>
     <input type="hidden" id="stm-id"/>
     <div class="fg2"><label class="fl">Full Name *</label><input class="fc" id="stm-name" placeholder="Jane Smith"/></div>
-    <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-email" placeholder="Optional staff info"/></div>
+    <div class="fg2"><label class="fl">Email *</label><input class="fc" type="email" id="stm-email" placeholder="staff@business.com"/></div>
     <div class="fg2"><label class="fl">Role</label>
       <select class="fc" id="stm-role">
         <option value="admin">👑 Admin (Full Control)</option>
@@ -682,7 +708,7 @@ textarea.fc{resize:vertical;min-height:70px}
         <option value="cashier">👤 Cashier (Sales Only)</option>
       </select>
     </div>
-    <div class="fg2"><label class="fl">PIN * <span style="font-size:.7rem;color:var(--t4)">(4-8 digits)</span></label><input class="fc" type="password" id="stm-pass" placeholder="e.g. 5678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+    <div class="fg2"><label class="fl">Password *</label><input class="fc" type="password" id="stm-pass" placeholder="Min 6 characters"/></div>
     <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-phone" placeholder="+234 800 000 0000"/></div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('staff-modal')">Cancel</button><button class="btn btn-b" onclick="saveStaff()">Save</button></div>
@@ -848,7 +874,7 @@ const fmt  = v  => (CFG.currency||'\u20a6')+parseFloat(v||0).toFixed(2);
 const fmtDT= d  => { try{ return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch{return'\u2014';} };
 const fmtD = d  => { try{ const dt=new Date(d); return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`; }catch{return'';} };
 const fmtAge = dob => { if(!dob) return '\u2014'; const d=new Date(dob), now=new Date(); let a=now.getFullYear()-d.getFullYear(); const m=now.getMonth()-d.getMonth(); if(m<0||(m===0&&now.getDate()<d.getDate()))a--; return a+'y'; };
-function show(id){ ['lock-screen','app','superadmin-screen'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
+function show(id){ ['lock-screen','app','superadmin-screen','superadmin-login-screen'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
 function toast(msg,t='i'){ const el=document.createElement('div'); el.className='toast '+t; el.textContent={'s':'\u2705 ','e':'\u274c ','i':'\u2139\ufe0f ','w':'\u26a0\ufe0f '}[t]+msg; g('toast-w').appendChild(el); setTimeout(()=>{el.classList.add('tout');setTimeout(()=>el.remove(),300);},3200); }
 function ferr(id,msg){ const e=g(id); if(e){e.textContent=msg;e.classList.remove('h');} }
 function tpw(id){ const e=g(id); if(e) e.type=e.type==='password'?'text':'password'; }
@@ -865,8 +891,45 @@ applyDark();
 async function initApp(){
   g('loading').classList.add('h');
   show('lock-screen');
+  switchLoginTab('staff');
 }
 initApp();
+
+// ── LOGIN TAB SWITCHER ────────────────────────────
+function switchLoginTab(tab){
+  const isStaff = tab === 'staff';
+  g('staff-fields').style.display = isStaff ? '' : 'none';
+  g('admin-fields').style.display = isStaff ? 'none' : '';
+  g('use-admin-pin-btn').style.display = isStaff ? '' : 'none';
+  g('login-title').textContent = isStaff ? 'Welcome back' : 'Buyer Admin Login';
+  g('login-sub').textContent = isStaff ? 'Sign in with your staff credentials' : 'Enter your Store ID and PIN';
+  // Tab button styles
+  const tStaff = g('tab-staff'), tAdmin = g('tab-admin');
+  if(isStaff){
+    tStaff.style.background='#fff'; tStaff.style.color='#2563EB'; tStaff.style.boxShadow='0 1px 4px rgba(0,0,0,.1)';
+    tAdmin.style.background='transparent'; tAdmin.style.color='#6B7280'; tAdmin.style.boxShadow='none';
+  } else {
+    tAdmin.style.background='#fff'; tAdmin.style.color='#2563EB'; tAdmin.style.boxShadow='0 1px 4px rgba(0,0,0,.1)';
+    tStaff.style.background='transparent'; tStaff.style.color='#6B7280'; tStaff.style.boxShadow='none';
+  }
+  g('login-err').classList.add('h');
+}
+
+function showSuperAdminLogin(){
+  show('superadmin-login-screen');
+  if(g('sa-pin-input')) g('sa-pin-input').value='';
+  if(g('sa-login-err')) g('sa-login-err').classList.add('h');
+}
+
+function doSuperAdminLogin(){
+  const pin = g('sa-pin-input').value.trim();
+  if(pin === SUPER_ADMIN_PIN){
+    show('superadmin-screen');
+    loadBuyersList();
+  } else {
+    ferr('sa-login-err','Wrong master PIN.');
+  }
+}
 
 // ── SUPER ADMIN FUNCTIONS ─────────────────────────
 async function loadBuyersList(){
@@ -931,28 +994,48 @@ async function deleteBuyer(sid, name){
 
 function logoutSuperAdmin(){
   show('lock-screen');
-  g('l-storeid').value=''; g('l-pin').value='';
+  switchLoginTab('staff');
+  if(g('l-storeid')) g('l-storeid').value='';
+  if(g('l-pin')) g('l-pin').value='';
+  if(g('l-email')) g('l-email').value='';
+  if(g('l-pass')) g('l-pass').value='';
   g('login-err').classList.add('h');
 }
 
 // ── LOGIN ─────────────────────────────────────────
 async function doLogin(){
-  const storeId = g('l-storeid').value.trim().toUpperCase();
-  const pin     = g('l-pin').value.trim();
-  if(!pin) return ferr('login-err','Enter your PIN.');
+  // Detect which tab is active
+  const adminTabActive = g('admin-fields').style.display !== 'none';
   g('login-btn').innerHTML='<div style="width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></div>';
   g('login-btn').disabled=true;
   try{
-    // 1. Super Admin check (no store ID needed)
-    if(pin === SUPER_ADMIN_PIN){
-      STORE_ID = null;
-      show('superadmin-screen');
-      loadBuyersList();
-      return;
-    }
-
-    // 2. Buyer (Owner) login — storeId required
-    if(storeId){
+    if(!adminTabActive){
+      // ── STAFF LOGIN (email + password) ──────────
+      const email = (g('l-email').value||'').trim().toLowerCase();
+      const pass  = (g('l-pass').value||'');
+      if(!email||!pass) return ferr('login-err','Fill in all fields.');
+      // Staff must belong to a store — search all staff across buyers
+      // We require staff to have a storeId saved when created
+      const staffSnap = await db.collectionGroup('staff').where('email','==',email).get();
+      if(!staffSnap.empty){
+        const staffDoc = staffSnap.docs[0];
+        const su = staffDoc.data();
+        if(su.password !== pass) return ferr('login-err','Wrong password.');
+        const storeId = su.storeId;
+        if(!storeId) return ferr('login-err','Account has no store assigned. Contact your admin.');
+        const storeDoc = await db.collection('store').doc(storeId).get();
+        if(storeDoc.exists){ const d=storeDoc.data(); CFG={bizName:d.name||'StockPilot Pharmacy',currency:d.currency||'\u20a6',threshold:d.threshold||10,address:d.address||''}; }
+        STORE_ID = storeId;
+        ME = { id:staffDoc.id, name:su.name, role:su.role||'cashier', email, storeId };
+        show('app'); setupApp(); return;
+      }
+      return ferr('login-err','Email not found or wrong password.');
+    } else {
+      // ── ADMIN PIN LOGIN (buyer owner) ───────────
+      const storeId = (g('l-storeid').value||'').trim().toUpperCase();
+      const pin     = (g('l-pin').value||'').trim();
+      if(!storeId) return ferr('login-err','Enter your Store ID.');
+      if(!pin) return ferr('login-err','Enter your PIN.');
       const buyerDoc = await db.collection('buyers').doc(storeId).get();
       if(buyerDoc.exists){
         const bd = buyerDoc.data();
@@ -963,21 +1046,8 @@ async function doLogin(){
           show('app'); setupApp(); return;
         }
       }
-      // 3. Staff login — storeId provided, check staff collection
-      const staffSnap = await db.collection('store').doc(storeId).collection('staff').where('pin','==',pin).get();
-      if(!staffSnap.empty){
-        const su = staffSnap.docs[0].data();
-        // Load store config
-        const storeDoc = await db.collection('store').doc(storeId).get();
-        if(storeDoc.exists){ const d=storeDoc.data(); CFG={bizName:d.name||'StockPilot Pharmacy',currency:d.currency||'\u20a6',threshold:d.threshold||10,address:d.address||''}; }
-        STORE_ID = storeId;
-        ME = { id:staffSnap.docs[0].id, name:su.name, role:su.role||'cashier', storeId };
-        show('app'); setupApp(); return;
-      }
-      return ferr('login-err','Wrong PIN or Store ID.');
+      return ferr('login-err','Wrong Store ID or PIN.');
     }
-
-    return ferr('login-err','Enter your Store ID to log in.');
   }catch(e){
     ferr('login-err', e.message||'Login failed.');
   }finally{
@@ -1062,8 +1132,11 @@ function logout(){
   STORE_ID=null;
   if(g('l-storeid')) g('l-storeid').value='';
   if(g('l-pin')) g('l-pin').value='';
+  if(g('l-email')) g('l-email').value='';
+  if(g('l-pass')) g('l-pass').value='';
   g('login-err').classList.add('h');
   show('lock-screen');
+  switchLoginTab('staff');
 }
 
 // ── BADGES ────────────────────────────────────────
@@ -1728,11 +1801,12 @@ function openStaffModal(id){
 }
 
 async function saveStaff(){
-  const name=g('stm-name').value.trim(), pin=g('stm-pass').value.trim(), role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
+  const name=g('stm-name').value.trim(), pass=g('stm-pass').value.trim(), role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
+  const email=(g('stm-email')?.value||'').trim().toLowerCase();
   if(!name) return ferr('stm-err','Name required.');
-  if(!eid && (!pin||pin.length<4)) return ferr('stm-err','PIN must be at least 4 digits.');
-  if(pin && !/^[0-9]+$/.test(pin)) return ferr('stm-err','PIN must be numbers only.');
-  const data={name,role,phone,storeId:STORE_ID}; if(pin) data.pin=pin;
+  if(!email) return ferr('stm-err','Email required for staff login.');
+  if(!eid && (!pass||pass.length<6)) return ferr('stm-err','Password min 6 characters.');
+  const data={name,email,role,phone,storeId:STORE_ID}; if(pass) data.password=pass;
   try{
     const col=db.collection('store').doc(STORE_ID).collection('staff');
     if(eid){ await col.doc(eid).update(data); toast('Staff updated!','s'); }
@@ -1757,7 +1831,7 @@ async function changePass(){
   const old=g('s-old').value,nw=g('s-new').value,cf=g('s-cf').value;
   if(!old||!nw||!cf) return toast('Fill all fields','e');
   if(nw!==cf) return toast('Passwords do not match','e');
-  if(nw.length<4) return toast('PIN must be at least 4 digits','e');
+  if(nw.length<4) return toast('Min 4 characters','e');
   const storeDoc=await db.collection('store').doc(STORE_ID).get();
   if(!storeDoc.exists) return;
   const sd=storeDoc.data();
@@ -1767,8 +1841,8 @@ async function changePass(){
     await db.collection('buyers').doc(STORE_ID).update({pin:nw});
   } else {
     const staffDoc=await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).get();
-    if(!staffDoc.exists||staffDoc.data().pin!==old) return toast('Wrong current PIN','e');
-    await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).update({pin:nw});
+    if(!staffDoc.exists||staffDoc.data().password!==old) return toast('Wrong current password','e');
+    await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).update({password:nw});
   }
   g('s-old').value=''; g('s-new').value=''; g('s-cf').value='';
   toast('Password updated!','s');
@@ -1814,7 +1888,7 @@ adjGrids();
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){['prod-modal','sale-modal','del-modal','stock-modal','staff-modal','rcpt-modal','cust-modal','cust-detail-modal','vital-modal'].forEach(closeM);}
   const appVis=!g('app').classList.contains('h');
-  if(appVis&&e.key==='Enter'&&(document.activeElement?.id==='l-pin'||document.activeElement?.id==='l-storeid')) doLogin();
+  if(appVis&&e.key==='Enter'&&['l-pin','l-storeid','l-email','l-pass'].includes(document.activeElement?.id)) doLogin();
 });
 
 console.log('%c StockPilot Pharmacy — Inventory PRO ✓','background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;padding:5px 12px;border-radius:5px;font-weight:700');
