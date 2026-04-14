@@ -345,12 +345,43 @@ textarea.fc{resize:vertical;min-height:70px}
   <div class="lcard">
     <div class="llogo"><div class="llogo-icon">💊</div><div class="llogo-text">StockPilot<span>Pharmacy</span></div></div>
     <div class="ltitle">Welcome back</div>
-    <div class="lsub">Sign in to your pharmacy system</div>
+    <div class="lsub">Enter your PIN to continue</div>
     <div id="login-err" class="errbox h"></div>
-    <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="l-email" placeholder="admin@stockpilotpharmacy.com"/></div>
-    <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" id="l-pass" placeholder="Password"/><span class="pw-eye" onclick="tpw('l-pass')">👁</span></div></div>
+    <div class="fg">
+      <label class="fl">Store ID <span style="font-size:.7rem;color:#9CA3AF;font-weight:400">(staff: leave blank)</span></label>
+      <input class="fi" id="l-storeid" placeholder="e.g. BRIGHT-001"/>
+    </div>
+    <div class="fg">
+      <label class="fl">PIN</label>
+      <div class="pw-w"><input class="fi" type="password" id="l-pin" placeholder="Enter your PIN" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/><span class="pw-eye" onclick="tpw('l-pin')">👁</span></div>
+    </div>
     <button class="btn-pri" id="login-btn" onclick="doLogin()">Sign In →</button>
-    <div class="lfoot"><span class="pdot"></span>Firebase Sync · Secured · Single User</div>
+    <div class="lfoot"><span class="pdot"></span>Firebase Sync · Multi-User · PIN Secured</div>
+  </div>
+</div>
+
+<!-- SUPER ADMIN PANEL -->
+<div class="screen screen-bg h" id="superadmin-screen">
+  <div class="lcard" style="max-width:520px">
+    <div class="llogo"><div class="llogo-icon">🔑</div><div class="llogo-text">Super<span>Admin</span></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="font-size:.97rem;font-weight:800;color:#0F1F45">Buyer Accounts</div>
+      <button class="btn-pri" style="width:auto;padding:8px 14px;font-size:.82rem" onclick="openNewBuyerForm()">+ New Buyer</button>
+    </div>
+    <div id="new-buyer-form" style="background:#F0F4FF;border-radius:12px;padding:16px;margin-bottom:14px;display:none">
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6B7280;margin-bottom:10px">Create Buyer Account</div>
+      <div id="nb-err" class="errbox h"></div>
+      <div class="fg"><label class="fl">Pharmacy / Business Name</label><input class="fi" id="nb-name" placeholder="e.g. Bright Pharmacy"/></div>
+      <div class="fg"><label class="fl">Owner Name</label><input class="fi" id="nb-owner" placeholder="e.g. Ade Johnson"/></div>
+      <div class="fg"><label class="fl">Store ID <span style="font-size:.7rem;color:#9CA3AF">(unique, no spaces)</span></label><input class="fi" id="nb-sid" placeholder="e.g. BRIGHT-001"/></div>
+      <div class="fg"><label class="fl">Owner PIN <span style="font-size:.7rem;color:#9CA3AF">(4-8 digits)</span></label><input class="fi" type="password" id="nb-pin" placeholder="e.g. 1234" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-pri" onclick="createBuyer()">Create Account</button>
+        <button class="btn-ghost" onclick="document.getElementById('new-buyer-form').style.display='none'">Cancel</button>
+      </div>
+    </div>
+    <div id="sa-buyers-list" style="max-height:320px;overflow-y:auto"></div>
+    <button class="btn-ghost" onclick="logoutSuperAdmin()" style="margin-top:12px">Sign Out</button>
   </div>
 </div>
 
@@ -519,10 +550,10 @@ textarea.fc{resize:vertical;min-height:70px}
           <button class="btn btn-b btn-sm" onclick="saveSettings()">Save</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>🔐 Change Password</h3></div><div class="card-body">
-          <div class="fg2"><label class="fl">Current Password</label><input class="fc" type="password" id="s-old"/></div>
-          <div class="fg2"><label class="fl">New Password</label><input class="fc" type="password" id="s-new"/></div>
-          <div class="fg2"><label class="fl">Confirm</label><input class="fc" type="password" id="s-cf"/></div>
-          <button class="btn btn-b btn-sm" onclick="changePass()">Update</button>
+          <div class="fg2"><label class="fl">Current PIN</label><input class="fc" type="password" id="s-old" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+          <div class="fg2"><label class="fl">New PIN</label><input class="fc" type="password" id="s-new" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+          <div class="fg2"><label class="fl">Confirm PIN</label><input class="fc" type="password" id="s-cf" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
+          <button class="btn btn-b btn-sm" onclick="changePass()">Update PIN</button>
         </div></div>
         <div class="card"><div class="card-head"><h3>👤 Profile</h3></div><div class="card-body">
           <div class="fg2"><label class="fl">Name</label><input class="fc" id="set-name"/></div>
@@ -643,7 +674,7 @@ textarea.fc{resize:vertical;min-height:70px}
     <div id="stm-err" class="ferr h"></div>
     <input type="hidden" id="stm-id"/>
     <div class="fg2"><label class="fl">Full Name *</label><input class="fc" id="stm-name" placeholder="Jane Smith"/></div>
-    <div class="fg2"><label class="fl">Email *</label><input class="fc" type="email" id="stm-email" placeholder="jane@onxy.com"/></div>
+    <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-email" placeholder="Optional staff info"/></div>
     <div class="fg2"><label class="fl">Role</label>
       <select class="fc" id="stm-role">
         <option value="admin">👑 Admin (Full Control)</option>
@@ -651,7 +682,7 @@ textarea.fc{resize:vertical;min-height:70px}
         <option value="cashier">👤 Cashier (Sales Only)</option>
       </select>
     </div>
-    <div class="fg2"><label class="fl">Password *</label><input class="fc" type="password" id="stm-pass" placeholder="Min 6 chars"/></div>
+    <div class="fg2"><label class="fl">PIN * <span style="font-size:.7rem;color:var(--t4)">(4-8 digits)</span></label><input class="fc" type="password" id="stm-pass" placeholder="e.g. 5678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/></div>
     <div class="fg2"><label class="fl">Phone</label><input class="fc" id="stm-phone" placeholder="+234 800 000 0000"/></div>
   </div>
   <div class="mf"><button class="btn btn-o" onclick="closeM('staff-modal')">Cancel</button><button class="btn btn-b" onclick="saveStaff()">Save</button></div>
@@ -784,8 +815,11 @@ firebase.initializeApp(FB);
 const db   = firebase.firestore();
 const auth = firebase.auth();
 
-// ── SINGLE STORE ID (fixed for this pharmacy) ────
-const STORE_ID = 'onxy-main';
+// ── MULTI-USER CONFIG ────────────────────────────
+// SUPER ADMIN PIN — only you know this
+const SUPER_ADMIN_PIN = '000000'; // change this to your secret PIN
+
+let STORE_ID = null; // set dynamically after login
 
 // ── APP STATE ─────────────────────────────────────
 let ME      = null;
@@ -793,29 +827,29 @@ let PRODS   = [];
 let SALES   = [];
 let NOTIFS  = [];
 let STAFF   = [];
-let CUSTS   = [];          // customers
-let CART    = [];          // current sale cart
+let CUSTS   = [];
+let CART    = [];
 let UNSUBS  = [];
 let DEL_TGT = null;
 let RPT_MODE = 'daily';
 let DARK    = localStorage.getItem('sp_dark')==='1';
-let CURRENT_CUST_ID = null;  // customer being viewed
-let VITALS_CACHE = {};       // { custId: [vitals] }
+let CURRENT_CUST_ID = null;
+let VITALS_CACHE = {};
 let VS_BP_CHART = null, VS_BS_CHART = null;
-let CFG = { bizName:'StockPilot Pharmacy', currency:'₦', threshold:10, address:'' };
+let CFG = { bizName:'StockPilot Pharmacy', currency:'\u20a6', threshold:10, address:'' };
 
-const EMOJI = {Medicine:'💊',Supplements:'💪',Hygiene:'🧴',Dairy:'🥛',Bakery:'🍞',Beverages:'🥤',Snacks:'🍿',Household:'🏠',Electronics:'⚡',Clothing:'👕',Cosmetics:'💄',General:'📦'};
+const EMOJI = {Medicine:'\ud83d\udc8a',Supplements:'\ud83d\udcaa',Hygiene:'\ud83e\uddf4',Dairy:'\ud83e\udd5b',Bakery:'\ud83c\udf5e',Beverages:'\ud83e\udd64',Snacks:'\ud83c\udf7f',Household:'\ud83c\udfe0',Electronics:'\u26a1',Clothing:'\ud83d\udc55',Cosmetics:'\ud83d\udc84',General:'\ud83d\udce6'};
 const COLORS = ['#2563EB','#7C3AED','#059669','#DC2626','#D97706','#0891B2','#EC4899'];
 
 // ── HELPERS ───────────────────────────────────────
 const g    = id => document.getElementById(id);
 const esc  = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const fmt  = v  => (CFG.currency||'₦')+parseFloat(v||0).toFixed(2);
-const fmtDT= d  => { try{ return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch{return'—';} };
+const fmt  = v  => (CFG.currency||'\u20a6')+parseFloat(v||0).toFixed(2);
+const fmtDT= d  => { try{ return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch{return'\u2014';} };
 const fmtD = d  => { try{ const dt=new Date(d); return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`; }catch{return'';} };
-const fmtAge = dob => { if(!dob) return '—'; const d=new Date(dob), now=new Date(); let a=now.getFullYear()-d.getFullYear(); const m=now.getMonth()-d.getMonth(); if(m<0||(m===0&&now.getDate()<d.getDate()))a--; return a+'y'; };
-function show(id){ ['lock-screen','app'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
-function toast(msg,t='i'){ const el=document.createElement('div'); el.className='toast '+t; el.textContent={'s':'✅ ','e':'❌ ','i':'ℹ️ ','w':'⚠️ '}[t]+msg; g('toast-w').appendChild(el); setTimeout(()=>{el.classList.add('tout');setTimeout(()=>el.remove(),300);},3200); }
+const fmtAge = dob => { if(!dob) return '\u2014'; const d=new Date(dob), now=new Date(); let a=now.getFullYear()-d.getFullYear(); const m=now.getMonth()-d.getMonth(); if(m<0||(m===0&&now.getDate()<d.getDate()))a--; return a+'y'; };
+function show(id){ ['lock-screen','app','superadmin-screen'].forEach(s=>{ const e=g(s); if(e){e.classList.add('h');e.style.display='none';} }); const t=g(id); if(t){t.classList.remove('h');t.style.display='';} }
+function toast(msg,t='i'){ const el=document.createElement('div'); el.className='toast '+t; el.textContent={'s':'\u2705 ','e':'\u274c ','i':'\u2139\ufe0f ','w':'\u26a0\ufe0f '}[t]+msg; g('toast-w').appendChild(el); setTimeout(()=>{el.classList.add('tout');setTimeout(()=>el.remove(),300);},3200); }
 function ferr(id,msg){ const e=g(id); if(e){e.textContent=msg;e.classList.remove('h');} }
 function tpw(id){ const e=g(id); if(e) e.type=e.type==='password'?'text':'password'; }
 function openM(id){ g(id)?.classList.remove('h'); document.body.style.overflow='hidden'; }
@@ -823,59 +857,131 @@ function closeM(id){ g(id)?.classList.add('h'); document.body.style.overflow='';
 function genCustId(){ return 'PT-'+String(CUSTS.length+1).padStart(4,'0')+'-'+Math.random().toString(36).substr(2,3).toUpperCase(); }
 
 // ── DARK MODE ─────────────────────────────────────
-function applyDark(){ document.documentElement.toggleAttribute('data-dark',DARK); const b=g('dark-btn'); if(b) b.textContent=DARK?'☀️ Light':'🌙 Dark'; }
+function applyDark(){ document.documentElement.toggleAttribute('data-dark',DARK); const b=g('dark-btn'); if(b) b.textContent=DARK?'\u2600\ufe0f Light':'\ud83c\udf19 Dark'; }
 function toggleDark(){ DARK=!DARK; localStorage.setItem('sp_dark',DARK?'1':'0'); applyDark(); }
 applyDark();
 
 // ── INIT ──────────────────────────────────────────
 async function initApp(){
-  try {
-    const doc = await db.collection('store').doc(STORE_ID).get();
-    if(doc.exists){ const d=doc.data(); CFG={bizName:d.name||'StockPilot Pharmacy',currency:d.currency||'₦',threshold:d.threshold||10,address:d.address||''}; }
-  } catch(e){ console.warn('Config load:',e.message); }
   g('loading').classList.add('h');
   show('lock-screen');
 }
 initApp();
 
+// ── SUPER ADMIN FUNCTIONS ─────────────────────────
+async function loadBuyersList(){
+  try{
+    const snap = await db.collection('buyers').get();
+    const list = snap.docs.map(d=>({id:d.id,...d.data()}));
+    const el = g('sa-buyers-list');
+    if(!list.length){ el.innerHTML='<div style="text-align:center;padding:22px;color:#9CA3AF;font-size:.84rem">No buyer accounts yet. Create one above.</div>'; return; }
+    el.innerHTML = list.map(b=>`
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:13px 15px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+        <div style="flex:1">
+          <div style="font-weight:700;color:#0F1F45;font-size:.9rem">${esc(b.bizName||b.id)}</div>
+          <div style="color:#6B7280;font-size:.76rem;margin-top:2px">Owner: ${esc(b.ownerName||'—')} &nbsp;|&nbsp; Store ID: <b>${esc(b.id)}</b></div>
+          <div style="color:#10B981;font-size:.73rem;margin-top:1px">PIN: ${esc(b.pin||'—')}</div>
+        </div>
+        <button onclick="deleteBuyer('${b.id}','${esc(b.bizName||b.id)}')" style="background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;padding:5px 10px;border-radius:7px;font-size:.76rem;font-weight:700;cursor:pointer">Delete</button>
+      </div>`).join('');
+  }catch(e){ console.warn(e); }
+}
+
+function openNewBuyerForm(){
+  const f=g('new-buyer-form'); f.style.display='block';
+  ['nb-name','nb-owner','nb-sid','nb-pin'].forEach(id=>{const el=g(id);if(el)el.value='';});
+  g('nb-err').classList.add('h');
+}
+
+async function createBuyer(){
+  const bizName=g('nb-name').value.trim();
+  const ownerName=g('nb-owner').value.trim();
+  const sid=g('nb-sid').value.trim().toUpperCase().replace(/\s+/g,'-');
+  const pin=g('nb-pin').value.trim();
+  if(!bizName) return ferr('nb-err','Pharmacy name required.');
+  if(!sid) return ferr('nb-err','Store ID required.');
+  if(!pin||pin.length<4) return ferr('nb-err','PIN must be at least 4 digits.');
+  try{
+    const existing = await db.collection('buyers').doc(sid).get();
+    if(existing.exists) return ferr('nb-err','Store ID already exists. Choose another.');
+    await db.collection('buyers').doc(sid).set({
+      bizName, ownerName, pin,
+      currency:'\u20a6', threshold:10, address:'',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    // seed the store doc
+    await db.collection('store').doc(sid).set({
+      name:bizName, currency:'\u20a6', threshold:10, address:'',
+      ownerPin:pin, ownerName, storeId:sid
+    });
+    g('new-buyer-form').style.display='none';
+    toast('Buyer account created!','s');
+    loadBuyersList();
+  }catch(e){ ferr('nb-err','Failed: '+e.message); }
+}
+
+async function deleteBuyer(sid, name){
+  if(!confirm('Delete buyer "'+name+'"? This only removes their account record, not their store data.')) return;
+  try{
+    await db.collection('buyers').doc(sid).delete();
+    toast('Buyer deleted','s');
+    loadBuyersList();
+  }catch(e){ toast('Failed: '+e.message,'e'); }
+}
+
+function logoutSuperAdmin(){
+  show('lock-screen');
+  g('l-storeid').value=''; g('l-pin').value='';
+  g('login-err').classList.add('h');
+}
+
 // ── LOGIN ─────────────────────────────────────────
 async function doLogin(){
-  const email = g('l-email').value.trim().toLowerCase();
-  const pass  = g('l-pass').value;
-  if(!email||!pass) return ferr('login-err','Fill in all fields.');
+  const storeId = g('l-storeid').value.trim().toUpperCase();
+  const pin     = g('l-pin').value.trim();
+  if(!pin) return ferr('login-err','Enter your PIN.');
   g('login-btn').innerHTML='<div style="width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></div>';
   g('login-btn').disabled=true;
-  try {
-    // Check store admin
-    const storeDoc = await db.collection('store').doc(STORE_ID).get();
-    if(storeDoc.exists){
-      const sd=storeDoc.data();
-      if(sd.adminEmail===email && sd.adminPassword===pass){
-        ME={id:'admin',name:sd.adminName||'Admin',role:'admin',email};
-        CFG={bizName:sd.name||'StockPilot Pharmacy',currency:sd.currency||'₦',threshold:sd.threshold||10,address:sd.address||''};
+  try{
+    // 1. Super Admin check (no store ID needed)
+    if(pin === SUPER_ADMIN_PIN){
+      STORE_ID = null;
+      show('superadmin-screen');
+      loadBuyersList();
+      return;
+    }
+
+    // 2. Buyer (Owner) login — storeId required
+    if(storeId){
+      const buyerDoc = await db.collection('buyers').doc(storeId).get();
+      if(buyerDoc.exists){
+        const bd = buyerDoc.data();
+        if(bd.pin === pin){
+          STORE_ID = storeId;
+          CFG = { bizName:bd.bizName||'StockPilot Pharmacy', currency:bd.currency||'\u20a6', threshold:bd.threshold||10, address:bd.address||'' };
+          ME = { id:'owner', name:bd.ownerName||'Owner', role:'admin', storeId };
+          show('app'); setupApp(); return;
+        }
+      }
+      // 3. Staff login — storeId provided, check staff collection
+      const staffSnap = await db.collection('store').doc(storeId).collection('staff').where('pin','==',pin).get();
+      if(!staffSnap.empty){
+        const su = staffSnap.docs[0].data();
+        // Load store config
+        const storeDoc = await db.collection('store').doc(storeId).get();
+        if(storeDoc.exists){ const d=storeDoc.data(); CFG={bizName:d.name||'StockPilot Pharmacy',currency:d.currency||'\u20a6',threshold:d.threshold||10,address:d.address||''}; }
+        STORE_ID = storeId;
+        ME = { id:staffSnap.docs[0].id, name:su.name, role:su.role||'cashier', storeId };
         show('app'); setupApp(); return;
       }
-    } else {
-      // First run — seed the store
-      await db.collection('store').doc(STORE_ID).set({
-        name:'StockPilot Pharmacy',currency:'₦',threshold:10,address:'',
-        adminEmail:email,adminPassword:pass,adminName:'Admin'
-      });
-      ME={id:'admin',name:'Admin',role:'admin',email};
-      show('app'); setupApp(); return;
+      return ferr('login-err','Wrong PIN or Store ID.');
     }
-    // Check staff
-    const staffSnap = await db.collection('store').doc(STORE_ID).collection('staff').where('email','==',email).get();
-    if(!staffSnap.empty){
-      const su=staffSnap.docs[0].data();
-      if(su.password===pass){ ME={id:staffSnap.docs[0].id,name:su.name,role:su.role,email}; show('app'); setupApp(); return; }
-      else throw new Error('Wrong password');
-    }
-    throw new Error('Invalid email or password');
-  } catch(e){
-    ferr('login-err',e.message||'Login failed.');
-  } finally {
-    g('login-btn').innerHTML='Sign In →';
+
+    return ferr('login-err','Enter your Store ID to log in.');
+  }catch(e){
+    ferr('login-err', e.message||'Login failed.');
+  }finally{
+    g('login-btn').innerHTML='Sign In \u2192';
     g('login-btn').disabled=false;
   }
 }
@@ -952,8 +1058,10 @@ function closeSB(){ g('sidebar').classList.remove('open'); g('sb-ovl').classList
 // ── LOGOUT ────────────────────────────────────────
 function logout(){
   UNSUBS.forEach(fn=>fn&&fn()); UNSUBS=[];
-  ME=null; PRODS=[]; SALES=[]; NOTIFS=[]; STAFF=[]; CUSTS=[];
-  g('l-email').value=''; g('l-pass').value='';
+  ME=null; PRODS=[]; SALES=[]; NOTIFS=[]; STAFF=[]; CUSTS=[]; CART=[];
+  STORE_ID=null;
+  if(g('l-storeid')) g('l-storeid').value='';
+  if(g('l-pin')) g('l-pin').value='';
   g('login-err').classList.add('h');
   show('lock-screen');
 }
@@ -1608,23 +1716,23 @@ async function markAllRead(){ const b=db.batch(); NOTIFS.filter(n=>!n.read).forE
 // ── STAFF ─────────────────────────────────────────
 function renderStaff(){
   const avColors=['#2563EB','#7C3AED','#059669','#DC2626','#D97706'];
-  g('staff-list').innerHTML=STAFF.length?STAFF.map((s,i)=>`<div class="stc"><div class="st-av" style="background:${avColors[i%avColors.length]}">${(s.name||'?').charAt(0).toUpperCase()}</div><div><div class="st-name">${esc(s.name)}</div><div class="st-email">${esc(s.email||'')}</div><span class="bdg bdg-b">${esc(s.role)}</span><div style="margin-top:8px;display:flex;gap:5px"><button class="btn btn-o btn-sm" onclick="openStaffModal('${s.id}')">✏️ Edit</button><button class="btn btn-r btn-sm" onclick="deleteStaff('${s.id}','${esc(s.name)}')">🗑</button></div></div></div>`).join('')
+  g('staff-list').innerHTML=STAFF.length?STAFF.map((s,i)=>`<div class="stc"><div class="st-av" style="background:${avColors[i%avColors.length]}">${(s.name||'?').charAt(0).toUpperCase()}</div><div><div class="st-name">${esc(s.name)}</div><div class="st-email">${s.phone?'📞 '+esc(s.phone):''} PIN: ${'•'.repeat((s.pin||'').length||4)}</div><span class="bdg bdg-b">${esc(s.role)}</span><div style="margin-top:8px;display:flex;gap:5px"><button class="btn btn-o btn-sm" onclick="openStaffModal('${s.id}')">✏️ Edit</button><button class="btn btn-r btn-sm" onclick="deleteStaff('${s.id}','${esc(s.name)}')">🗑</button></div></div></div>`).join('')
   :'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">👤</div><div class="empty-title">No staff yet</div><div class="empty-sub">Add staff members for team access</div></div>';
 }
 
 function openStaffModal(id){
   g('stm-err').classList.add('h');
-  if(id){ const s=STAFF.find(x=>x.id===id); if(!s) return; g('stm-t').textContent='Edit Staff'; g('stm-id').value=id; g('stm-name').value=s.name||''; g('stm-email').value=s.email||''; g('stm-role').value=s.role||'cashier'; g('stm-pass').value=''; g('stm-phone').value=s.phone||''; }
-  else { g('stm-t').textContent='Add Staff'; g('stm-id').value=''; ['stm-name','stm-email','stm-pass','stm-phone'].forEach(f=>g(f).value=''); g('stm-role').value='cashier'; }
+  if(id){ const s=STAFF.find(x=>x.id===id); if(!s) return; g('stm-t').textContent='Edit Staff'; g('stm-id').value=id; g('stm-name').value=s.name||''; if(g('stm-email'))g('stm-email').value=s.email||s.name||''; g('stm-role').value=s.role||'cashier'; g('stm-pass').value=''; g('stm-phone').value=s.phone||''; }
+  else { g('stm-t').textContent='Add Staff'; g('stm-id').value=''; ['stm-name','stm-pass','stm-phone'].forEach(f=>{const el=g(f);if(el)el.value='';}); if(g('stm-email'))g('stm-email').value=''; g('stm-role').value='cashier'; }
   openM('staff-modal');
 }
 
 async function saveStaff(){
-  const name=g('stm-name').value.trim(), email=g('stm-email').value.trim().toLowerCase(), pass=g('stm-pass').value, role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
+  const name=g('stm-name').value.trim(), pin=g('stm-pass').value.trim(), role=g('stm-role').value, phone=g('stm-phone').value.trim(), eid=g('stm-id').value;
   if(!name) return ferr('stm-err','Name required.');
-  if(!email) return ferr('stm-err','Email required.');
-  if(!eid && (!pass||pass.length<6)) return ferr('stm-err','Password min 6 chars.');
-  const data={name,email,role,phone}; if(pass) data.password=pass;
+  if(!eid && (!pin||pin.length<4)) return ferr('stm-err','PIN must be at least 4 digits.');
+  if(pin && !/^[0-9]+$/.test(pin)) return ferr('stm-err','PIN must be numbers only.');
+  const data={name,role,phone,storeId:STORE_ID}; if(pin) data.pin=pin;
   try{
     const col=db.collection('store').doc(STORE_ID).collection('staff');
     if(eid){ await col.doc(eid).update(data); toast('Staff updated!','s'); }
@@ -1649,17 +1757,18 @@ async function changePass(){
   const old=g('s-old').value,nw=g('s-new').value,cf=g('s-cf').value;
   if(!old||!nw||!cf) return toast('Fill all fields','e');
   if(nw!==cf) return toast('Passwords do not match','e');
-  if(nw.length<6) return toast('Min 6 characters','e');
+  if(nw.length<4) return toast('PIN must be at least 4 digits','e');
   const storeDoc=await db.collection('store').doc(STORE_ID).get();
   if(!storeDoc.exists) return;
   const sd=storeDoc.data();
   if(ME.role==='admin'){
-    if(sd.adminPassword!==old) return toast('Wrong current password','e');
-    await db.collection('store').doc(STORE_ID).update({adminPassword:nw});
+    if(sd.ownerPin!==old) return toast('Wrong current PIN','e');
+    await db.collection('store').doc(STORE_ID).update({ownerPin:nw});
+    await db.collection('buyers').doc(STORE_ID).update({pin:nw});
   } else {
     const staffDoc=await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).get();
-    if(!staffDoc.exists||staffDoc.data().password!==old) return toast('Wrong current password','e');
-    await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).update({password:nw});
+    if(!staffDoc.exists||staffDoc.data().pin!==old) return toast('Wrong current PIN','e');
+    await db.collection('store').doc(STORE_ID).collection('staff').doc(ME.id).update({pin:nw});
   }
   g('s-old').value=''; g('s-new').value=''; g('s-cf').value='';
   toast('Password updated!','s');
@@ -1705,7 +1814,7 @@ adjGrids();
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){['prod-modal','sale-modal','del-modal','stock-modal','staff-modal','rcpt-modal','cust-modal','cust-detail-modal','vital-modal'].forEach(closeM);}
   const appVis=!g('app').classList.contains('h');
-  if(appVis&&e.key==='Enter'&&document.activeElement?.id==='l-pass') doLogin();
+  if(appVis&&e.key==='Enter'&&(document.activeElement?.id==='l-pin'||document.activeElement?.id==='l-storeid')) doLogin();
 });
 
 console.log('%c StockPilot Pharmacy — Inventory PRO ✓','background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;padding:5px 12px;border-radius:5px;font-weight:700');
